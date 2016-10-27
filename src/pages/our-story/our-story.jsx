@@ -9,35 +9,32 @@ import styles from './our-story.css';
 
 class OurStory extends Component {
 
-  get ourStory(): HTMLElement {
+  get aboutUs(): HTMLElement {
     return (
-      <div styleName="our-story-banner">
-        <div styleName="wrap">
-          <TextBanner header="Our Story">
-            Some Brand was founded with a rebellious spirit
-            and a lofty objective: to offer designer eyewear
-            at a revolutionary price.
-          </TextBanner>
-        </div>
+      <div styleName="about-us-banner">
+        <header styleName="header">
+          <h1 styleName="title">OUR STORY</h1>
+        </header>
       </div>
     );
   }
 
-  get design(): HTMLElement {
+  get beBold(): HTMLElement {
     return (
-      <div styleName="design-banner">
+      <div styleName="be-bold-row">
         <div styleName="wrap">
-          <TextBanner header="Design">
-            <p>
-              Our in-house design team gathers inspiration from around the
-              globe. Each frame is designed in-house from initial sketch to
-              prototype testing to final design.
-            </p>
-            <p>
-              Our designers cook up custom pattern variations and features,
-              like our never-before-seen triple-gradient lenses.
-            </p>
-          </TextBanner>
+          <div styleName="be-bold-text">
+            <TextBanner header="Be Bold">
+              <p>
+                Too much of life is mundane, especially men's clothes.
+                Top Drawer wants to spice it up with the details.  Keep that classy 
+                polished look you love as a professional, but stand out and be you 
+                with those bold colors and distinct patterns.
+              </p>
+            </TextBanner>
+          </div>
+          <div styleName="be-bold-image">
+          </div>
         </div>
       </div>
     );
@@ -82,8 +79,8 @@ class OurStory extends Component {
   render(): HTMLElement {
     return (
       <div>
-        {this.ourStory}
-        {this.design}
+        {this.aboutUs}
+        {this.beBold}
         {this.handmade}
         {this.materials}
       </div>
