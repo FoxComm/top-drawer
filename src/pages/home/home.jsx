@@ -44,9 +44,9 @@ class Home extends Component {
     );
   }
 
-  get tryAtHomeBanner(): HTMLElement {
+  get subscribeBanner(): HTMLElement {
     return (
-      <div styleName="try-at-home-banner">
+      <div styleName="subscribe-banner">
         <div styleName="wrap">
           <Banner
             header="Subscribe to your Top Drawer"
@@ -60,9 +60,9 @@ class Home extends Component {
     );
   }
 
-  get visitAStoreBanner(): HTMLElement {
+  get customSocksBanner(): HTMLElement {
     return (
-      <div styleName="visit-a-store-banner">
+      <div styleName="custom-socks-banner">
         <div styleName="wrap">
           <Banner
             header="Need Some Custom Socks"
@@ -71,7 +71,7 @@ class Home extends Component {
               {to: 'locations', text: 'Get Started'},
             ]}
           />
-          <div styleName="visit-a-store-banner__image"></div>
+          <div styleName="custom-socks-banner__image"></div>
         </div>
       </div>
     );
@@ -82,8 +82,8 @@ class Home extends Component {
       <div>
         {this.topBanner}
         {this.categories}
-        {this.tryAtHomeBanner}
-        {this.visitAStoreBanner}
+        {this.subscribeBanner}
+        {this.customSocksBanner}
       </div>
     );
   }
