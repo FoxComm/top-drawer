@@ -6,16 +6,16 @@
 .top-banner {
   width: 100%;
   height: 846px;
-  background: url('images/banners/top.jpg') 50% 0;
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Scotch_2x.jpg') 50% 0;
   background-size: cover;
-  color: var(--whitish);
+  color: var(--blackish);
 
   & a {
-    color: var(--whitish);
-    border-color: var(--whitish);
+    color: var(--blackish);
+    border-color: var(--blackish);
 
     &:before {
-      background-color: var(--whitish);
+      background-color: var(--blackish);
     }
   }
 
@@ -37,12 +37,11 @@
 }
 
 .try-at-home-banner {
-  --blueish: #314664;
   width: 100%;
   height: 720px;
-  background: url('images/banners/try_at_home.jpg') 50% 0;
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Subscribe_2x.jpg') 50% 0;
   background-size: cover;
-  color: var(--blueish);
+  color: var(--whitish);
 
   & article {
     lost-column: 1/3;
@@ -50,11 +49,11 @@
   }
 
   & a {
-    color: var(--blueish);
-    border-color: var(--blueish);
+    color: var(--whitish);
+    border-color: var(--whitish);
 
     &:before {
-      background-color: var(--blueish);
+      background-color: var(--whitish);
     }
   }
 }
@@ -81,6 +80,6 @@
   & .visit-a-store-banner__image {
     lost-column: 2/3;
     height: 416px;
-    background: url('images/banners/visit_a_store.jpg') 50% 0 no-repeat;
+    background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_2x.jpg') 50% 0 no-repeat;
   }
 }

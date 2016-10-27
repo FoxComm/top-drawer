@@ -15,11 +15,11 @@ class Home extends Component {
       <div styleName="top-banner">
         <div styleName="wrap">
           <Banner
-            header="Summer 2016"
-            description="New collection is here"
+            header="Be Bold"
+            description="Be you with Top Drawer"
             links={[
-              {to: '/collections/summer2016?type=men', text: 'Shop Men'},
-              {to: '/collections/summer2016?type=women', text: 'Shop Women'},
+              {to: '/collections/summer2016?type=classic', text: 'Shop Classic'},
+              {to: '/collections/summer2016?type=modern', text: 'Shop Modern'},
             ]}
           />
         </div>
@@ -31,13 +31,13 @@ class Home extends Component {
     return (
       <div styleName="categories">
         <Category
-          name="EYEGLASSES"
-          category="eyeglasses"
+          name="CLASSIC"
+          category="classic"
           image="images/banners/eyeglasses.jpg"
         />
         <Category
-          name="SUNGLASSES"
-          category="sunglasses"
+          name="MODERN"
+          category="modern"
           image="images/banners/sunglasses.jpg"
         />
       </div>
@@ -49,8 +49,8 @@ class Home extends Component {
       <div styleName="try-at-home-banner">
         <div styleName="wrap">
           <Banner
-            header="Try @ home"
-            description="5 pairs. 5 days. Free"
+            header="Subscribe to your Top Drawer"
+            description="Monthly. Quarterly. Cancel anytime."
             links={[
               {to: '/collections/summer2016', text: 'Learn More'},
             ]}
@@ -65,10 +65,10 @@ class Home extends Component {
       <div styleName="visit-a-store-banner">
         <div styleName="wrap">
           <Banner
-            header="Visit a store"
-            description="Try them on in person!"
+            header="Need Some Custom Socks"
+            description="We can take care of your custom sock and packaging needs!"
             links={[
-              {to: 'locations', text: 'Locations'},
+              {to: 'locations', text: 'Get Started'},
             ]}
           />
           <div styleName="visit-a-store-banner__image"></div>
