@@ -67,8 +67,8 @@ class Navigation extends React.Component {
           {t(item.name.toUpperCase())}
           </a>
           <ul>
-            <li><a onClick={() => this.onClick(item, 'men')}>MEN'S</a></li>
-            <li><a onClick={() => this.onClick(item, 'women')}>WOMEN'S</a></li>
+            <li><a onClick={() => this.onClick(item, 'classic')}>CLASSIC</a></li>
+            <li><a onClick={() => this.onClick(item, 'modern')}>MODERN</a></li>
           </ul>
         </li>
       );
@@ -82,8 +82,10 @@ class Navigation extends React.Component {
           </li>
         )}
         {categoryItems}
-        <li styleName="item" ><Link to="/locations" styleName="item-link">Locations</Link></li>
-        <li styleName="item" ><Link to="/our-story" styleName="item-link">Our story</Link></li>
+        <li styleName="item" ><Link to="/locations" styleName="item-link">Subscribe</Link></li>
+        <li styleName="item" ><Link to="/our-story" styleName="item-link">Custom</Link></li>
+        <li styleName="item" ><Link to="/our-story" styleName="item-link">#GetTopDrawer</Link></li>
+        <li styleName="item" ><Link to="/our-story" styleName="item-link">Our Story</Link></li>
       </ul>
     );
   }

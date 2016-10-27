@@ -51,7 +51,7 @@ class Auth extends Component {
     return (
       <div styleName="auth-block">
         <Link to="/">
-          <Icon styleName="logo" name="fc-some_brand_logo" />
+          <img styleName="logo" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
         </Link>
         {this.renderContent()}
       </div>
