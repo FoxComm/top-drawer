@@ -21,9 +21,9 @@ class OurStory extends Component {
 
   get beBold(): HTMLElement {
     return (
-      <div styleName="be-bold-row">
+      <div styleName="be-bold-banner">
         <div styleName="wrap">
-          <div styleName="be-bold-text">
+          <div styleName="header">
             <TextBanner header="Be Bold">
               <p>
                 Too much of life is mundane, especially men's clothes.
@@ -33,22 +33,18 @@ class OurStory extends Component {
               </p>
             </TextBanner>
           </div>
-          <div styleName="be-bold-image">
-          </div>
         </div>
       </div>
     );
   }
 
-  get handmade(): HTMLElement {
+  get trustedManufacturer(): HTMLElement {
     return (
-      <div styleName="handmade-banner">
+      <div styleName="trusted-manufacturer">
         <div styleName="wrap">
-          <TextBanner header="100% Hand Made">
-            Acetate frames are hand-polished and tumbled
-            for at least three days. An imported German
-            polishing wax compound helps us achieve the
-            highest shine.
+          <TextBanner header="Trusted Manufacturer">
+            We personally work closely with our partner to ensure there 
+            is no compromise to quality even across seas.
           </TextBanner>
         </div>
       </div>
@@ -81,7 +77,7 @@ class OurStory extends Component {
       <div>
         {this.aboutUs}
         {this.beBold}
-        {this.handmade}
+        {this.trustedManufacturer}
         {this.materials}
       </div>
     );
