@@ -69,7 +69,7 @@ class OurStory extends Component {
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <img styleName="tdc-icon" src="images/our-story/200-needle.svg" />
             <h3 styleName="tdc-header">200 Needle</h3>
             <p styleName="tdc-description">
               200 N socks are like 1000 thread count bed sheets. 
@@ -77,7 +77,7 @@ class OurStory extends Component {
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <img styleName="tdc-icon" src="images/our-story/smooth-seam.svg" />
             <h3 styleName="tdc-header">200 Needle</h3>
             <p styleName="tdc-description">
               Our socks are hand-linked so you don’t have that itchy uncomfortable 
@@ -85,7 +85,7 @@ class OurStory extends Component {
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <img styleName="tdc-icon" src="images/our-story/reinforced-heal-toe.jpg" />
             <h3 styleName="tdc-header">200 Needle</h3>
             <p styleName="tdc-description">
               This way your socks last longer, fit better, and cushion your feet better in whatever 

@@ -93,6 +93,7 @@
   height: 129px;
   width: 129px;
   padding-bottom: 25px;
+  position: relative;
 }
 
 .tdc-header {
@@ -109,6 +110,8 @@
   font-size: 14px;
   color: #363636;
   line-height: 30px;
+  position: relative;
+  lost-align: center;
 }
 
 
