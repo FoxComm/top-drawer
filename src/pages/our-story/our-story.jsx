@@ -51,22 +51,47 @@ class OurStory extends Component {
     );
   }
 
-  get materials(): HTMLElement {
+  get theDetails(): HTMLElement {
     return (
-      <div styleName="materials-banner">
-        <div styleName="wrap">
-          <TextBanner header="Materials">
-            <p>
-              From premium Japanese titanium to custom single-sheet
-              cellulose acetate sourced from a family-run Italian factory, we use
-              the best materials for our frames.
+      <div styleName="the-details">
+        <div styleName="the-details-row">
+          <h2 styleName="td-header">
+            Yes. We're neurotic about the details.
+          </h2>        
+        </div>
+        <div styleName="the-details-row" styleName="second-row">
+          <div styleName="the-details-column">
+            <img styleName="tdc-icon" src="images/our-story/combed-cotton.svg" />
+            <h3 styleName="tdc-header">Combed Cotton</h3>
+            <p styleName="tdc-description">
+              Done for higher quality fibers to filter out any short 
+              length fibers for a smooth soft feel. 
             </p>
-            <p>
-              Acetate frames are hand-polished and tumbled for at least three
-              days. An imported German polishing wax compound helps us
-              achieve the highest shine.
+          </div>
+          <div styleName="the-details-column">
+            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <h3 styleName="tdc-header">200 Needle</h3>
+            <p styleName="tdc-description">
+              200 N socks are like 1000 thread count bed sheets. 
+              This allows the seamless feel and high resolution view of patterns.
             </p>
-          </TextBanner>
+          </div>
+          <div styleName="the-details-column">
+            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <h3 styleName="tdc-header">200 Needle</h3>
+            <p styleName="tdc-description">
+              Our socks are hand-linked so you don’t have that itchy uncomfortable 
+              seam running along your toes. This reinforces the smoothness and comfort of the sock.
+            </p>
+          </div>
+          <div styleName="the-details-column">
+            <img styleName="tdc-icon" src="images/our-story/200-needle-2x.jpg" />
+            <h3 styleName="tdc-header">200 Needle</h3>
+            <p styleName="tdc-description">
+              This way your socks last longer, fit better, and cushion your feet better in whatever 
+              shoes you choose to wear.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -78,7 +103,7 @@ class OurStory extends Component {
         {this.aboutUs}
         {this.beBold}
         {this.trustedManufacturer}
-        {this.materials}
+        {this.theDetails}
       </div>
     );
   }
