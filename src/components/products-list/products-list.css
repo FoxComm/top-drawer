@@ -45,19 +45,24 @@
 
   & .title {
     margin: 1em 0 0;
+    font-family: Lato-Bold;
     text-transform: capitalize;
     font-weight: bold;
     font-size: 47px;
+    color: #FFFFFF;
   }
 
   & .description {
     margin: .7em 0 0;
     font-size: 27px;
+    color: #FFFFFF;
+    font-family: Lato-Regular;
   }
 }
 
-.header-eyeglasses,
-.header-sunglasses {
+.header-classic,
+.header-modern,
+.header-all {
   composes: header;
 }
 
@@ -71,24 +76,19 @@
 
 
 .header {
-  &-eyeglasses {
-    &-men {
-      background-image: url('images/categories/Hero_Eyeglasses_Mens.jpg');
+  &-classic {
+      background-image: url('images/categories/classic-collection-hero-2x.jpg');
     }
-    &-women {
-      background-image: url('images/categories/Hero_Eyeglasses_Womens.jpg');
-    }
+
+  &-modern {
+      background-image: url('images/categories/modern-collection-hero-2x.jpg');
   }
 
-  &-sunglasses {
-    &-men {
-      background-image: url('images/categories/Hero_Sunglasses_Mens.jpg');
-    }
-    &-women {
-      background-image: url('images/categories/Hero_Sunglasses_Womens.jpg');
-    }
+  &-all {
+      background-image: url('images/categories/all-collection-hero-2x.jpg');
   }
 }
+
 
 .not-found {
   text-transform: uppercase;

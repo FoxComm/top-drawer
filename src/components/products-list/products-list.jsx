@@ -73,7 +73,18 @@ class ProductsList extends React.Component {
       : '';
 
     let className = `header-${categoryName}`;
-    let title = categoryName;
+    let title = "";
+    switch(categoryName) {
+      case "classic": 
+        title = "Classic Collection";
+        break;
+      case "modern":
+        title = "Modern Collection";
+        break;
+      case "all":
+        title = "Entire Collection";
+        break;
+    }
 
     if (props.categoryType) {
       className = `${className}-${props.categoryType}`;
