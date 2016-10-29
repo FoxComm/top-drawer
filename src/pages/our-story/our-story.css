@@ -87,12 +87,12 @@
   lost-align: center;
   height: inherit;
   float: left;
+  padding-top: 75px;
 }
 
 .tdc-icon { 
   height: 129px;
   width: 129px;
-  padding-bottom: 25px;
   position: relative;
 }
 
@@ -102,6 +102,10 @@
   font-size: 20px;
   color: #363636;
   line-height: 30px;
+  height: 42px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
 }
 
 .tdc-description {
@@ -112,6 +116,8 @@
   line-height: 30px;
   position: relative;
   lost-align: center;
+  height: 275px; 
+  text-align: center;
 }
 
 

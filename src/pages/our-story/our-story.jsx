@@ -78,15 +78,15 @@ class OurStory extends Component {
           </div>
           <div styleName="the-details-column">
             <img styleName="tdc-icon" src="images/our-story/smooth-seam.svg" />
-            <h3 styleName="tdc-header">200 Needle</h3>
+            <h3 styleName="tdc-header">Smooth Toe Seem</h3>
             <p styleName="tdc-description">
               Our socks are hand-linked so you don’t have that itchy uncomfortable 
-              seam running along your toes. This reinforces the smoothness and comfort of the sock.
+              seam running along your toes. This reinforces the smoothness and comfort of the sock.            
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/reinforced-heal-toe.jpg" />
-            <h3 styleName="tdc-header">200 Needle</h3>
+            <img styleName="tdc-icon" src="images/our-story/reinforced-heal-toe.svg" />
+            <h3 styleName="tdc-header">Reinforced Heel and Toe</h3>
             <p styleName="tdc-description">
               This way your socks last longer, fit better, and cushion your feet better in whatever 
               shoes you choose to wear.
