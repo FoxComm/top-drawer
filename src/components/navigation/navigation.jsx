@@ -41,12 +41,12 @@ class Navigation extends React.Component {
   }
 
   @autobind
-  onClick(category : ?Category, type : ?string) {
+  onClick(category : ?string, type : ?string) {
     this.props.onClick(category);
     if (category == undefined) {
       browserHistory.push('/');
     } else {
-      const dashedName = category.name.replace(/\s/g, '-');
+      const dashedName = category.replace(/\s/g, '-');
       if (type) {
         browserHistory.push({pathname: `/${dashedName}`, query: {type}});
       } else {
@@ -61,17 +61,19 @@ class Navigation extends React.Component {
     const categoryItems = _.map(this.props.list, (item) => {
       const dashedName = item.name.replace(/\s/g, '-');
       const key = `category-${dashedName}`;
+      if (item.display == true) {
       return (
         <li styleName="item" key={key}>
-          <a styleName="item-link">
-          {t(item.name.toUpperCase())}
+          <a styleName="item-link" onClick={() => this.onClick(item.name)}>
+          {t(item.navName.toUpperCase())}
           </a>
           <ul>
-            <li><a onClick={() => this.onClick(item, 'classic')}>CLASSIC</a></li>
-            <li><a onClick={() => this.onClick(item, 'modern')}>MODERN</a></li>
+            <li><a onClick={() => this.onClick('classic')}>CLASSIC</a></li>
+            <li><a onClick={() => this.onClick('modern')}>MODERN</a></li>
           </ul>
         </li>
       );
+      }
     });
 
     return (
