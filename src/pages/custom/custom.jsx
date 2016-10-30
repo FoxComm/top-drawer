@@ -6,6 +6,7 @@ import type { HTMLElement } from 'types';
 import styles from './custom.css';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
+import Button from 'ui/buttons';
 
 
 class Custom extends Component { 
@@ -68,8 +69,10 @@ class Custom extends Component {
                 name="message" placeholder="TELL US ABOUT YOUR CUSTOM SOCK NEEDS!" 
               />
             </FormField>
+            <div styleName="submit-container">
+              <Button styleName="custom-contact-submit" type="submit">SUBMIT</Button>
+            </div>
           </Form>
-
         </div>
       </div>
     );
