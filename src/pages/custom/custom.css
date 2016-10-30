@@ -1,0 +1,81 @@
+@import "variables";
+@import "media-queries";
+@import "colors";
+
+.banner {
+  width: 100%;
+  background-size: cover;
+  background-position: 100% 0;
+}
+
+.custom-banner {
+  composes: banner;
+  height: 400px;
+  background-image: url('images/custom/custom-hero-filtered-2x.jpg');
+  padding-top: 150px;
+}
+
+.title {
+    margin: 0;
+    font-size: 47px;
+    color: white;
+    text-align: center;
+}
+
+.descriptive-content {
+  height: 450px;
+  padding-top: 100px;
+
+  & .dc-logo {
+    background: url(/images/home/top-icon-logo.svg);
+    width: 60px;
+    height: 33px;
+    margin: 0px auto 60px auto;
+  }
+
+}
+
+.reach-out {
+  height: 819px;
+  background-color: #F4F4F4;
+  padding-top: 100px;
+
+  & .ro-header {
+    font-family: Lato;
+    margin-bottom: 30px;
+    font-size: 44px;
+    font-weight: 600;
+    color: #212121;
+    white-space: nowrap;
+    text-align: center;
+  }
+}
+
+.supporting-text {
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 17px;
+    color: #212121;
+    line-height: 39px;
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.custom-contact-form-container {
+}
+.custom-contact-form { 
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+  padding-top: 25px;
+
+  & .text-field {
+    width: 100%;
+    
+    & input, textarea {
+      width: 100%;
+    }
+  }
+}
+
