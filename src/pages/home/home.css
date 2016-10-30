@@ -28,12 +28,27 @@
   composes: wrap from 'ui/css/layout.css';
 }
 
-.categories {
-  width: 100%;
-  background: var(--whitish);
-  padding-top: 80px;
-  padding-bottom: 40px;
-  text-align: center;
+.descriptive-content {
+  height: 450px;
+  padding-top: 100px;
+
+  & .dc-logo {
+    background: url(/images/home/top-icon-logo.svg);
+    width: 60px;
+    height: 33px;
+    margin: 0px auto 60px auto;
+  }
+
+  & .dc-text {
+    font-family: Lato;
+    font-weight: 400px;
+    font-size: 27px;
+    color: #212121;
+    line-height: 39px;
+    text-align: center;
+    padding-left: 200px;
+    padding-right: 200px;
+  }
 }
 
 .subscribe-banner {

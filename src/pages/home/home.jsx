@@ -18,8 +18,8 @@ class Home extends Component {
             header="Be Bold"
             description="Be you with Top Drawer"
             links={[
-              {to: '/collections/summer2016?type=classic', text: 'Shop Classic'},
-              {to: '/collections/summer2016?type=modern', text: 'Shop Modern'},
+              {to: '/classic', text: 'Shop Classic'},
+              {to: '/modern', text: 'Shop Modern'},
             ]}
           />
         </div>
@@ -27,19 +27,16 @@ class Home extends Component {
     );
   }
 
-  get categories(): HTMLElement {
+  get descriptiveContent(): HTMLElement {
     return (
-      <div styleName="categories">
-        <Category
-          name="CLASSIC"
-          category="classic"
-          image="images/banners/eyeglasses.jpg"
-        />
-        <Category
-          name="MODERN"
-          category="modern"
-          image="images/banners/sunglasses.jpg"
-        />
+      <div styleName="descriptive-content">
+        <div styleName="dc-logo"/>
+        <div styleName="dc-text">
+          <p>
+            Whether you’re getting ready for work or for a 
+            night out, stand out and be you with socks from your Top Drawer.
+          </p>
+        </div>
       </div>
     );
   }
@@ -81,7 +78,7 @@ class Home extends Component {
     return (
       <div>
         {this.topBanner}
-        {this.categories}
+        {this.descriptiveContent}
         {this.subscribeBanner}
         {this.customSocksBanner}
       </div>

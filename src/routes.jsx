@@ -18,8 +18,6 @@ const routes = (
     <Route path="/checkout" component={Checkout} />
     <Route component={StoreFront}>
       <IndexRoute component={Home} />
-      <Route path="/all" component={Products} />
-      <Route path="/collections/summer2016" component={CollectionSummer2016} />
       <Route path="/locations" component={Locations} />
       <Route path="/our-story" component={OurStory} />
       <Route path=":categoryName" name="category" component={Products} />
