@@ -18,7 +18,7 @@ const context = process.env.FIREBRAND_CONTEXT || 'default';
 
 function apiCall(tag: ?string): global.Promise {
   let payload = defaultSearch(context);
-  if (tag) {
+  if (tag && tag !== 'all') {
     const tagTerm = termFilter('tags', tag);
     payload = addTermFilter(payload, tagTerm);
   }
