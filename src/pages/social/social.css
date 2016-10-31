@@ -1,0 +1,26 @@
+@import 'variables.css';
+@import 'colors.css';
+
+.banner {
+  width: 100%;
+  background-size: cover;
+  background-position: 100% 0;
+}
+
+.social-banner {
+  composes: banner;
+  height: 400px;
+  background-image: url('images/social/social-hero-2x.jpg');
+  padding-top: 150px;
+}
+
+.title {
+    margin: 0;
+    font-size: 47px;
+    color: white;
+    text-align: center;
+}
+
+.social-hub {
+  
+}

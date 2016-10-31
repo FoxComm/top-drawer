@@ -10,6 +10,7 @@ import OurStory from './pages/our-story/our-story';
 import Pdp from './pages/catalog/pdp';
 import Search from './pages/search/search';
 import Custom from './pages/custom/custom';
+import Social from './pages/social/social';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/order-placed';
@@ -22,6 +23,7 @@ const routes = (
       <Route path="/locations" component={Locations} />
       <Route path="/our-story" component={OurStory} />
       <Route path="/custom" component={Custom} />
+      <Route path="/social" component={Social} />
       <Route path=":categoryName" name="category" component={Products} />
       <Route path="/products/:productId" name="product" component={Pdp} />
       <Route path="/search/:term" name="search" component={Search} />
