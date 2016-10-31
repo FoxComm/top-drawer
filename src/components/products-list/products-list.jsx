@@ -38,7 +38,7 @@ class ProductsList extends React.Component {
   props: ProductsListParams;
 
   static defaultProps = {
-    hasBanners: true,
+    hasBanners: false,
   };
 
   state: State = {
