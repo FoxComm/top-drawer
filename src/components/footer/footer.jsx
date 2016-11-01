@@ -24,9 +24,9 @@ const Footer = () : HTMLElement => {
 
         <div styleName="links">
           <ul>
-            <li><a href="#">Terms of Use</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="/terms">Terms of Use</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/shipping-and-returns">Shipping & Returns</a></li>
           </ul>
         </div>
 
