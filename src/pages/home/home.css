@@ -34,6 +34,7 @@
 
   & .dc-logo {
     background: url(/images/home/top-icon-logo.svg);
+    background-repeat: no-repeat;
     width: 60px;
     height: 33px;
     margin: 0px auto 60px auto;
