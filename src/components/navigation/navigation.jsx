@@ -84,7 +84,6 @@ class Navigation extends React.Component {
           </li>
         )}
         {categoryItems}
-        <li styleName="item" ><Link to="/locations" styleName="item-link">Subscribe</Link></li>
         <li styleName="item" ><Link to="/custom" styleName="item-link">Custom</Link></li>
         <li styleName="item" ><Link to="/social" styleName="item-link">#GetTopDrawer</Link></li>
         <li styleName="item" ><Link to="/our-story" styleName="item-link">Our Story</Link></li>
