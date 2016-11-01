@@ -78,8 +78,9 @@
 }
 
 .checkout-button {
-  background: var(--blackish);
-  color: var(--whitish);
+  background: var(--blueish);
+  color: var(--blackish);
+  border: 0px;
   height: 100%;
   width: 100%;
   font-size: 15px;
@@ -87,6 +88,16 @@
   text-align: center;
   border-width: 2px;
   cursor: pointer;
+
+  &:hover {
+    border: 6px solid var(--blueish);
+    background: var(--whitish);
+  }
+
+  &:active {
+    background: var(--white-smokish);
+  }
+
 }
 
 .cart-content {
