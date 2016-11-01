@@ -52,17 +52,17 @@
   }
 }
 
-.subscribe-banner {
+.centered-banner {
   width: 100%;
   height: 720px;
-  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Subscribe_2x.jpg') 50% 0;
   background-size: cover;
   color: var(--whitish);
   text-align: center;
 
   & article {
-    lost-column: 1/3;
-    lost-offset: -2/3;
+    width: 65%;
+    margin-left: 17.5%;
+    margin-right: 17.5%;
   }
 
   & a {
@@ -75,30 +75,36 @@
   }
 }
 
-.custom-socks-banner {
+.subscribe-banner { 
+  composes: centered-banner;
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Subscribe_2x.jpg') 50% 0;
+}
+
+.bundles-banner {
   width: 100%;
-  height: 608px;
-  --dark-greyish: #454545;
-  color: var(--dark-greyish);
+  height: 720px;
+  background: url('/images/home/bundles-2x.png') 50% 0;
+  background-size: cover;
+  color: var(--whitish);
   text-align: center;
 
-  & .wrap > article {
+  & article {
     lost-column: 1/3;
+    lost-offset: 2/3;
   }
 
   & a {
-    color: var(--dark-greyish);
-    border-color: var(--dark-greyish);
+    color: var(--blackish);
+    border-color: var(--blackish);
 
     &:before {
-      background-color: var(--dark-greyish);
+      background-color: var(--blackish);
     }
   }
+}
 
-  & .custom-socks-banner__image {
-    lost-column: 2/3;
-    height: 416px;
-    background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_2x.jpg') 50% 0 no-repeat;
-    background-size: 100%;
-  }
+
+.custom-socks-banner {
+  composes: centered-banner;
+  background: url('/images/home/yarn-filtered-2x.jpg') 50% 0;
 }

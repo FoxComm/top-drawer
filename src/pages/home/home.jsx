@@ -57,6 +57,22 @@ class Home extends Component {
     );
   }
 
+  get bundlesBanner(): HTMLElement {
+    return (
+      <div styleName="bundles-banner">
+        <div styleName="wrap">
+          <Banner
+            header="Start your top drawer fresh with our 6-pair promo!"
+            description="Pick any 2 bundles, get 20% off!"
+            links={[
+              {to: '/bundles', text: 'Shop Bundles'},
+            ]}
+          />
+        </div>
+      </div>
+    );
+  }
+
   get customSocksBanner(): HTMLElement {
     return (
       <div styleName="custom-socks-banner">
@@ -68,7 +84,6 @@ class Home extends Component {
               {to: 'locations', text: 'Get Started'},
             ]}
           />
-          <div styleName="custom-socks-banner__image"></div>
         </div>
       </div>
     );
@@ -80,6 +95,7 @@ class Home extends Component {
         {this.topBanner}
         {this.descriptiveContent}
         {this.subscribeBanner}
+        {this.bundlesBanner}
         {this.customSocksBanner}
       </div>
     );
