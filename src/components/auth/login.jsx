@@ -25,7 +25,9 @@ import type { Localized } from 'lib/i18n';
 type AuthState = {
   email: string,
   password: string,
-  error: ?string,
+  emailError: bool|string,
+  passwordError: bool|string,
+  loginError: bool|string,
 };
 
 type Props = Localized & {
@@ -45,14 +47,16 @@ class Login extends Component {
   state: AuthState = {
     email: '',
     password: '',
-    error: null,
+    emailError: false,
+    passwordError: false,
+    loginError: false,
   };
 
   @autobind
   onChangeEmail({target}: any) {
     this.setState({
       email: target.value,
-      error: null,
+      emailError: false,
     });
   }
 
@@ -60,7 +64,7 @@ class Login extends Component {
   onChangePassword({target}: any) {
     this.setState({
       password: target.value,
-      error: null,
+      passwordError: false,
     });
   }
 
@@ -73,8 +77,11 @@ class Login extends Component {
     this.props.authenticate({email, password, org}).then(() => {
       this.props.fetchCart();
       browserHistory.push(this.props.getPath());
+      let emailError = false;
+      let passwordError = false;
+      let loginError = false;
     }, () => {
-      this.setState({error: 'Email or password is invalid'});
+      this.setState({loginError: 'Email or password is invalid'});
     });
   }
 
@@ -88,7 +95,7 @@ class Login extends Component {
   }
 
   render(): HTMLElement {
-    const { password, email } = this.state;
+    const { password, email, emailError, passwordError } = this.state;
     const props = this.props;
     const { t } = props;
 
@@ -114,14 +121,23 @@ class Login extends Component {
         </form>
         <WrapToLines styleName="divider">{t('or')}</WrapToLines>
         <form>
-          <FormField key="email" styleName="form-field" error={this.state.error}>
-            <TextInput placeholder={t('EMAIL')} value={email} type="email" onChange={this.onChangeEmail} />
+          <FormField key="email" styleName="form-field" error={emailError}>
+            <TextInput 
+              required 
+              placeholder={t('EMAIL')} 
+              value={email} 
+              type="email" 
+              onChange={this.onChangeEmail} 
+            />
           </FormField>
-          <FormField key="passwd" styleName="form-field" error={!!this.state.error}>
+          <FormField key="passwd" styleName="form-field" error={passwordError}>
             <TextInputWithLabel
+              required
               placeholder="PASSWORD"
               label={!password && restoreLink}
-              value={password} onChange={this.onChangePassword} type="password"
+              value={password} 
+              onChange={this.onChangePassword} 
+              type="password"
             />
           </FormField>
           <Button
