@@ -46,10 +46,10 @@ class Home extends Component {
       <div styleName="subscribe-banner">
         <div styleName="wrap">
           <Banner
-            header="Subscribe to your Top Drawer"
-            description="Monthly. Quarterly. Cancel anytime."
+            header="We are passionate about the craft."
+            description="We live and breathe the art of socks."
             links={[
-              {to: '/subscribe', text: 'Learn More'},
+              {to: '/our-story', text: 'Learn More'},
             ]}
           />
         </div>
