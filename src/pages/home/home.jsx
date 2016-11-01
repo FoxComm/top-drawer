@@ -49,7 +49,7 @@ class Home extends Component {
             header="Subscribe to your Top Drawer"
             description="Monthly. Quarterly. Cancel anytime."
             links={[
-              {to: '/collections/summer2016', text: 'Learn More'},
+              {to: '/subscribe', text: 'Learn More'},
             ]}
           />
         </div>
@@ -81,7 +81,7 @@ class Home extends Component {
             header="Need Some Custom Socks"
             description="We can take care of your custom sock and packaging needs!"
             links={[
-              {to: 'locations', text: 'Get Started'},
+              {to: '/custom', text: 'Get Started'},
             ]}
           />
         </div>
