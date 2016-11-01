@@ -39,6 +39,10 @@
   height: 819px;
   background-color: #F4F4F4;
   padding-top: 100px;
+  background-image: url(/images/custom/reach-out-2x.png);
+  background-repeat: no-repeat;
+  background-position: 98% 0%;
+  background-size: 300px 425px;
 
   & .ro-header {
     font-family: Lato;
@@ -46,7 +50,9 @@
     font-size: 44px;
     font-weight: 600;
     color: #212121;
-    white-space: nowrap;
+    width: 65%;
+    margin-right: 17.5%;
+    margin-left: 17.5%;
     text-align: center;
   }
 }
