@@ -59,7 +59,9 @@ class Search extends Component {
         <p styleName="search-title">
           <span styleName="search-title__uppercase">{t('Search results for')}</span> "{term}"
         </p>
-        <ProductsList list={result}/>
+        <div styleName="result-list">
+          <ProductsList list={result}/>
+        </div>
       </div>
     );
   }

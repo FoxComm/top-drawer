@@ -1,7 +1,20 @@
-.search-title {
-  margin: 20px 0 0;
+.search {
+  margin-top: 7em;
+
+
+  & .search-title__uppercase {
+    text-transform: uppercase;
+  }
+
+  & .result-list { 
+    margin-top: -2em;
+  }
 }
 
-.search-title__uppercase {
-  text-transform: uppercase;
-}
+.search-title {
+    composes: inner-wrap from 'ui/css/layout.css';
+    margin: 20px 0 0;
+    font-size: 1.5em;
+    line-height: 2em;
+    padding-left: 1.9%;
+  }
