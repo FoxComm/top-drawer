@@ -49,6 +49,26 @@
   margin-bottom: calc(30px - var(--dividerMargin));
 }
 
+.auth-error {
+  width: 100%;
+  background-color: var(--redish);
+}
+
+.error-shown {
+  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: white;
+}
+
+.error-hidden {
+  display: none;
+  height: 0px;
+}
+
+
 .form-field {
   width: 100%;
   margin-bottom: 10px;

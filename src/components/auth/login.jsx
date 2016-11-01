@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import styles from './auth.css';
 
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
-import { FormField } from 'ui/forms';
+import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import WrapToLines from 'ui/wrap-to-lines';
 
@@ -59,7 +59,7 @@ class Login extends Component {
       emailError: false,
     });
   }
-
+  
   @autobind
   onChangePassword({target}: any) {
     this.setState({
@@ -95,7 +95,7 @@ class Login extends Component {
   }
 
   render(): HTMLElement {
-    const { password, email, emailError, passwordError } = this.state;
+    const { password, email, emailError, passwordError, loginError } = this.state;
     const props = this.props;
     const { t } = props;
 
@@ -120,7 +120,13 @@ class Login extends Component {
           </Button>
         </form>
         <WrapToLines styleName="divider">{t('or')}</WrapToLines>
-        <form>
+        <div 
+          styleName="auth-error"
+          styleName={(loginError ? 'error-shown' : 'error-hidden')}
+        >
+          {loginError}
+        </div>
+        <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={emailError}>
             <TextInput 
               required 
@@ -143,11 +149,11 @@ class Login extends Component {
           <Button
             styleName="primary-button"
             isLoading={props.isLoading}
-            onClick={this.authenticate}
+            type="submit"
           >
             {t('LOG IN')}
           </Button>
-        </form>
+        </Form>
         <div styleName="switch-stage">
           {t('Don’t have an account?')} {signupLink}
         </div>
