@@ -81,7 +81,7 @@ class Login extends Component {
       let passwordError = false;
       let loginError = false;
     }, () => {
-      this.setState({loginError: 'Email or password is invalid'});
+      this.setState({loginError: 'Email or password is invalid.'});
     });
   }
 
