@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import { createAction, createReducer } from 'redux-act';
 import createAsyncActions from './async-utils';
+import { api as foxApi } from 'lib/api';
 
 export const toggleCart = createAction('TOGGLE_CART');
 export const hideCart = createAction('HIDE_CART');
@@ -87,13 +88,13 @@ export function addLineItem(id, quantity) {
   };
 }
 
-// remove item from cart
-export function deleteLineItem(id) {
+// update line item quantity
+export function updateLineItemQuantity(id, qtt) {
   return (dispatch, getState) => {
     const state = getState();
     const lineItems = _.get(state, ['cart', 'skus'], []);
     const newLineItems = _.map(lineItems, (item) => {
-      const quantity = item.sku === id ? 0 : item.quantity;
+      const quantity = item.sku === id ? parseInt(qtt, 10) : item.quantity;
       return {
         sku: item.sku,
         quantity,
@@ -103,8 +104,44 @@ export function deleteLineItem(id) {
   };
 }
 
-function fetchMyCart(): global.Promise {
-  return this.api.get(`/v1/my/cart`);
+// remove item from cart
+export function deleteLineItem(id) {
+  return updateLineItemQuantity(id, 0);
+}
+
+function fetchMyCart(user): global.Promise {
+  const api = user ? foxApi : foxApi.removeAuth();
+  return api.cart.get();
+}
+
+// push cart to server
+export function saveLineItems() {
+  return (dispatch, getState) => {
+    const state = getState();
+    const lineItems = _.get(state, ['cart', 'skus'], []);
+    const lineItemsToSubmit = collectItemsToSubmit(lineItems);
+    return fetchMyCart().then((data) => {
+      const lis = _.get(data, 'lineItems.skus', []);
+      const newSkus = _.map(lineItemsToSubmit, li => li.sku);
+      const oldPayload = collectItemsToSubmit(lis);
+      const oldSkus = _.map(oldPayload, li => li.sku);
+
+      const toDelete = _.difference(oldSkus, newSkus);
+
+      const itemsToDelete = _.map(toDelete, sku => {
+        return {
+          sku,
+          quantity: 0,
+        };
+      });
+
+      const newCartItems = lineItemsToSubmit.concat(itemsToDelete);
+
+      return newCartItems;
+    }).then((newCartItems) => {
+      return dispatch(submitChange(newCartItems));
+    });
+  };
 }
 
 const {fetch, ...actions} = createAsyncActions('cart', fetchMyCart);
@@ -131,11 +168,13 @@ function totalSkuQuantity(cart) {
 function updateCartState(state, cart) {
   const data = getLineItems(cart);
   const quantity = totalSkuQuantity(cart);
+  const shippingAddress = _.get(cart, 'shippingAddress', {});
 
   return {
     ...state,
     skus: data,
     quantity,
+    shippingAddress,
     ...cart,
   };
 }

@@ -1,88 +1,69 @@
 /* @flow weak */
 
+// libs
 import _ from 'lodash';
 import React, { Component } from 'react';
-import styles from './checkout.css';
 import textStyles from 'ui/css/input.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { cardMask } from 'wings/lib/payment-cards';
-
 import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
 
-import { Form, FormField } from 'ui/forms';
+// components
+import { FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
-import Button from 'ui/buttons';
-import Checkbox from 'ui/checkbox';
-import EditableBlock from 'ui/editable-block';
+import Checkbox from 'ui/checkbox/checkbox';
 import Autocomplete from 'ui/autocomplete';
 import InputMask from 'react-input-mask';
-import EditAddress from './edit-address';
+import EditAddress from '../address/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
-import ViewAddress from './view-address';
 import CvcHelp from './cvc-help';
-import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
+import PromoCode from '../../../components/promo-code/promo-code';
+import CheckoutForm from '../checkout-form';
+import Accordion from '../../../components/accordion/accordion';
 
-import type { CheckoutBlockProps } from './types';
+// styles
+import styles from './billing.css';
+
+// actions
 import * as cartActions from 'modules/cart';
 import * as checkoutActions from 'modules/checkout';
 import { AddressKind } from 'modules/checkout';
-import type { BillingData } from 'modules/checkout';
 
-let ViewBilling = (props) => {
-  const billingData: BillingData = props.creditCard ? props.creditCard : props.billingData;
+// types
+import type { CreditCardType, CheckoutActions } from '../types';
 
-  const paymentType = billingData.brand ? _.kebabCase(billingData.brand) : '';
-
-  const lastTwoYear = billingData.expYear && billingData.expYear.toString().slice(-2);
-  const monthYear = billingData.expMonth || billingData.expYear ?
-    <span>{billingData.expMonth}/{lastTwoYear}</span> : null;
-  const addressInfo = !_.isEmpty(props.billingAddress) ?
-    <ViewAddress styleName="billing-address" {...props.billingAddress} /> : null;
-
-  return (
-    <div>
-      {paymentType && <Icon styleName="payment-icon" name={`fc-payment-${paymentType}`} />}
-      <div styleName="payment-card-info">
-        <span styleName="payment-last-four">•••• {billingData.lastFour}</span>
-        {monthYear}
-      </div>
-      {addressInfo}
-    </div>
-  );
+type Props = CheckoutActions & {
+  error: Array<any>,
+  data: CreditCardType,
+  billingData: CreditCardType,
+  continueAction: Function,
+  t: any,
+  inProgress: boolean,
 };
 
-ViewBilling = connect(state => ({
-  billingData: state.checkout.billingData,
-  creditCard: state.cart.creditCard,
-}))(ViewBilling);
-
-function mapStateToProps(state) {
-  return {
-    data: state.checkout.billingData,
-    billingAddressIsSame: state.checkout.billingAddressIsSame,
-  };
-}
-
-const months = _.range(1, 13, 1).map(x => _.padStart(x.toString(), 2, '0'));
-const currentYear = new Date().getFullYear();
-const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
-
 type State = {
-  addingNew: boolean;
-}
+  addingNew: boolean,
+  billingAddressIsSame: boolean,
+};
 
-/* ::`*/
-@connect(mapStateToProps, { ...checkoutActions, ...cartActions })
-@localized
-  /* ::`*/
 class EditBilling extends Component {
+  props: Props;
 
   state: State = {
     addingNew: false,
+    billingAddressIsSame: true,
   };
+
+  componentWillMount() {
+    if (this.props.data.address) {
+      this.setState({
+        billingAddressIsSame: false,
+      });
+    }
+  }
 
   @autobind
   handleSubmit() {
@@ -120,13 +101,19 @@ class EditBilling extends Component {
   }
 
   get billingAddress() {
-    const { billingAddressIsSame } = this.props;
+    const { billingAddressIsSame } = this.state;
 
     if (billingAddressIsSame) {
       return null;
     }
 
-    return <EditAddress addressKind={AddressKind.BILLING} {...this.props} />;
+    return (
+      <EditAddress
+        {...this.props}
+        addressKind={AddressKind.BILLING}
+        address={this.props.data.address}
+      />
+    );
   }
 
   get cardType() {
@@ -160,14 +147,15 @@ class EditBilling extends Component {
     return foxApi.creditCards.validateCVC(cvc) ? null : t(`Please enter a valid cvc number`);
   }
 
-  get cvcHelp() {
-    return <CvcHelp />;
+  @autobind
+  addNew() {
+    this.props.resetBillingData();
+    this.setState({ addingNew: true });
   }
 
   @autobind
-  addNew() {
-    this.props.resetCreditCard();
-    this.setState({ addingNew: true });
+  cancelEditing() {
+    this.setState({ addingNew: false });
   }
 
   @autobind
@@ -176,15 +164,49 @@ class EditBilling extends Component {
     this.setState({ addingNew: false });
   }
 
-  get form() {
+  @autobind
+  updateCreditCard() {
+    const { id } = this.props.billingData;
+    const { billingAddressIsSame} = this.state;
+
+    if (id) {
+      return this.props.updateCreditCard(id, billingAddressIsSame)
+        .then(() => this.setState({ addingNew: false }));
+    }
+
+    this.props.addCreditCard(billingAddressIsSame)
+      .then(() => this.setState({ addingNew: false }));
+  }
+
+  @autobind
+  deleteCreditCard(id) {
+    this.props.deleteCreditCard(id);
+  }
+
+  @autobind
+  editCard(data) {
+    this.props.loadBillingData(data);
+    this.setState({ addingNew: true });
+  }
+
+  @autobind
+  toggleSeparateBillingAddress() {
+    this.setState({
+      billingAddressIsSame: !this.state.billingAddressIsSame,
+    });
+  }
+
+  get editCardForm() {
     const { props } = this;
-    const { data, inProgress, t } = props;
+    const { data, t } = props;
+
+    const months = _.range(1, 13, 1).map(x => _.padStart(x.toString(), 2, '0'));
+    const currentYear = new Date().getFullYear();
+    const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
 
     return (
-      <div>
-        <div>{t('NEW CREDIT CARD')}</div>
-        <Form onSubmit={this.handleSubmit} styleName="checkout-form">
-          <FormField styleName="text-field">
+      <div styleName="edit-card-form">
+         <FormField styleName="text-field">
             <TextInput
               required
               name="holderName"
@@ -216,7 +238,7 @@ class EditBilling extends Component {
             <FormField styleName="text-field" validator={this.validateCvcNumber}>
               <TextInputWithLabel
                 required
-                label={this.cvcHelp}
+                label={<CvcHelp />}
                 type="number"
                 maxLength="4"
                 placeholder={t('CVC')}
@@ -255,15 +277,13 @@ class EditBilling extends Component {
           </div>
           <Checkbox
             id="billingAddressIsSame"
-            checked={props.billingAddressIsSame}
-            onChange={props.toggleSeparateBillingAddress}
+            checked={this.state.billingAddressIsSame}
+            onChange={this.toggleSeparateBillingAddress}
+            styleName="same-address-checkbox"
           >
             {t('Billing address is same as shipping')}
           </Checkbox>
           {this.billingAddress}
-          <ErrorAlerts error={this.props.error} />
-          <Button isLoading={inProgress} styleName="checkout-submit" type="submit">{t('PLACE ORDER')}</Button>
-        </Form>
       </div>
     );
   }
@@ -271,53 +291,63 @@ class EditBilling extends Component {
   render() {
     const { inProgress, t } = this.props;
 
-    let form;
-
     if (this.state.addingNew) {
-      form = this.form;
-    } else {
-      form = (
-        <Button isLoading={inProgress} styleName="checkout-submit" onClick={this.handleSubmit}>
-          {t('PLACE ORDER')}
-        </Button>
+      const action = {
+        action: this.cancelEditing,
+        title: 'Cancel',
+      };
+
+      return (
+        <CheckoutForm
+          submit={this.updateCreditCard}
+          title={t('Add Card')}
+          error={this.props.error}
+          buttonLabel="SAVE & CONTINUE"
+          action={action}
+          inProgress={inProgress}
+        >
+          {this.editCardForm}
+        </CheckoutForm>
       );
     }
 
-
     return (
-      <div>
-        <div styleName="credit-cards-title">
-          <div>{t('SELECT CREDIT CARD')}</div>
-          <div onClick={this.addNew} styleName="credit-card-add">{t('ADD')}</div>
-        </div>
-        <CreditCards selectCreditCard={this.selectCreditCard} />
-        {form}
-      </div>
+      <CheckoutForm
+        submit={this.handleSubmit}
+        title="PAYMENT METHOD"
+        error={this.props.error}
+        buttonLabel="Place Order"
+        inProgress={inProgress}
+      >
+        <fieldset styleName="fieldset-cards">
+          <CreditCards
+            selectCreditCard={this.selectCreditCard}
+            editCard={this.editCard}
+            deleteCard={this.deleteCreditCard}
+          />
+          <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
+        </fieldset>
+
+        <Accordion title="PROMO CODE?">
+          <PromoCode saveCode={this.props.saveCouponCode} />
+        </Accordion>
+
+        <Accordion title="GIFT CARD?">
+          <PromoCode
+            saveCode={this.props.saveGiftCard}
+            buttonLabel="Reedem"
+          />
+        </Accordion>
+
+      </CheckoutForm>
     );
   }
 }
 
-const Billing = (props: CheckoutBlockProps) => {
-  const content = props.isEditing
-    ? <EditBilling {...props} />
-    : <ViewBilling />;
+function mapStateToProps(state) {
+  return {
+    data: state.checkout.billingData,
+  };
+}
 
-  const billingContent = (
-    <div styleName="checkout-block-content">
-      {content}
-    </div>
-  );
-
-  const { t } = props;
-
-  return (
-    <EditableBlock
-      {...props}
-      styleName="checkout-block"
-      title={t('BILLING')}
-      content={billingContent}
-    />
-  );
-};
-
-export default localized(Billing);
+export default connect(mapStateToProps, { ...checkoutActions, ...cartActions })(localized(EditBilling));

@@ -14,7 +14,7 @@ import Social from './pages/social/social';
 import Privacy from './pages/terms/privacy';
 
 import Checkout from './pages/checkout/checkout';
-import OrderPlaced from './pages/checkout/order-placed';
+import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
 
 const routes = (
   <Route path="/" component={Site}>

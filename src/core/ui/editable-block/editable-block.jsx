@@ -10,30 +10,30 @@ import type { Localized } from 'lib/i18n';
 import type { HTMLElement } from 'types';
 
 type EditableProps = Localized & {
-  isEditing: boolean;
-  collapsed?: boolean;
-  editAllowed?: boolean;
-  className?: string;
-  content: HTMLElement;
-  editAction?: () => any;
-  title: string;
+  isEditing: boolean,
+  collapsed?: boolean,
+  editAllowed?: boolean,
+  className?: string,
+  content: HTMLElement,
+  editAction?: () => any,
+  title: string,
 };
 
 const EditableBlock = (props: EditableProps) => {
   const editLink = !props.isEditing && !props.collapsed && props.editAllowed
-    ? <div onClick={props.editAction} styleName="edit">{props.t('EDIT')}</div>
+    ? <div onClick={props.editAction} styleName="action">{props.t('EDIT')}</div>
     : null;
 
   const content = !props.collapsed ? props.content : null;
 
   return (
-    <div styleName="editable-block" {...props}>
-      <div styleName="header">
-        <div styleName="title">{props.title}</div>
+    <article styleName="editable-block" className={props.className}>
+      <header styleName="header">
+        <h3 styleName="title">{props.title}</h3>
         {editLink}
-      </div>
+      </header>
       {content}
-    </div>
+    </article>
   );
 };
 

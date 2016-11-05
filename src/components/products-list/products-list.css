@@ -38,7 +38,7 @@
   margin-bottom: 40px;
   display: flex;
   align-items: center;
-  background-color: #aaf3f8;
+  background-color: #FFFFFF;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 50%;
@@ -49,13 +49,13 @@
     text-transform: capitalize;
     font-weight: bold;
     font-size: 47px;
-    color: #FFFFFF;
+    color: #363636;
   }
 
   & .description {
     margin: .7em 0 0;
     font-size: 27px;
-    color: #FFFFFF;
+    color: #363636;
     font-family: Lato-Regular;
   }
 }

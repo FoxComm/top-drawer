@@ -20,41 +20,41 @@ export const EditStages = {
   DELIVERY: 1,
   BILLING: 2,
   FINISHED: 3,
+  GUEST_AUTH: 4,
 };
 
 export type EditStage = number;
 
 export type ShippingAddress = {
-  city?: string;
-}
-
-export type CheckoutState = {
-  editStage: EditStage;
-  shippingAddress: ShippingAddress;
-  billingAddress: ShippingAddress;
+  city?: string,
 };
 
-export type BillingData = {
-  holderName?: string;
-  number?: string|number;
-  brand?: string;
-  expMonth?: string|number;
-  expYear?: string|number;
-  lastFour?: string|number;
-}
+export type CheckoutState = {
+  editStage: EditStage,
+  shippingAddress: ShippingAddress,
+  billingAddress: ShippingAddress,
+};
 
 export const setEditStage = createAction('CHECKOUT_SET_EDIT_STAGE');
 export const setBillingData = createAction('CHECKOUT_SET_BILLING_DATA', (key, value) => [key, value]);
+export const resetBillingData = createAction('CHECKOUT_RESET_BILLING_DATA');
+export const loadBillingData = createAction('CHECKOUT_LOAD_BILLING_DATA');
 
 export const setAddressData = createAction('CHECKOUT_SET_ADDRESS_DATA', (kind, key, value) => [kind, key, value]);
 export const extendAddressData = createAction('CHECKOUT_EXTEND_ADDRESS_DATA', (kind, props) => [kind, props]);
 export const resetCheckout = createAction('CHECKOUT_RESET');
 const orderPlaced = createAction('CHECKOUT_ORDER_PLACED');
+const finishLoadingAddress = createAction('FINISH_LOADING_ADDRESS');
+const startLoadingAddress = createAction('START_LOADING_ADDRESS');
 
 /* eslint-disable quotes, quote-props */
 
 function _fetchShippingMethods() {
-  return this.api.get('/v1/my/cart/shipping-methods');
+  return foxApi.cart.getShippingMethods();
+}
+
+function _fetchAddresses() {
+  return foxApi.addresses.list();
 }
 
 function _fetchCreditCards() {
@@ -65,45 +65,80 @@ function _fetchCreditCards() {
 
 const shippingMethodsActions = createAsyncActions('shippingMethods', _fetchShippingMethods);
 const creditCardsActions = createAsyncActions('creditCards', _fetchCreditCards);
+const addressesActions = createAsyncActions('addresses', _fetchAddresses);
 
 export const fetchShippingMethods = shippingMethodsActions.fetch;
 export const fetchCreditCards = creditCardsActions.fetch;
-export const toggleSeparateBillingAddress = createAction('CHECKOUT_TOGGLE_BILLING_ADDRESS');
+export const fetchAddresses = addressesActions.fetch;
 
-export function initAddressData(kind: AddressKindType): Function {
+function emptyAddress() {
   return (dispatch, getState) => {
     const state = getState();
-
-    const shippingAddress = getState().cart.shippingAddress;
 
     const countries = state.countries.list;
 
     const usaCountry = _.find(countries, { alpha3: 'USA' });
     const countryDetails = state.countries.details[usaCountry && usaCountry.id] || { regions: [] };
 
-    let uiAddressData = {
+    return {
+      name: '',
+      address1: '',
+      address2: '',
+      city: '',
+      zip: '',
+      phoneNumber: '',
+      isDefault: false,
       country: usaCountry,
       state: countryDetails.regions[0],
     };
+  };
+}
+export function initAddressData(kind: AddressKindType, savedAddress): Function {
+  return (dispatch, getState) => {
+    dispatch(startLoadingAddress());
 
-    if (kind == AddressKind.SHIPPING && shippingAddress && shippingAddress.region) {
-      dispatch(fetchCountry(shippingAddress.region.countryId)).then(() => {
-        const countryInfo = getState().countries.details[shippingAddress.region.countryId];
+    let uiAddressData;
 
-        uiAddressData = _.pick(shippingAddress, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
+    const validAddress = !_.isEmpty(savedAddress) && savedAddress.region;
+
+    if (validAddress) {
+      dispatch(fetchCountry(savedAddress.region.countryId)).then(() => {
+        const countryInfo = getState().countries.details[savedAddress.region.countryId];
+
+        uiAddressData = _.pick(savedAddress, [
+          'name',
+          'address1',
+          'address2',
+          'city',
+          'zip',
+          'phoneNumber',
+          'isDefault',
+        ]);
         uiAddressData.country = countryInfo;
-        uiAddressData.state = _.find(countryInfo.regions, { id: shippingAddress.region.id });
+        uiAddressData.state = _.find(countryInfo.regions, { id: savedAddress.region.id });
 
         dispatch(extendAddressData(kind, uiAddressData));
+        dispatch(finishLoadingAddress());
       });
     } else {
+      uiAddressData = dispatch(emptyAddress());
       dispatch(extendAddressData(kind, uiAddressData));
+      dispatch(finishLoadingAddress());
     }
   };
 }
 
 function addressToPayload(address, countries = []) {
-  const payload = _.pick(address, ['name', 'address1', 'address2', 'city', 'zip', 'phoneNumber']);
+  const payload = _.pick(address, [
+    'name',
+    'address1',
+    'address2',
+    'city',
+    'zip',
+    'phoneNumber',
+    'isDefault',
+    'id',
+  ]);
   payload.phoneNumber = String(payload.phoneNumber);
   payload.regionId = _.get(address, 'region.id', _.get(address, 'state.id', ''));
 
@@ -116,12 +151,9 @@ function addressToPayload(address, countries = []) {
   return payload;
 }
 
-export function saveShippingAddress(): Function {
-  return (dispatch, getState, api) => {
-    const shippingAddress = getState().checkout.shippingAddress;
-    const payload = addressToPayload(shippingAddress);
-
-    return api.post('/v1/my/cart/shipping-address', payload)
+export function saveShippingAddress(id): Function {
+  return (dispatch) => {
+    return foxApi.cart.setShippingAddressById(id)
       .then(res => {
         dispatch(updateCart(res.result));
       });
@@ -130,11 +162,9 @@ export function saveShippingAddress(): Function {
 
 export function saveShippingMethod(): Function {
   return (dispatch, getState, api) => {
-    const payload = {
-      shippingMethodId: getState().cart.shippingMethod.id,
-    };
+    const methodId = getState().cart.shippingMethod.id;
 
-    return api.patch('/v1/my/cart/shipping-method', payload)
+    return api.cart.chooseShippingMethod(methodId)
       .then(res => {
         dispatch(updateCart(res.result));
       });
@@ -142,10 +172,10 @@ export function saveShippingMethod(): Function {
 }
 
 export function saveGiftCard(code: string): Function {
-  return (dispatch, getState, api) => {
+  return (dispatch) => {
     const payload = { code: code.trim() };
 
-    return api.post('/v1/my/cart/payment-methods/gift-cards', payload)
+    return foxApi.cart.addGiftCard(payload)
       .then(res => {
         dispatch(updateCart(res.result));
       });
@@ -153,51 +183,119 @@ export function saveGiftCard(code: string): Function {
 }
 
 export function saveCouponCode(code: string): Function {
-  return (dispatch, getState, api) => {
-    return api.post(`/v1/my/cart/coupon/${code.trim()}`, {})
+  return (dispatch) => {
+    return foxApi.cart.addCoupon(code)
       .then(res => {
         dispatch(updateCart(res));
       });
   };
 }
 
-export function addCreditCard(): Function {
+function createOrUpdateAddress(payload, id) {
+  if (id) {
+    return foxApi.addresses.update(id, payload);
+  }
+  return foxApi.addresses.add(payload);
+}
+
+function setDefaultAddress(id: number): Function {
+  return (dispatch) => {
+    return foxApi.addresses.setAsDefault(id)
+      .then(() => {
+        dispatch(fetchAddresses());
+      });
+  };
+}
+
+export function updateAddress(id?: number): Function {
+  return (dispatch, getState) => {
+    const shippingAddress = getState().checkout.shippingAddress;
+    const payload = addressToPayload(shippingAddress);
+
+    return createOrUpdateAddress(payload, id)
+      .then((address) => {
+        dispatch(extendAddressData('shippingAddress', dispatch(emptyAddress())));
+
+        if (payload.isDefault) {
+          dispatch(setDefaultAddress(address.id));
+        } else {
+          dispatch(fetchAddresses());
+        }
+      });
+  };
+}
+
+function getUpdatedBllingAddress(getState, billingAddressIsSame) {
+  return billingAddressIsSame
+    ? getState().cart.shippingAddress
+    : getState().checkout.billingAddress;
+}
+
+export function addCreditCard(billingAddressIsSame: boolean): Function {
+  return (dispatch, getState) => {
+    const billingData = getState().checkout.billingData;
+    const cardData = _.pick(billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
+    const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
+    const countries = getState().countries.list;
+    const address = addressToPayload(billingAddress, countries, billingAddressIsSame);
+
+    return foxApi.creditCards.create(cardData, address, !billingAddressIsSame);
+  };
+}
+
+export function chooseCreditCard(): Function {
   return (dispatch, getState) => {
     const creditCard = getState().cart.creditCard;
 
-    if (creditCard && creditCard.id) {
-      return foxApi.cart.addCreditCard(creditCard.id);
-    }
-
-    let billingAddress;
-
-    const cardData = _.pick(getState().checkout.billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear']);
-
-    if (getState().checkout.billingAddressIsSame) {
-      billingAddress = getState().cart.shippingAddress;
-    } else {
-      billingAddress = getState().checkout.billingAddress;
-    }
-
-    const address = addressToPayload(billingAddress, getState().countries.list);
-
-    return foxApi.creditCards.create(cardData, address, !getState().checkout.billingAddressIsSame)
-      .then(creditCardRes => {
-        return foxApi.cart.addCreditCard(creditCardRes.id);
-      })
+    return foxApi.cart.addCreditCard(creditCard.id)
       .then(res => {
         dispatch(updateCart(res.result));
       });
   };
 }
 
+export function updateCreditCard(id, billingAddressIsSame: boolean): Function {
+  return (dispatch, getState) => {
+    const creditCard = getState().checkout.billingData;
+    const billingAddress = getUpdatedBllingAddress(getState, billingAddressIsSame);
+    const address = addressToPayload(billingAddress, getState().countries.list);
+    const updatedCard = assoc(creditCard, 'address', address);
+
+    return foxApi.creditCards.update(id, updatedCard);
+  };
+}
+
+export function deleteCreditCard(id): Function {
+  return (dispatch) => {
+    return foxApi.creditCards.delete(id)
+      .then(() => dispatch(fetchCreditCards()));
+  };
+}
+
 // Place order from cart.
 export function checkout(): Function {
-  return (dispatch, getState, api) => {
-    return api.post('/v1/my/cart/checkout').then(res => {
+  return (dispatch) => {
+    return foxApi.cart.checkout().then(res => {
       dispatch(orderPlaced(res));
       return dispatch(updateCart(res));
     });
+  };
+}
+
+// Update guest account to checkout
+export function saveEmail(email): Function {
+  return () => {
+    return foxApi.account.update({email});
+  };
+}
+
+function setEmptyCard() {
+  return {
+    holderName: '',
+    number: '',
+    cvc: '',
+    expMonth: '',
+    expYear: '',
   };
 }
 
@@ -206,9 +304,10 @@ const initialState: CheckoutState = {
   shippingAddress: {},
   billingAddress: {},
   billingData: {},
-  billingAddressIsSame: true,
   shippingMethods: [],
   creditCards: [],
+  addresses: [],
+  isAddressLoaded: false,
 };
 
 const reducer = createReducer({
@@ -230,10 +329,34 @@ const reducer = createReducer({
       [ns], props
     );
   },
+  [startLoadingAddress]: (state) => {
+    return {
+      ...state,
+      isAddressLoaded: false,
+    };
+  },
+  [finishLoadingAddress]: (state) => {
+    return {
+      ...state,
+      isAddressLoaded: true,
+    };
+  },
   [setBillingData]: (state, [key, value]) => {
     return assoc(state,
       ['billingData', key], value
     );
+  },
+  [resetBillingData]: (state) => {
+    return {
+      ...state,
+      billingData: setEmptyCard(),
+    };
+  },
+  [loadBillingData]: (state, billingData) => {
+    return {
+      ...state,
+      billingData,
+    };
   },
   [shippingMethodsActions.succeeded]: (state, list) => {
     return {
@@ -247,10 +370,11 @@ const reducer = createReducer({
       creditCards: list,
     };
   },
-  [toggleSeparateBillingAddress]: state => {
-    return assoc(state,
-      ['billingAddressIsSame'], !state.billingAddressIsSame
-    );
+  [addressesActions.succeeded]: (state, list) => {
+    return {
+      ...state,
+      addresses: list,
+    };
   },
   [resetCheckout]: () => {
     return initialState;
