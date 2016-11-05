@@ -60,6 +60,14 @@
   stroke: none;
 }
 
+:global(.icon--top_drawer_logo) {
+    background: url(/images/home/top-icon-logo.svg);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 33px;
+    margin: 0px auto 60px auto;
+}
+
 @media (--small-viewport) {
   :global(.icon).logo {
     width: 40px;
