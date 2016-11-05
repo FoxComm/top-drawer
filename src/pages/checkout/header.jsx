@@ -41,7 +41,7 @@ const Header = (props: Props) => {
     <header styleName={headerStyle}>
       <div styleName="logo">
         <Link to="/">
-          <Icon styleName="logo-icon" name="fc-logo"/>
+          <Icon styleName="logo-icon" name="fc-top-icon-logo"/>
         </Link>
       </div>
       <h1 styleName="title">Checkout</h1>
