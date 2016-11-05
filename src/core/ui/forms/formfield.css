@@ -4,13 +4,14 @@
 .has-error {
   & input,
   & textarea {
-    border-color: var(--color-error);
+    border-color: var(--color-error) !important;
   }
 }
 
 .error {
-  color: var(--redish);
+  padding: 10px;
+  color: var(--color-error);
   text-align: left;
   font-size: 13px;
-  line-height: 16px;
+  line-height: 20px;
 }
