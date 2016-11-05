@@ -156,19 +156,9 @@ class Pdp extends Component {
 
   @autobind
   addToCart(): void {
-    const { actions, auth } = this.props;
-    const user = _.get(auth, 'user', null);
+    const { actions } = this.props;
+    const { quantity } = this.state;
 
-    if (_.isEmpty(user)) {
-      browserHistory.push({
-        pathname: `/products/${this.productId}`,
-        query: { auth: 'login' },
-      });
-
-      return;
-    }
-
-    const quantity = this.state.quantity;
     const skuId = _.get(this.firstSku, 'attributes.code.v', '');
     actions.addLineItem(skuId, quantity)
       .then(() => {
