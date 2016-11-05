@@ -30,6 +30,8 @@
 .logo-icon {
   background: var(--whitish);
   color: #212121;
+  width: 110px;
+  height: 60px;
 }
 
 .navigation {
