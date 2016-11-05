@@ -15,7 +15,7 @@ import WrapToLines from 'ui/wrap-to-lines';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart } from 'modules/cart';
+import { fetch as fetchCart, saveLineItems } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 
@@ -35,9 +35,13 @@ type Props = Localized & {
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
+  saveLineItems: Function,
+  onGuestCheckout?: Function,
+  displayTitle: boolean,
 };
 
 const mapState = state => ({
+  cart: state.cart,
   isLoading: _.get(state.asyncActions, ['auth-login', 'inProgress'], false),
 });
 
@@ -52,6 +56,10 @@ class Login extends Component {
     loginError: false,
   };
 
+  static defaultProps = {
+    displayTitle: true,
+  };
+  
   @autobind
   onChangeEmail({target}: any) {
     this.setState({
@@ -73,9 +81,14 @@ class Login extends Component {
     e.preventDefault();
     e.stopPropagation();
     const { email, password } = this.state;
-    const org = 'merchant';
-    this.props.authenticate({email, password, org}).then(() => {
-      this.props.fetchCart();
+    const kind = 'merchant';
+    const auth = this.props.authenticate({email, password, kind}).then(() => {
+      const lineItems = _.get(this.props, 'cart.lineItems', []);
+      if (_.isEmpty(lineItems)) {
+        this.props.fetchCart();
+      } else {
+        this.props.saveLineItems();
+      }
       browserHistory.push(this.props.getPath());
       let emailError = false;
       let passwordError = false;
@@ -83,6 +96,12 @@ class Login extends Component {
     }, () => {
       this.setState({loginError: 'Email or password is invalid.'});
     });
+
+    if (this.props.onGuestCheckout != null) {
+      auth.then(() => {
+        this.props.onGuestCheckout();
+      });
+    }
   }
 
   @autobind
@@ -92,26 +111,33 @@ class Login extends Component {
     this.props.googleSignin();
   }
 
+  get title() {
+    const { t } = this.props;
+    return this.props.displayTitle
+      ? <div styleName="title">{t('SIGN IN')}</div>
+      : null;
+  }
+
   render(): HTMLElement {
     const { password, email, emailError, passwordError, loginError } = this.state;
     const props = this.props;
-    const { t } = props;
+    const { t, getPath } = props;
 
     const restoreLink = (
-      <Link to={props.getPath(authBlockTypes.RESTORE_PASSWORD)} styleName="restore-link">
+      <Link to={getPath(authBlockTypes.RESTORE_PASSWORD)} styleName="restore-link">
         {t('forgot?')}
       </Link>
     );
 
     const signupLink = (
-      <Link to={props.getPath(authBlockTypes.SIGNUP)} styleName="link">
+      <Link to={getPath(authBlockTypes.SIGNUP)} styleName="link">
         {t('Sign Up')}
       </Link>
     );
 
     return (
       <div>
-        <div styleName="title">{t('LOG IN')}</div>
+        {this.title}
         <form>
           <Button icon="fc-google" onClick={this.googleAuthenticate} type="button" styleName="google-login">
             {t('LOG IN WITH GOOGLE')}
