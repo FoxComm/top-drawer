@@ -10,5 +10,27 @@
   {
     "type": "paragraph",
     "content": "After orders are confirmed, give us 3-5 business days to get the socks to the destination of your top drawer! If you need or want it in your Top Drawer sooner - we understand - just select the Express or Overnight shipping options."
+  },
+  {
+    "type": "paragraph-title",
+    "content": "Returns"
+  },
+  {
+    "type": "paragraph",
+    "content": "If there’s anything wrong with what you bought or it just wasn’t for you, you can definitely get an exchange or return within 30 days of purchase. Make sure items are unwashed and unused, in its original packaging - labels and packaging intact."
+  },
+  {
+    "type": "paragraph-title",
+    "content": "What are the steps for a return or exchange?"
+  },
+  {
+    "type": "ordered-list",
+    "content": [
+      {
+        "type": "list-item",
+        "content": "Item"
+      }
+    ]
   }
 ]
+
