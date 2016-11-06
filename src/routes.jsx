@@ -28,7 +28,7 @@ const routes = (
       <Route path="/custom" component={Custom} />
       <Route path="/social" component={Social} />
       <Route path="/privacy" component={Privacy} />
-      <Route path="/terms" component={TermsOfService} />
+      <Route path="/terms" component={TermsOfService} name="terms"/>
       <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns"/>
       <Route path=":categoryName" name="category" component={Products} />
       <Route path="/products/:productId" name="product" component={Pdp} />

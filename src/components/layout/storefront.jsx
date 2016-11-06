@@ -11,8 +11,8 @@ import Cart from '../cart/cart';
 import styles from './storefront.css';
 
 type Props = {
-  children: HTMLElement;
-  location: any;
+  children: HTMLElement,
+  location: any,
 }
 
 const StoreFront = (props: Props) => {
