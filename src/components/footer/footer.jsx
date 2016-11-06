@@ -15,10 +15,9 @@ const Footer = () : HTMLElement => {
 
         <div styleName="social">
           <div styleName="social-links">
-            <Icon name="fc-instagram" styleName="social-icon" />
-            <Icon name="fc-facebook" styleName="social-icon" />
-            <Icon name="fc-twitter" styleName="social-icon" />
-            <Icon name="fc-pinterest" styleName="social-icon" />
+            <a target="_blank" href="https://www.instagram.com/gettopdrawer/"><Icon name="fc-instagram" styleName="social-icon" /></a>
+            <a target="_blank" href="https://www.facebook.com/GetTopDrawer/"><Icon name="fc-facebook" styleName="social-icon" /></a>
+            <a target="_blank" href="https://www.pinterest.com/gettopdrawer/"><Icon name="fc-pinterest" styleName="social-icon" /></a>
           </div>
         </div>
 
@@ -33,7 +32,7 @@ const Footer = () : HTMLElement => {
 
 
         <div styleName="copyright">
-          <p>&copy; Top Drawer</p>
+          <p>&copy; 2016 Top Drawer.  Powered by <a target="_blank" href="http://foxcommerce.com">FoxCommerce</a>.</p>
         </div>
       </div>
     </div>
