@@ -7,6 +7,7 @@ import styles from './footer.css';
 
 import Icon from 'ui/icon';
 import { TextInputWithLabel } from 'ui/inputs';
+import { Link } from 'react-router';
 
 const Footer = () : HTMLElement => {
   return (
@@ -25,7 +26,7 @@ const Footer = () : HTMLElement => {
           <ul>
             <li><a href="/terms">Terms of Use</a></li>
             <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/shipping-and-returns">Shipping & Returns</a></li>
+            <li><Link to="shipping-and-returns">Shipping & Returns</Link></li>
           </ul>
         </div>
 

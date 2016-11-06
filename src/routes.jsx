@@ -13,6 +13,7 @@ import Custom from './pages/custom/custom';
 import Social from './pages/social/social';
 import Privacy from './pages/terms/privacy';
 import ShippingAndReturns from './pages/static/shipping-and-returns';
+import TermsOfService from './pages/static/terms-of-service';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
@@ -27,7 +28,8 @@ const routes = (
       <Route path="/custom" component={Custom} />
       <Route path="/social" component={Social} />
       <Route path="/privacy" component={Privacy} />
-      <Route path="/shipping-and-returns" component={ShippingAndReturns} />
+      <Route path="/terms" component={TermsOfService} />
+      <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns"/>
       <Route path=":categoryName" name="category" component={Products} />
       <Route path="/products/:productId" name="product" component={Pdp} />
       <Route path="/search/:term" name="search" component={Search} />
