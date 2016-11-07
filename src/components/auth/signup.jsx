@@ -108,8 +108,6 @@ class Signup extends Component {
     return (
       <div>
         <div styleName="title">{t('SIGN UP')}</div>
-        <Button icon="fc-google" type="button" styleName="google-login">{t('SIGN UP WITH GOOGLE')}</Button>
-        <WrapToLines styleName="divider">{t('or')}</WrapToLines>
         <Form onSubmit={this.submitUser}>
           <FormField key="username" styleName="form-field" error={usernameError}>
             <TextInput

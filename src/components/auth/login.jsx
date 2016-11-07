@@ -138,12 +138,6 @@ class Login extends Component {
     return (
       <div>
         {this.title}
-        <form>
-          <Button icon="fc-google" onClick={this.googleAuthenticate} type="button" styleName="google-login">
-            {t('LOG IN WITH GOOGLE')}
-          </Button>
-        </form>
-        <WrapToLines styleName="divider">{t('or')}</WrapToLines>
         <div 
           styleName="auth-error"
           styleName={(loginError ? 'error-shown' : 'error-hidden')}
