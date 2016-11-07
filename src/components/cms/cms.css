@@ -1,15 +1,61 @@
 @import "colors.css";
 @import "media-queries.css";
 
-.page-title {
-  font-family: 'Playfair Display';
+.markdown-content { 
+  font-family: 'Lato';
   text-align: center;
-  font-weight: 400;
-  font-size: 30px;
+  
+  & p {
+    font-weight: 400;
+    text-align: justify;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    line-height: 39px;
+  }
+
+  & h1 {
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    font-size: 27px;
+    letter-spacing: 1.7px;
+  }
+
+  & table {
+    border: 3px solid #212121;
+    margin-top: 40px;
+    margin-bottom: 80px;
+    border-collapse: collapse;
+
+    & thead {
+      font-size: 20px;
+      font-weight: bold;
+      line-height: 40px;
+    }
+
+    & tbody {
+      & tr {
+        padding: 10px;
+        height: 2.5em;
+        border: 1px dotted #212121;
+      }
+    }
+  }
+
+}
+.page-title {
+  font-family: 'Lato';
+  text-align: center;
+  font-weight: 600;
+  font-size: 27px;
+  line-height: 39px;
   letter-spacing: 2.7px;
   margin-top: 60px;
   margin-bottom: 20px;
+  
 }
+
 
 .title-block {
   display: flex;
@@ -85,7 +131,7 @@
     font-size: 41px;
   }
 
-  .page-content {
+  .page-content, .markdown-content {
     padding: 0;
   }
 
@@ -95,14 +141,14 @@
 }
 
 @media (--medium-only) {
-  .page-content {
+  .page-content, .markdown-content {
     lost-column: 5/6;
     lost-offset: -1/12;
   }
 }
 
 @media (--large) {
-  .page-content {
+  .page-content, .markdown-content {
     lost-column: 2/3;
     lost-offset: -1/6;
   }
