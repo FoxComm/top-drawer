@@ -111,30 +111,6 @@ class ProductsList extends React.Component {
       );
     });
 
-    if (!this.props.hasBanners) return items;
-
-    const bannersData = [
-      {
-        styleName: 'banner-sunglasses',
-        header: 'Summer 2016',
-        description: 'Bring on the sun',
-        links: [{to: '/collections/summer2016', text: 'Shop Sunglasses'}],
-      },
-      {
-        styleName: 'banner-eyeglasses',
-        header: 'Summer 2016',
-        description: 'Better to see you with, my dear',
-        links: [{to: '/collections/summer2016', text: 'Shop Eyeglasses'}],
-      },
-    ];
-
-    const banners = bannersData.map((banner, i) => {
-      return <BannerWithImage { ...banner } key={`banner-${i}`}/>;
-    });
-
-    if (items.length > 6) items.splice(6, 0, banners[0]);
-    if (items.length > 13) items.splice(13, 0, banners[1]);
-
     return items;
   }
 

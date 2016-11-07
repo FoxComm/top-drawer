@@ -4,7 +4,6 @@ import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
 
 import Banner from '../../components/banner/banner';
-import Category from './category';
 import styles from './home.css';
 
 
