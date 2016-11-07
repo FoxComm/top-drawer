@@ -27,6 +27,8 @@ import type { CheckoutActions } from './types';
 import * as actions from 'modules/checkout';
 import { EditStages } from 'modules/checkout';
 import { fetch as fetchCart, hideCart } from 'modules/cart';
+import { fetchUser } from 'modules/auth';
+
 
 // paragons
 import { emailIsSet } from 'paragons/auth';
@@ -60,6 +62,10 @@ class Checkout extends Component {
 
     this.checkScroll();
     window.addEventListener('scroll', this.checkScroll);
+
+    if (!this.isEmailSetForCheckout()) {
+      this.props.fetchUser();
+    }
   }
 
   componentWillUnmount() {
@@ -142,17 +148,14 @@ class Checkout extends Component {
   }
 
   @autobind
-  checkAuthAndPlaceOrder() {
+  startShipping() {
+    return this.props.setEditStage(EditStages.SHIPPING);
+  }
+
+  @autobind
+  isEmailSetForCheckout() {
     const user = _.get(this.props, ['auth', 'user'], null);
-    if (emailIsSet(user)) {
-      this.placeOrder();
-    } else {
-      this.performStageTransition('guestAuthInProgress', () => {
-        return Promise.resolve().then(() => {
-          return this.props.setEditStage(EditStages.GUEST_AUTH);
-        });
-      });
-    }
+    return emailIsSet(user);
   }
 
   @autobind
@@ -221,12 +224,12 @@ class Checkout extends Component {
               error={this.errorsFor(EditStages.DELIVERY)}
             />
             <Billing
-              isEditing={props.editStage == EditStages.BILLING}
+              isEditing={!this.isEmailSetForCheckout()}
               editAllowed={props.editStage >= EditStages.BILLING}
               collapsed={!props.isBillingDirty && props.editStage < EditStages.BILLING}
               editAction={this.setBillingState}
               inProgress={this.state.isPerformingCheckout}
-              continueAction={this.checkAuthAndPlaceOrder}
+              continueAction={this.startShipping}
               error={this.errorsFor(EditStages.BILLING)}
               isAddressLoaded={this.props.isAddressLoaded}
             />
@@ -264,4 +267,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { ...actions, fetchCart, hideCart })(Checkout);
+export default connect(mapStateToProps, { ...actions, fetchCart, hideCart, fetchUser })(Checkout);
