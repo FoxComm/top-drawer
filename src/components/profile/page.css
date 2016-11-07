@@ -1,21 +1,23 @@
 
 @import "variables.css";
+@import "colors.css";
 
 .title {
-  font-family: var(--font-playfair);
+  font-family: Lato;
   font-weight: 400;
   font-size: 41px;
-  color: #212121;
+  color: var(--blackish);
   letter-spacing: 2.7px;
   text-align: center;
-  margin: 60px auto;
+  margin-top: 3em;
+  margin-bottom: 60px;
 
   &::after {
     content: "";
     display: block;
     width: 66px;
     height: 2px;
-    background-color: #3E3436;
+    background-color: var(--blackish);
     margin: 20px auto 0 auto;
   }
 }

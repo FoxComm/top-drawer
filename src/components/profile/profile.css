@@ -5,6 +5,7 @@
 
 .profile {
   composes: inner-wrap from "ui/css/layout.css";
+  width: 100%;
 }
 
 .link-button {
