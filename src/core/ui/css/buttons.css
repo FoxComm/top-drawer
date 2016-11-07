@@ -63,9 +63,9 @@
   height: 60px;
   font-size: 16px;
   text-transform: uppercase;
-  border: 2px solid var(--blueish);
-  background-color: var(--blueish);
-  color: #616161;
+  border: 2px solid black;
+  background-color: var(--blackish);
+  color: var(--whitish);
   cursor: pointer;
 
   &:hover {
@@ -73,10 +73,10 @@
   }
 
   &:disabled {
-    background: var(--blueish);
+    background: var(--greyish);
 
     &:hover {
-      background: var(--blueish);
+      background: var(--greyish);
       color: #616161;
     }
   }
