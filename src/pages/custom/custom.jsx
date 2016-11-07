@@ -2,14 +2,53 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import { autobind } from 'core-decorators';
 
 import styles from './custom.css';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import Button from 'ui/buttons';
+import mandrill from 'mandrill-api/mandrill';
 
+type State = {
+  mandrill_client: any
+}
 
 class Custom extends Component { 
+  state: Props;
+  
+  //const mandrill_client = 
+  componentWillMount() {
+    console.log("Our Key:" + process.env.MAILCHIMP_API_KEY);
+    this.setState({
+      mandrill_client: new mandrill.Mandrill(process.env.MAILCHIMP_API_KEY)
+    });
+  }
+
+  @autobind
+  sendCustomEmail() {
+    let message = {
+      "html": "<h2>TopDrawer Custom Sock Request</h2><p>The details are below.</p>",
+      "text": "Top Drawer Custom Sock Request.  The details are below.",
+      "from_email": "marketing.team@topdrawer.com",
+      "to": "adil@adilwali.com"
+    }
+    
+    let async = false;
+    let ip_pool = "Main Pool";
+    let send_at = "example send_at";
+    
+    console.log("WE ARE SENDING!");
+    this.state.mandrill_client.messages.send({
+      "message": message, 
+      "async": async
+    }, function(result) {
+      console.log(result);
+    }, function(e) {
+      console.log('A mandrill error occured:' + e.name + ' - ' + e.message);
+    })
+  }
+
   get topBanner(): HTMLElement {
     return (
       <div styleName="custom-banner">
@@ -70,7 +109,7 @@ class Custom extends Component {
               />
             </FormField>
             <div styleName="submit-container">
-              <Button styleName="custom-contact-submit" type="submit">SUBMIT</Button>
+              <Button styleName="custom-contact-submit" type="submit" onClick={this.sendCustomEmail}>SUBMIT</Button>
             </div>
           </Form>
         </div>

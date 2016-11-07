@@ -28,7 +28,11 @@ export default class App extends KoaApp {
   }
 
   start() {
+    if (process.env.MAILCHIMP_API_KEY === undefined) {
+      throw new Error(`Can't load MAILCHIMP_API_KEY from environment.`);
+    }
     const port = process.env.LISTEN_PORT ? Number(process.env.LISTEN_PORT) : 4045;
+
 
     this.listen(port);
     console.info(`Listening on port ${port}`);
