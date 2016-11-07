@@ -6,6 +6,22 @@ import type { HTMLElement } from 'types';
 import styles from './social.css';
 
 class Social extends Component { 
+
+  componentDidMount()  {
+    //TODO: Examine a better way to insert this script.  This is hacky. 
+    window._mpi_user = 'marketingteam';
+
+    var miappi = document.createElement('script');
+    miappi.type = 'text/javascript';
+    miappi.async = true;
+    miappi.id = '_mpi_js_embed_script';
+    miappi.src = '//embed.miappi.com/embed.js';
+    var script = document.getElementsByTagName('script')[0];
+    script.parentNode.insertBefore(miappi,script);
+  }
+
+
+  
   get topBanner(): HTMLElement {
     return (
       <div styleName="social-banner">
@@ -18,9 +34,7 @@ class Social extends Component {
 
   get socialHub(): HTMLElement {
     return (
-      <div styleName="social-hub">
-        <div data-fsid="h.5814fb60fd0e4d010043c1f6" data-width="100%" data-height="738px"></div>
-        <script async src="https://4screens.net/4screens-service-loader.js"></script>
+      <div id="miappi-frame" styleName="social-hub">
       </div>
     );
   }
@@ -30,6 +44,7 @@ class Social extends Component {
       <div>
         {this.topBanner}
         {this.socialHub}
+        {this.embedScript}
       </div>
     );
   }

@@ -126,7 +126,7 @@
     border-color: var(--whitish);
 
     &:hover {
-      border-color: #C6BFBF;
+      border-color: var(--light-blackish);
     }
 
     &:focus {

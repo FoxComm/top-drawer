@@ -85,7 +85,7 @@
 .button-secondary {
   min-width: 11.2em;
   height: 3.1em;
-  border: 1px solid #8D757A;
+  border: 1px solid var(--blackish);
   background: var(--color-panels-bg);
   text-transform: uppercase;
   font-size: 13px;
@@ -93,7 +93,7 @@
   color: #212121;
 
   &:hover {
-    background: #8D757A;
+    background: var(--blackish);
     color: var(--base-color)
   }
 }

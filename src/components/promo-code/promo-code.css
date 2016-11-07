@@ -18,17 +18,19 @@
 .submit {
   padding: 0 20px;
   border: none;
+  font-family: Lato;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 14px;
   color: #FFFFFF;
-  background-color: #8D757A;
+  background-color: #363636;
   text-transform: uppercase;
   min-width: 9em;
   height: 36px;
 
   &:hover {
-    background: var(--additional-color);
-    color: #FFFFFF;
+    background: var(--whitish);
+    border: 2px solid black;
+    color: black;
   }
 }
 
