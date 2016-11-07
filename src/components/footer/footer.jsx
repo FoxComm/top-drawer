@@ -7,6 +7,7 @@ import styles from './footer.css';
 
 import Icon from 'ui/icon';
 import { TextInputWithLabel } from 'ui/inputs';
+import { Link } from 'react-router';
 
 const Footer = () : HTMLElement => {
   return (
