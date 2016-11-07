@@ -8,7 +8,6 @@ import marked from 'marked';
 
 // styles
 import styles from './cms.css';
-import ReactMarkdown from 'react-markdown';
 
 type Props = {
   inputPath: string,

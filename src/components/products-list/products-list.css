@@ -62,7 +62,8 @@
 
 .header-classic,
 .header-modern,
-.header-all {
+.header-all, 
+.header-bundles {
   composes: header;
 }
 
@@ -77,15 +78,19 @@
 
 .header {
   &-classic {
-      background-image: url('images/categories/classic-collection-hero-2x.jpg');
-    }
+    background-image: url('images/categories/classic-collection-hero-2x.jpg');
+  }
 
   &-modern {
-      background-image: url('images/categories/modern-collection-hero-2x.jpg');
+    background-image: url('images/categories/modern-collection-hero-2x.jpg');
   }
 
   &-all {
-      background-image: url('images/categories/all-collection-hero-2x.jpg');
+    background-image: url('images/categories/all-collection-hero-2x.jpg');
+  }
+
+  &-bundles {
+    background-image: url('images/categories/bundles-collection-hero-2x.jpg');
   }
 }
 

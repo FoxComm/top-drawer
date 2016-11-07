@@ -51,6 +51,8 @@
 
 .add-to-cart {
   composes: button-primary from "ui/css/buttons.css";
+  background-color: #363636;
+  color: #FFFFFF;
   lost-column: 2/3;
   margin-top: 30px;
 }

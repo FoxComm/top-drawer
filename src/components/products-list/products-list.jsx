@@ -11,8 +11,6 @@ import styles from './products-list.css';
 
 import ListItem from '../products-item/list-item';
 import BannerWithImage from '../banner/bannerWithImage';
-import ScrollToTop from '../scroll-to-top/scroll-to-top';
-import ViewIndicator from '../view-indicator/view-indicator';
 
 type Category = {
   name: string;
@@ -81,6 +79,9 @@ class ProductsList extends React.Component {
       case "modern":
         title = "Modern Collection";
         break;
+      case "bundles":
+        title = "Our Bundles";
+        break;
       case "all":
         title = "Entire Collection";
         break;
@@ -108,30 +109,6 @@ class ProductsList extends React.Component {
       );
     });
 
-    if (!this.props.hasBanners) return items;
-
-    const bannersData = [
-      {
-        styleName: 'banner-sunglasses',
-        header: 'Summer 2016',
-        description: 'Bring on the sun',
-        links: [{to: '/collections/summer2016', text: 'Shop Sunglasses'}],
-      },
-      {
-        styleName: 'banner-eyeglasses',
-        header: 'Summer 2016',
-        description: 'Better to see you with, my dear',
-        links: [{to: '/collections/summer2016', text: 'Shop Eyeglasses'}],
-      },
-    ];
-
-    const banners = bannersData.map((banner, i) => {
-      return <BannerWithImage { ...banner } key={`banner-${i}`}/>;
-    });
-
-    if (items.length > 6) items.splice(6, 0, banners[0]);
-    if (items.length > 13) items.splice(13, 0, banners[1]);
-
     return items;
   }
 
@@ -149,12 +126,6 @@ class ProductsList extends React.Component {
         <div styleName="list">
           {items}
         </div>
-        <ScrollToTop />
-        <ViewIndicator
-          totalItems={totalItems}
-          viewedItems={this.state.viewedItems}
-          countViewedItems={this.countViewedItems}
-        />
       </section>
     );
   }

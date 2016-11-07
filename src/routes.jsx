@@ -4,7 +4,6 @@ import Site from './components/layout/site';
 import StoreFront from './components/layout/storefront';
 import Home from './pages/home/home';
 import Products from './pages/catalog/products';
-import CollectionSummer2016 from './pages/collections/summer2016/collection';
 import Locations from './pages/locations/locations';
 import OurStory from './pages/our-story/our-story';
 import Pdp from './pages/catalog/pdp';
