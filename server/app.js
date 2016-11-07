@@ -17,7 +17,7 @@ export default class App extends KoaApp {
     onerror(this);
 
     this.use(serve('public'))
-      .use(favicon('public/images/top-drawer-favicon.png'))
+      .use(favicon('public/images/home/top-drawer-favicon.png'))
       .use(makeApiProxy())
       .use(makeElasticProxy())
       .use(zipcodes.routes())
