@@ -1,4 +1,3 @@
-# Terms of Service
 ## Overview
 
 

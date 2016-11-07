@@ -1,4 +1,3 @@
-# Shipping & Returns 
 ## Shipping 
 
 We currently ship to all 50 US states. International Top Drawer destinations - we’re sorry we don’t ship to you right now, but we hope to be able to soon.
