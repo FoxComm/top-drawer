@@ -11,7 +11,6 @@ import Pdp from './pages/catalog/pdp';
 import Search from './pages/search/search';
 import Custom from './pages/custom/custom';
 import Social from './pages/social/social';
-import Privacy from './pages/terms/privacy';
 import PrivacyPolicy from './pages/static/privacy-policy';
 import ShippingAndReturns from './pages/static/shipping-and-returns';
 import TermsOfService from './pages/static/terms-of-service';
@@ -28,8 +27,7 @@ const routes = (
       <Route path="/our-story" component={OurStory} />
       <Route path="/custom" component={Custom} />
       <Route path="/social" component={Social} />
-      <Route path="/privacy" component={Privacy} />
-      <Route path="/privacy2" component={PrivacyPolicy} />
+      <Route path="/privacy" component={PrivacyPolicy} />
       <Route path="/terms" component={TermsOfService} name="terms"/>
       <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns"/>
       <Route path=":categoryName" name="category" component={Products} />
