@@ -3,10 +3,15 @@
 
 .wrap {
   height: 100%;
-  display: flex;
-  align-items: center;
-  padding-left: var(--grid-margin);
-  padding-right: var(--grid-margin);
+}
+
+@media (--medium) {
+  .wrap {
+    display: flex;
+    align-items: center;
+    padding-left: var(--grid-margin);
+    padding-right: var(--grid-margin);
+  }
 }
 
 @media (--x-large-viewport-up) {

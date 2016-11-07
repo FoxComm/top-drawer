@@ -1,0 +1,27 @@
+
+@import "variables.css";
+@import "colors.css";
+
+.title {
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 41px;
+  color: var(--blackish);
+  letter-spacing: 2.7px;
+  text-align: center;
+  margin-top: 3em;
+  margin-bottom: 60px;
+
+  &::after {
+    content: "";
+    display: block;
+    width: 66px;
+    height: 2px;
+    background-color: var(--blackish);
+    margin: 20px auto 0 auto;
+  }
+}
+
+.content {
+  composes: wrap from "ui/css/layout.css";
+}

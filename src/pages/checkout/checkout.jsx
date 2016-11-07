@@ -224,23 +224,23 @@ class Checkout extends Component {
               error={this.errorsFor(EditStages.DELIVERY)}
             />
             <Billing
-              isEditing={!this.isEmailSetForCheckout()}
+              isEditing={props.editStage == EditStages.BILLING}
               editAllowed={props.editStage >= EditStages.BILLING}
               collapsed={!props.isBillingDirty && props.editStage < EditStages.BILLING}
               editAction={this.setBillingState}
               inProgress={this.state.isPerformingCheckout}
-              continueAction={this.startShipping}
+              continueAction={this.placeOrder}
               error={this.errorsFor(EditStages.BILLING)}
               isAddressLoaded={this.props.isAddressLoaded}
             />
           </div>
 
           <GuestAuth
-            isEditing={props.editStage == EditStages.GUEST_AUTH}
+            isEditing={!this.isEmailSetForCheckout()}
             inProgress={this.state.guestAuthInProgress}
             error={this.errorsFor(EditStages.GUEST_AUTH)}
-            continueAction={this.placeOrder}
-            checkoutAfterSignIn={this.checkoutAfterSignIn}
+            continueAction={this.startShipping}
+            checkoutAfterSignIn={this.startShipping}
             location={this.props.location}
           />
         </div>
