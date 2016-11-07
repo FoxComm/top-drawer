@@ -77,7 +77,7 @@ class Home extends Component {
       <div styleName="custom-socks-banner">
         <div styleName="wrap">
           <Banner
-            header="Need Some Custom Socks"
+            header="Need Some Custom Socks?"
             description="We can take care of your custom sock and packaging needs!"
             links={[
               {to: '/custom', text: 'Get Started'},
