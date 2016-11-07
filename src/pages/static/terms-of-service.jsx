@@ -5,19 +5,21 @@ import React, { Component } from 'react';
 
 // components
 import PageTitle from '../../components/cms/page-title';
-import PageBody from '../../components/cms/page-body';
+import RenderMarkdown from '../../components/cms/render-markdown';
 import type { HTMLElement } from 'types';
 
 // data
-import data from './terms-of-service-data.json';
+import path from 'path';
 
 class TermsOfService extends Component {
 
   render(): HTMLElement {
+    let input = 'src/pages/static/terms-of-service-markdown.md';
+    const filePath = path.join(process.cwd(), `${input}`);
     return (
       <div>
         <PageTitle title="Terms of Service" />
-        <PageBody blocks={data} />
+        <RenderMarkdown inputPath={filePath} />
       </div>
     );
   }
