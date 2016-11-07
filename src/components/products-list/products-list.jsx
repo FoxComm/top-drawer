@@ -81,6 +81,9 @@ class ProductsList extends React.Component {
       case "modern":
         title = "Modern Collection";
         break;
+      case "bundles":
+        title = "Our Bundles";
+        break;
       case "all":
         title = "Entire Collection";
         break;
