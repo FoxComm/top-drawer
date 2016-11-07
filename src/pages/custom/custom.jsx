@@ -70,7 +70,7 @@ class Custom extends Component {
               />
             </FormField>
             <div styleName="submit-container">
-              <Button styleName="custom-contact-submit" type="submit">SUBMIT</Button>
+              <a styleName="custom-contact-submit" href="mailto:custom@topdrawer.com">SUBMIT</a>
             </div>
           </Form>
         </div>
