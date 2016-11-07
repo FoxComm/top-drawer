@@ -70,6 +70,7 @@ class Navigation extends React.Component {
           <ul>
             <li><a onClick={() => this.onClick('classic')}>CLASSIC</a></li>
             <li><a onClick={() => this.onClick('modern')}>MODERN</a></li>
+            <li><a onClick={() => this.onClick('bundles')}>BUNDLES</a></li>
           </ul>
         </li>
       );
