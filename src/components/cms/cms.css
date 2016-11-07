@@ -3,7 +3,11 @@
 
 .markdown-content { 
   font-family: 'Lato';
-  text-align: center;
+  font-weight: 400;
+  text-align: justify;
+  font-size: 17px;
+  letter-spacing: 0.02em;
+  line-height: 39px;
   
   & p {
     font-weight: 400;
@@ -20,6 +24,23 @@
     font-weight: 500;
     font-size: 27px;
     letter-spacing: 1.7px;
+  }
+
+  & ul {
+    list-style-type: circle;
+    list-style-position: inside;
+    line-height: 39px;
+    text-align: justify;
+  }
+
+  & ol { 
+    line-height: 39px;
+    text-align: justify;
+    padding-left: 1em;
+
+    & li {
+      padding-left: 1em;
+    }
   }
 
   & table {
@@ -65,6 +86,7 @@
   margin-bottom: 80px;
   padding-left: 10px;
   padding-right: 10px;
+  margin-top: 100px;
 }
 
 .divider {
