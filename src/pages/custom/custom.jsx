@@ -8,45 +8,33 @@ import styles from './custom.css';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import Button from 'ui/buttons';
-import mandrill from 'mandrill-api/mandrill';
+import { api } from 'lib/api';
 
 type State = {
-  mandrill_client: any
+  name: string,
+  email: string,
+  message: string,
 }
 
 class Custom extends Component { 
-  state: Props;
-  
-  //const mandrill_client = 
-  componentWillMount() {
-    console.log("Our Key:" + process.env.MAILCHIMP_API_KEY);
-    this.setState({
-      mandrill_client: new mandrill.Mandrill(process.env.MAILCHIMP_API_KEY)
-    });
-  }
+  state: State = {
+    name: '',
+    email: '',
+    message: '',
+  };
 
   @autobind
   sendCustomEmail() {
-    let message = {
-      "html": "<h2>TopDrawer Custom Sock Request</h2><p>The details are below.</p>",
-      "text": "Top Drawer Custom Sock Request.  The details are below.",
-      "from_email": "marketing.team@topdrawer.com",
-      "to": "adil@adilwali.com"
-    }
-    
-    let async = false;
-    let ip_pool = "Main Pool";
-    let send_at = "example send_at";
-    
-    console.log("WE ARE SENDING!");
-    this.state.mandrill_client.messages.send({
-      "message": message, 
-      "async": async
-    }, function(result) {
-      console.log(result);
-    }, function(e) {
-      console.log('A mandrill error occured:' + e.name + ' - ' + e.message);
-    })
+    const message = {
+      'html': this.state.message,
+      'from_email': this.state.email,
+      'to': [{
+        email: 'adil@adilwali.com',
+        name: 'Adil Wali'
+      }]
+    };
+
+    api.post('/node/mandrill', { message });
   }
 
   get topBanner(): HTMLElement {
@@ -78,6 +66,14 @@ class Custom extends Component {
     );
   }
 
+  @autobind
+  handleFormChange(event) {
+    const { target } = event;
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+
   get reachOut(): HTMLElement {
     return (
       <div styleName="reach-out">
@@ -92,24 +88,24 @@ class Custom extends Component {
           </p>
         </div>
         <div styleName="custom-contact-form-container">
-          <Form styleName="custom-contact-form">
-            <FormField styleName="text-field">
-              <TextInput required
+          <Form styleName="custom-contact-form" onSubmit={this.sendCustomEmail} onChange={this.handleFormChange}>
+            <FormField styleName="text-field" required>
+              <TextInput
                 name="name" placeholder="FIRST & LAST NAME" 
               />
             </FormField>
-            <FormField styleName="text-field">
-              <TextInput required
+            <FormField styleName="text-field" required>
+              <TextInput
                 name="email" placeholder="EMAIL ADDRESS" 
               />
             </FormField>        
-            <FormField styleName="text-field">
-              <textarea required
+            <FormField styleName="text-field" required>
+              <textarea
                 name="message" placeholder="TELL US ABOUT YOUR CUSTOM SOCK NEEDS!" 
               />
             </FormField>
             <div styleName="submit-container">
-              <Button styleName="custom-contact-submit" type="submit" onClick={this.sendCustomEmail}>SUBMIT</Button>
+              <Button styleName="custom-contact-submit" type="submit">SUBMIT</Button>
             </div>
           </Form>
         </div>
