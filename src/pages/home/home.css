@@ -34,7 +34,7 @@
   padding-top: 100px;
 
   & .dc-logo {
-    background: url(/images/home/top-icon-logo.svg);
+    background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Top+Icon+Logo.svg');
     background-repeat: no-repeat;
     width: 60px;
     height: 33px;
@@ -86,7 +86,7 @@
 
 .bundles-banner {
   composes: centered-banner;
-  background: url('/images/home/bundles-2x.png');
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Bundle_New_2x.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: left center;
@@ -110,7 +110,7 @@
 
 .custom-socks-banner {
   composes: centered-banner;
-  background: url('/images/home/yarn-filtered-2x.jpg');
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_Filtered_2x.jpg');
   background-size: cover;
   background-repeat: no-repeat;
 }
