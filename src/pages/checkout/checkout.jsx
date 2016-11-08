@@ -259,7 +259,7 @@ class Checkout extends Component {
                 shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
                 updateAddress={this.props.updateAddress}
                 isAddressLoaded={this.props.isAddressLoaded}
-              auth={this.props.auth}
+                auth={this.props.auth}
               />
               <Delivery
                 isEditing={props.editStage == EditStages.DELIVERY}
@@ -281,21 +281,22 @@ class Checkout extends Component {
                 inProgress={this.state.isPerformingCheckout}
                 continueAction={this.placeOrder}
                 error={this.errorsFor(EditStages.BILLING)}
-              isAddressLoaded={props.isAddressLoaded}
-              paymentMethods={_.get(props.cart, 'paymentMethods', [])}
-              proceedCreditCard={this.proceedCreditCard}
-              performStageTransition={this.performStageTransition}
+                isAddressLoaded={props.isAddressLoaded}
+                paymentMethods={_.get(props.cart, 'paymentMethods', [])}
+                proceedCreditCard={this.proceedCreditCard}
+                performStageTransition={this.performStageTransition}
+              />
+            </div>
+
+            <GuestAuth
+              isEditing={!this.isEmailSetForCheckout()}
+              inProgress={this.state.guestAuthInProgress}
+              error={this.state.guestAuthInProgressError}
+              continueAction={this.startShipping}
+              checkoutAfterSignIn={this.startShipping}
+              location={this.props.location}
             />
           </div>
-
-          <GuestAuth
-            isEditing={!this.isEmailSetForCheckout()}
-            inProgress={this.state.guestAuthInProgress}
-            error={this.state.guestAuthInProgressError}
-            continueAction={this.startShipping}
-            checkoutAfterSignIn={this.startShipping}
-            location={this.props.location}
-          />
         </div>
       </section>
     );
