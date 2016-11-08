@@ -15,7 +15,7 @@
 .about-us-banner {
   composes: banner;
   height: 400px;
-  background-image: url('images/our-story/our-story-hero-2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Our+Story/Our_Story_Hero_2x.jpg');
   padding-top: 150px;
 }
 
@@ -30,7 +30,7 @@
 .be-bold-banner {
   composes: banner;
   height: 640px;
-  background-image: url('images/our-story/be-bold-2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Our+Story/Bold_Polished_White_2x.jpg');
 
   & article {
     lost-column: 1/3;
@@ -50,7 +50,7 @@
 .trusted-manufacturer {
   composes: banner;
   height: 640px;
-  background-image: url('images/our-story/trusted-manufacturer-2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Our+Story/Manufacturer_2x.jpg');
   background-position: 50% 0;
 
   & article {
