@@ -100,9 +100,14 @@
 
 @media (--large) {
   .content {
+    margin-top: 375px;
+    display: flex;
+    flex-direction: column;
     lost-column: 10/12;
     lost-offset: -1/12;
-    margin-top: 375px;
+  }
+
+  .body {
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;

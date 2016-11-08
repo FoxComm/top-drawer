@@ -14,6 +14,7 @@ import Billing from './03-billing/billing';
 import GuestAuth from './05-guest-auth/guest-auth';
 import OrderSummary from '../../components/order-summary/order-summary';
 import Header from './header';
+import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 // styles
 import styles from './checkout.css';
@@ -42,6 +43,11 @@ type Props = CheckoutState & CheckoutActions & {
   cart: Object,
   isAddressLoaded: boolean,
   location: Object,
+
+  deliveryInProgressError: boolean,
+  shippingInProgressError: boolean,
+  guestAuthInProgressError: boolean,
+  isPerformingCheckoutError: boolean,
 };
 
 class Checkout extends Component {
@@ -53,6 +59,12 @@ class Checkout extends Component {
     shippingInProgress: false,
     guestAuthInProgress: false,
     error: null,
+
+    deliveryInProgressError: null,
+    shippingInProgressError: null,
+    guestAuthInProgressError: null,
+    isPerformingCheckoutError: null,
+
     isScrolled: false,
   };
 
@@ -81,10 +93,18 @@ class Checkout extends Component {
   };
 
   performStageTransition(name: string, perform: () => PromiseType): PromiseType {
+    const errorName = `${name}Error`;
+    const clearError = {
+      deliveryInProgressError: null,
+      shippingInProgressError: null,
+      guestAuthInProgressError: null,
+      isPerformingCheckoutError: null,
+    };
+
     return new Promise(resolve => {
       this.setState({
+        ...clearError,
         [name]: true,
-        error: null,
       }, () => {
         perform().then(
           () => {
@@ -95,7 +115,7 @@ class Checkout extends Component {
           err => {
             this.setState({
               [name]: false,
-              error: err,
+              [errorName]: err,
             }, resolve);
           }
         );
@@ -136,10 +156,10 @@ class Checkout extends Component {
     this.performStageTransition('isPerformingCheckout', () => {
       return this.props.chooseCreditCard()
         .then(() => {
-          return this.props.setEditStage(EditStages.FINISHED);
+          return this.props.checkout();
         })
         .then(() => {
-          return this.props.checkout();
+          return this.props.setEditStage(EditStages.FINISHED);
         })
         .then(() => {
           browserHistory.push('/checkout/done');
@@ -171,7 +191,8 @@ class Checkout extends Component {
 
   errorsFor(stage) {
     if (this.props.editStage === stage) {
-      return this.state.error;
+      const name = `${name}Error`;
+      return _.get(this.state, name);
     }
   }
 
@@ -193,56 +214,59 @@ class Checkout extends Component {
         />
 
         <div styleName="content">
-          <div styleName="summary">
-            <OrderSummary
-              isScrolled={this.state.isScrolled}
-              styleName="summary-content"
-              { ...props.cart }
-            />
-          </div>
+          <ErrorAlerts error={this.state.isPerformingCheckoutError} />
+          <div styleName="body">
+            <div styleName="summary">
+              <OrderSummary
+                isScrolled={this.state.isScrolled}
+                styleName="summary-content"
+                { ...props.cart }
+              />
+            </div>
 
-          <div styleName="forms">
-            <Shipping
-              isEditing={props.editStage == EditStages.SHIPPING}
-              collapsed={props.editStage < EditStages.SHIPPING}
-              editAction={this.setShippingStage}
-              inProgress={this.state.shippingInProgress}
-              continueAction={this.saveShippingAddress}
-              error={this.errorsFor(EditStages.SHIPPING)}
-              addresses={this.props.addresses}
-              fetchAddresses={this.props.fetchAddresses}
-              shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
-              updateAddress={this.props.updateAddress}
-              isAddressLoaded={this.props.isAddressLoaded}
-            />
-            <Delivery
-              isEditing={props.editStage == EditStages.DELIVERY}
-              editAllowed={props.editStage >= EditStages.DELIVERY}
-              collapsed={!props.isDeliveryDirty && props.editStage < EditStages.DELIVERY}
-              editAction={this.setDeliveryStage}
-              shippingMethods={props.shippingMethods}
-              selectedShippingMethod={props.cart.shippingMethod}
-              fetchShippingMethods={props.fetchShippingMethods}
-              inProgress={this.state.deliveryInProgress}
-              continueAction={this.setBillingState}
-              error={this.errorsFor(EditStages.DELIVERY)}
-            />
-            <Billing
-              isEditing={props.editStage == EditStages.BILLING}
-              editAllowed={props.editStage >= EditStages.BILLING}
-              collapsed={!props.isBillingDirty && props.editStage < EditStages.BILLING}
-              editAction={this.setBillingState}
-              inProgress={this.state.isPerformingCheckout}
-              continueAction={this.placeOrder}
-              error={this.errorsFor(EditStages.BILLING)}
-              isAddressLoaded={this.props.isAddressLoaded}
-            />
+            <div styleName="forms">
+              <Shipping
+                isEditing={props.editStage == EditStages.SHIPPING}
+                collapsed={props.editStage < EditStages.SHIPPING}
+                editAction={this.setShippingStage}
+                inProgress={this.state.shippingInProgress}
+                continueAction={this.saveShippingAddress}
+                error={this.state.shippingInProgressError}
+                addresses={this.props.addresses}
+                fetchAddresses={this.props.fetchAddresses}
+                shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
+                updateAddress={this.props.updateAddress}
+                isAddressLoaded={this.props.isAddressLoaded}
+              />
+              <Delivery
+                isEditing={props.editStage == EditStages.DELIVERY}
+                editAllowed={props.editStage >= EditStages.DELIVERY}
+                collapsed={!props.isDeliveryDirty && props.editStage < EditStages.DELIVERY}
+                editAction={this.setDeliveryStage}
+                shippingMethods={props.shippingMethods}
+                selectedShippingMethod={props.cart.shippingMethod}
+                fetchShippingMethods={props.fetchShippingMethods}
+                inProgress={this.state.deliveryInProgress}
+                continueAction={this.setBillingState}
+                error={this.state.deliveryInProgressError}
+              />
+              <Billing
+                isEditing={props.editStage == EditStages.BILLING}
+                editAllowed={props.editStage >= EditStages.BILLING}
+                collapsed={!props.isBillingDirty && props.editStage < EditStages.BILLING}
+                editAction={this.setBillingState}
+                inProgress={this.state.isPerformingCheckout}
+                continueAction={this.placeOrder}
+                error={this.errorsFor(EditStages.BILLING)}
+                isAddressLoaded={this.props.isAddressLoaded}
+              />
+            </div>
           </div>
 
           <GuestAuth
             isEditing={!this.isEmailSetForCheckout()}
             inProgress={this.state.guestAuthInProgress}
-            error={this.errorsFor(EditStages.GUEST_AUTH)}
+            error={this.state.guestAuthInProgressError}
             continueAction={this.startShipping}
             checkoutAfterSignIn={this.startShipping}
             location={this.props.location}
@@ -268,6 +292,7 @@ function mapStateToProps(state) {
     auth: state.auth,
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
+    checkoutError: state.checkoutError,
   };
 }
 
