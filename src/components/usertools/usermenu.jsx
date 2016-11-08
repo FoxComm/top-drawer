@@ -45,6 +45,12 @@ class UserMenu extends Component {
     return (
       <ul styleName="menu">
         <li>
+          <a 
+            styleName="menu-link"
+            href="/profile"
+            >{t('My Orders')}</a>
+        </li>
+        <li>
           <a
             styleName="menu-link"
             href="/logout"

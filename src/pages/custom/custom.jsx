@@ -105,7 +105,7 @@ class Custom extends Component {
               />
             </FormField>
             <div styleName="submit-container">
-              <Button styleName="custom-contact-submit" type="submit">SUBMIT</Button>
+              <Button styleName="custom-contact-submit" type="submit">REACH OUT</Button>              
             </div>
           </Form>
         </div>

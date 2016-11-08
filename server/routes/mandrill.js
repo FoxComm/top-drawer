@@ -5,9 +5,11 @@ function *sendMessage(mandrillClient, params) {
   return new Promise((resolve, reject) => {
     mandrillClient.messages.send(params, result => {
       resolve(result);
+      console.log("RESOLVED : " + result);
     }, error => {
       const err = new Error(error.message || error);
       reject(err);
+      console.log("REJECTED :" + error.message);
     });
   });
 }

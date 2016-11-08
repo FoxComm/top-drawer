@@ -39,7 +39,7 @@
 }
 
 .cart-header {
-  background: var(--additional-color);
+  background: var(--blackish);
   color: var(--whitish);
   width: 100%;
   height: var(--cart-header-height);
@@ -64,6 +64,9 @@
 .header-text {
   flex-grow: 1;
   margin-right: 60px; /* 20px paddings + 20px icon width */
+  font-family: Lato;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .checkout-button {
@@ -104,12 +107,12 @@
 }
 
 .coupon {
-  padding: 10px 0;
+  padding: 20px 0;
   border-top: 1px solid var(--border-color);
 
   & input {
-    background-color: #F4F2F2;
-    border-color: #F4F2F2;
+    background-color: #F4F4F4;
+    border-color: #F4F4F4;
   }
 }
 
@@ -120,10 +123,12 @@
   flex-shrink: 0;
   width: 100%;
   height: 40px;
+  font-family: Lato;
+  font-size: 15px;
   line-height: 17px;
   font-weight: 400;
   font-size: 13px;
-  color: #212121;
+  color: #363636;
   background: var(--whitish);
   border-top: 1px solid var(--border-color);
 }

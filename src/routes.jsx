@@ -12,7 +12,14 @@ import Custom from './pages/custom/custom';
 import Social from './pages/social/social';
 import PrivacyPolicy from './pages/static/privacy-policy';
 import ShippingAndReturns from './pages/static/shipping-and-returns';
+import Profile from './components/profile/profile';
+import ProfilePage from './components/profile/page';
+import ProfileUnit from './components/profile/profile-unit';
+import EditName from './components/profile/blocks/edit-name';
+import EditEmail from './components/profile/blocks/edit-email';
 import TermsOfService from './pages/static/terms-of-service';
+import ChangePassword from './components/profile/blocks/change-password';
+import Order from './components/profile/blocks/order';
 
 import Checkout from './pages/checkout/checkout';
 import OrderPlaced from './pages/checkout/04-order-placed/order-placed';
@@ -22,7 +29,15 @@ const routes = (
     <Route path="/checkout" component={Checkout} />
     <Route component={StoreFront}>
       <IndexRoute component={Home} />
-      <Route path="/locations" component={Locations} />
+      <Route path="/profile" component={ProfilePage}>
+        <IndexRoute component={Profile} />
+        <Route component={ProfileUnit}>
+          <Route path="name" component={EditName} />
+          <Route path="email" component={EditEmail} />
+          <Route path="password" component={ChangePassword} />
+          <Route path="orders/:referenceNumber" component={Order} />
+        </Route>
+      </Route>
       <Route path="/our-story" component={OurStory} />
       <Route path="/custom" component={Custom} />
       <Route path="/social" component={Social} />

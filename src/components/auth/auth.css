@@ -3,13 +3,17 @@
 
 .auth-block {
   position: relative;
-  z-index: 2;
+  z-index: 15;
   text-align: center;
   margin-top: 44px;
   margin-bottom: 20px;
 
   lost-column: 3/11;
   lost-offset: -4/11;
+
+  & :global(.fc-errors) {
+    margin-bottom: 10px;
+  }
 }
 
 .logo {
@@ -68,13 +72,43 @@
   height: 0px;
 }
 
+.form-field-input {
+  composes: text-input from "ui/css/input.css";
+  height: 50px;
+  width: 100%;
+  font-weight: 400;
+  color:  var(--input-text-color);
+  background: #F4F4F4;
+
+  &:focus, &:hover {
+    border-color: var(--input-text-color);
+  }
+
+  &::-webkit-input-placeholder { color: var(--input-text-color); }
+  &::-moz-placeholder { color: var(--input-text-color); }
+  &:-moz-placeholder { color: var(--input-text-color); }
+  &:-ms-input-placeholder { color: var(--input-text-color); }
+}
 
 .form-field {
   width: 100%;
   margin-bottom: 10px;
 
   & > input {
+    height: 50px;
     width: 100%;
+    font-weight: 400;
+    color:  var(--input-text-color);
+    background: #F4F4F4;
+
+    &:focus, &:hover {
+      border-color: var(--input-text-color);
+    }
+
+    &::-webkit-input-placeholder { color: var(--input-text-color); }
+    &::-moz-placeholder { color: var(--input-text-color); }
+    &:-moz-placeholder { color: var(--input-text-color); }
+    &:-ms-input-placeholder { color: var(--input-text-color); }
   }
 }
 
@@ -87,6 +121,7 @@
   margin-top: 19px;
   font-size: 15px;
   line-height: 18px;
+  text-align: center;
 }
 
 .top-message {
@@ -107,6 +142,13 @@
 
 .restore-link {
   color: var(--greyish);
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+
+  &:hover {
+    color: var(--blackish);
+  }
 }
 
 .link {

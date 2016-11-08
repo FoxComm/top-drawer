@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 
 import Guest from '../../../components/auth/guest';
 import Login from '../../../components/auth/login';
+import { Link } from 'react-router';
 
 import * as checkoutActions from 'modules/checkout';
 import * as authActions from 'modules/auth';
@@ -44,25 +45,32 @@ class GuestAuth extends Component {
 
     return (
       <article styleName="guest-auth">
-        <div styleName="auth-block">
-          <header styleName="header">SIGN IN & CHECKOUT</header>
-          <div styleName="form">
-            <div styleName="form-content">
-              <Login
-                getPath={this.getPath}
-                displayTitle={false}
-                onGuestCheckout={this.onCheckoutAfterAuth}
-              />
-            </div>
-          </div>
+        <div styleName="home">
+          <Link to="/">
+            <img styleName="logo" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
+          </Link>
         </div>
-        <div styleName="auth-block">
-          <header styleName="header">CHECKOUT AS GUEST</header>
-          <div styleName="form">
-            <div styleName="form-content">
-              <Guest onGuestCheckout={this.onGuestCheckout}/>
+        <div styleName="forms">
+          <div styleName="auth-block">
+            <header styleName="header">SIGN IN & CHECKOUT</header>
+            <div styleName="form">
+              <div styleName="form-content">
+                <Login
+                  getPath={this.getPath}
+                  displayTitle={false}
+                  onGuestCheckout={this.onCheckoutAfterAuth}
+                />
+              </div>
             </div>
           </div>
+          <div styleName="auth-block">
+            <header styleName="header">CHECKOUT AS GUEST</header>
+            <div styleName="form">
+              <div styleName="form-content">
+                <Guest onGuestCheckout={this.onGuestCheckout}/>
+              </div>
+            </div>
+        </div>
         </div>
       </article>
     );

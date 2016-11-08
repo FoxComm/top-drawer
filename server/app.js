@@ -9,8 +9,14 @@ import zipcodes from './routes/zipcodes';
 import loadI18n from './i18n';
 import verifyJwt from './verify-jwt';
 import onerror from 'koa-onerror';
+import moment from 'moment';
+import chalk from 'chalk';
 import bodyParser from 'koa-bodyparser';
 import mandrillRouter from './routes/mandrill';
+
+function timestamp() {
+  return moment().format('D MMM H:mm:ss');
+}
 
 export default class App extends KoaApp {
 
@@ -36,10 +42,22 @@ export default class App extends KoaApp {
   }
 
   start() {
-    const port = process.env.LISTEN_PORT ? Number(process.env.LISTEN_PORT) : 4045;
+    this.listenPort = process.env.LISTEN_PORT ? Number(process.env.LISTEN_PORT) : 4045;
 
+    this.listen(this.listenPort);
+    this.logInfo();
+  }
 
-    this.listen(port);
-    console.info(`Listening on port ${port}`);
+  logInfo() {
+    const description = require('../package.json').description;
+    /* eslint-disable no-console-log/no-console-log */
+    console.log(
+      `%s: %s ${chalk.blue('%s')} ${chalk.green('api: %s')} ${chalk.red('development url: http://localhost:%d')}`,
+      timestamp(),
+      description,
+      process.env.NODE_ENV,
+      process.env.API_URL,
+      this.listenPort
+    );
   }
 }
