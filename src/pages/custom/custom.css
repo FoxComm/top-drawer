@@ -11,7 +11,7 @@
 .custom-banner {
   composes: banner;
   height: 400px;
-  background-image: url('images/custom/custom-hero-filtered-2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Custom/Custom_Hero_Filtered_2x.jpg');
   padding-top: 150px;
 }
 
@@ -40,7 +40,7 @@
   height: 819px;
   background-color: #F4F4F4;
   padding-top: 100px;
-  background-image: url(/images/custom/reach-out-2x.png);
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Custom/Reach_Out_2x.png');
   background-repeat: no-repeat;
   background-position: 98% 0%;
   background-size: 300px 425px;
