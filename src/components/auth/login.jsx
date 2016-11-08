@@ -59,7 +59,7 @@ class Login extends Component {
   static defaultProps = {
     displayTitle: true,
   };
-  
+
   @autobind
   onChangeEmail({target}: any) {
     this.setState({
@@ -67,7 +67,7 @@ class Login extends Component {
       emailError: false,
     });
   }
-  
+
   @autobind
   onChangePassword({target}: any) {
     this.setState({
@@ -138,7 +138,7 @@ class Login extends Component {
     return (
       <div>
         {this.title}
-        <div 
+        <div
           styleName="auth-error"
           styleName={(loginError ? 'error-shown' : 'error-hidden')}
         >
@@ -146,21 +146,22 @@ class Login extends Component {
         </div>
         <Form onSubmit={this.authenticate}>
           <FormField key="email" styleName="form-field" error={emailError}>
-            <TextInput 
-              required 
-              placeholder={t('EMAIL')} 
-              value={email} 
-              type="email" 
-              onChange={this.onChangeEmail} 
+            <TextInput
+              required
+              placeholder={t('EMAIL')}
+              value={email}
+              type="email"
+              onChange={this.onChangeEmail}
             />
           </FormField>
           <FormField key="passwd" styleName="form-field" error={passwordError}>
             <TextInputWithLabel
               required
+              styleName="form-field-input"
               placeholder="PASSWORD"
               label={!password && restoreLink}
-              value={password} 
-              onChange={this.onChangePassword} 
+              value={password}
+              onChange={this.onChangePassword}
               type="password"
             />
           </FormField>

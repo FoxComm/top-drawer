@@ -1,14 +1,14 @@
-/* @flow */ 
+/* @flow */
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
 
 import styles from './social.css';
 
-class Social extends Component { 
+class Social extends Component {
 
   componentDidMount()  {
-    //TODO: Examine a better way to insert this script.  This is hacky. 
+    //TODO: Examine a better way to insert this script.  This is hacky.
     window._mpi_user = 'marketingteam';
 
     var miappi = document.createElement('script');
@@ -21,7 +21,7 @@ class Social extends Component {
   }
 
 
-  
+
   get topBanner(): HTMLElement {
     return (
       <div styleName="social-banner">
@@ -37,6 +37,11 @@ class Social extends Component {
       <div id="miappi-frame" styleName="social-hub">
       </div>
     );
+  }
+
+  // for flow check to pass
+  get embedScript(): ?HTMLElement {
+    return null;
   }
 
   render(): HTMLElement {
