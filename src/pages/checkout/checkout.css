@@ -100,7 +100,7 @@
 
 @media (--large) {
   .content {
-    margin-top: 375px;
+    margin-top: 355px;
     display: flex;
     flex-direction: column;
     lost-column: 10/12;
@@ -108,10 +108,12 @@
   }
 
   .body {
+    margin-top: 20px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-between;
   }
+
 
   .summary {
     lost-column: 4/10;
