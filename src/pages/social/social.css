@@ -10,7 +10,7 @@
 .social-banner {
   composes: banner;
   height: 400px;
-  background-image: url('images/social/social-hero-2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/%23GETTOPDRAWER/gettopdrawer_Hero_2x.jpg');
   padding-top: 150px;
 }
 
