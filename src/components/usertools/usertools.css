@@ -102,7 +102,7 @@
   }
 }
 
-@media (--small-only), (--medium-only) {
+@media (--small-only) {
   .login,
   .menu {
     display: none;
