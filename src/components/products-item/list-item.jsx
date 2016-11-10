@@ -39,7 +39,7 @@ class ListItem extends React.Component {
 
     const image = previewImage
       ? <img src={previewImage} styleName="preview-image" />
-      : null;
+      : <div styleName="image-placeholder"><span>Image coming soon!</span></div>;;
 
     const click = () => browserHistory.push(`/products/${productId}`);
 
