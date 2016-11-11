@@ -7,6 +7,7 @@ import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
 import Currency from 'ui/currency';
+import ImagePlaceholder from './image-placeholder';
 
 type Image = {
   alt?: string,
@@ -39,7 +40,7 @@ class ListItem extends React.Component {
 
     const image = previewImage
       ? <img src={previewImage} styleName="preview-image" />
-      : null;
+      : <ImagePlaceholder/>;
 
     const click = () => browserHistory.push(`/products/${productId}`);
 
