@@ -3,3 +3,11 @@ public/app.css
 public/app.js
 public_key.pem
 build/
+
+# IDE
+*.idea
+*.iml
+
+# Environment
+.env
+.env.local
