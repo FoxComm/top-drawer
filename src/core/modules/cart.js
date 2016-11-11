@@ -179,6 +179,16 @@ function updateCartState(state, cart) {
   };
 }
 
+export function mergeCartState(skusA, skusB) {
+  return (dispatch, getState) => {
+    const state = getState();
+    let cart = _.get(state, ['cart'], {});
+    cart.lineItems.skus = _.concat(skusA, skusB);
+    cart.skus = cart.lineItems.skus;
+    updateCartState(getState(), cart);
+  };
+}
+
 const reducer = createReducer({
   [toggleCart]: state => {
     const currentState = _.get(state, 'isVisible', false);

@@ -4,6 +4,10 @@ public/app.js
 public_key.pem
 build/
 
+# Logs
+logs
+*.log
+
 # IDE
 *.idea
 *.iml
