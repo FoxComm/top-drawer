@@ -31,7 +31,6 @@ import styles from './billing.css';
 // actions
 import * as cartActions from 'modules/cart';
 import * as checkoutActions from 'modules/checkout';
-import { AddressKind } from 'modules/checkout';
 
 // types
 import type { CreditCardType, CheckoutActions } from '../types';
@@ -119,7 +118,6 @@ class EditBilling extends Component {
     return (
       <EditAddress
         {...this.props}
-        addressKind={AddressKind.BILLING}
         address={this.props.data.address}
       />
     );
