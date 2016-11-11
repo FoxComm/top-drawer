@@ -15,7 +15,7 @@ import WrapToLines from 'ui/wrap-to-lines';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart, saveLineItems } from 'modules/cart';
+import { fetch as fetchCart, saveLineItems, mergeCartState } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 
@@ -36,6 +36,7 @@ type Props = Localized & {
   authenticate: Function,
   fetchCart: Function,
   saveLineItems: Function,
+  mergeCartState: Function,
   onGuestCheckout?: Function,
   displayTitle: boolean,
 };
@@ -83,18 +84,11 @@ class Login extends Component {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      const lineItems = _.get(this.props, 'cart.lineItems', []);
-      if (_.isEmpty(lineItems)) {
-        this.props.fetchCart();
-      } else {
-        this.props.saveLineItems();
-      }
+      const merge = this.props.onGuestCheckout == null;
+      this.props.saveLineItems(merge);
       browserHistory.push(this.props.getPath());
-      let emailError = false;
-      let passwordError = false;
-      let loginError = false;
     }, () => {
-      this.setState({loginError: 'Email or password is invalid.'});
+      this.setState({error: 'Email or password is invalid'});
     });
 
     if (this.props.onGuestCheckout != null) {
@@ -185,4 +179,5 @@ export default connect(mapState, {
   ...actions,
   fetchCart,
   saveLineItems,
+  mergeCartState
 })(localized(Login));
