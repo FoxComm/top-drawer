@@ -84,26 +84,11 @@ class Login extends Component {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      // Combine guest line items with saved customer cart line items
-      let guestCart = _.get(this.props, 'cart', []);
-
-      (function(that, guestCart) {
-        that.props.fetchCart().then((savedCart) => {
-          // Merge guest cart skus with fetched customer skus
-          that.props.mergeCartState(savedCart.lineItems.skus, guestCart.skus);
-          return that;
-        }).then((that) => {
-          // Re-sync the merged cart to the customer
-          that.props.saveLineItems();
-        });
-      }(this, guestCart));
-
+      const merge = this.props.onGuestCheckout == null;
+      this.props.saveLineItems(merge);
       browserHistory.push(this.props.getPath());
-      let emailError = false;
-      let passwordError = false;
-      let loginError = false;
     }, () => {
-      this.setState({loginError: 'Email or password is invalid.'});
+      this.setState({error: 'Email or password is invalid'});
     });
 
     if (this.props.onGuestCheckout != null) {
