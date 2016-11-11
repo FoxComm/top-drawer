@@ -28,6 +28,7 @@ import Currency from 'ui/currency';
 import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
+import ImagePlaceholder from '../../components/products-item/image-placeholder';
 
 // styles
 import styles from './pdp.css';
@@ -172,6 +173,15 @@ class Pdp extends Component {
       });
   }
 
+  renderGallery() {
+    const { images } = this.product;
+
+    return !_.isEmpty(images)
+      ? <Gallery images={images} />
+      : <ImagePlaceholder />;
+  }
+
+
   render(): HTMLElement {
     const { t, isLoading, isCartLoading, notFound } = this.props;
 
@@ -183,12 +193,12 @@ class Pdp extends Component {
       return <p styleName="not-found">{t('Product not found')}</p>;
     }
 
-    const { title, description, images, currency, price } = this.product;
+    const { title, description, currency, price } = this.product;
 
     return (
       <div styleName="container">
         <div styleName="gallery">
-          <Gallery images={images} />
+          {this.renderGallery()}
         </div>
         <div styleName="details">
           <h1 styleName="name">{title}</h1>

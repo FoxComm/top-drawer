@@ -36,19 +36,6 @@
   height: auto;
 }
 
-.image-placeholder {
-  position: relative;
-  width: 50%;
-  padding: 51.97% 50%;
-  box-sizing: border-box;
-  background: #f4f4f4;
-
-  & > span {
-    position: absolute;
-    transform: translateX(-50%) translatey(-50%);
-  }
-}
-
 .name {
   margin-top: 20px;
 }
