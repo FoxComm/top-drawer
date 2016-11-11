@@ -65,6 +65,7 @@ class Checkout extends Component {
     deliveryInProgressError: null,
     shippingInProgressError: null,
     guestAuthInProgressError: null,
+    isProceedingCardError: null,
     isPerformingCheckoutError: null,
 
     isScrolled: false,
@@ -101,6 +102,7 @@ class Checkout extends Component {
       deliveryInProgressError: null,
       shippingInProgressError: null,
       guestAuthInProgressError: null,
+      isProceedingCardError: null,
       isPerformingCheckoutError: null,
     };
 
@@ -280,7 +282,7 @@ class Checkout extends Component {
                 editAction={this.setBillingState}
                 inProgress={this.state.isPerformingCheckout}
                 continueAction={this.placeOrder}
-                error={this.errorsFor(EditStages.BILLING)}
+                error={this.state.isProceedingCardError}
                 isAddressLoaded={props.isAddressLoaded}
                 paymentMethods={_.get(props.cart, 'paymentMethods', [])}
                 proceedCreditCard={this.proceedCreditCard}
@@ -334,7 +336,6 @@ function mapStateToProps(state) {
     auth: state.auth,
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
-    checkoutError: state.checkoutError,
   };
 }
 
