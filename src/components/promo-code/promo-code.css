@@ -4,6 +4,7 @@
 
 .fieldset {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .code-field {
@@ -33,6 +34,10 @@
     border: 2px solid black;
     color: black;
   }
+}
+
+:global(.fc-errors) {
+  margin-top: 10px;
 }
 
 @media (--small-only) {
