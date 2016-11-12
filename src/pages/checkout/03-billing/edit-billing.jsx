@@ -102,6 +102,11 @@ class EditBilling extends Component {
     this.props.setBillingData('expYear', year);
   }
 
+  @autobind
+  changeDefault(value) {
+    this.props.setBillingData('isDefault', value);
+  }
+
   get billingAddress() {
     const { billingAddressIsSame } = this.state;
 
@@ -207,8 +212,19 @@ class EditBilling extends Component {
     const currentYear = new Date().getFullYear();
     const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
 
+    const checkedDefaultCard = _.get(data, 'isDefault', false);
+
     return (
       <div styleName="edit-card-form">
+        <Checkbox
+            styleName="checkbox-field"
+            name="isDefault"
+            checked={checkedDefaultCard}
+            onChange={({target}) => this.changeDefault(target.checked)}
+            id="set-default-card"
+        >
+          Make this card my default
+        </Checkbox>
          <FormField styleName="text-field">
             <TextInput
               required
