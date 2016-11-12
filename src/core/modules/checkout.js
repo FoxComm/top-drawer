@@ -239,11 +239,8 @@ export function addCreditCard(billingAddressIsSame: boolean): Function {
     const countries = getState().countries.list;
     const address = addressToPayload(billingAddress, countries, billingAddressIsSame);
 
-    //return foxApi.creditCards.create(cardData, address, !billingAddressIsSame);
     return foxApi.creditCards.create(cardData, address, !billingAddressIsSame).then((newCard) => {
-      if (cardData.isDefault) {
-        dispatch(setDefaultCard(newCard.id))
-      }
+      dispatch(setDefaultCard(newCard.id, cardData.isDefault))
     });
   };
 }
@@ -297,9 +294,9 @@ function setEmptyCard() {
   };
 }
 
-function setDefaultCard(id: number): Function {
+function setDefaultCard(id: number, isDefault: boolean): Function {
   return (dispatch) => {
-    return foxApi.creditCards.setAsDefault(id)
+    return foxApi.creditCards.setAsDefault(id, isDefault)
       .then(() => {
         dispatch(fetchCreditCards());
       });
