@@ -36,6 +36,9 @@ class CreditCards extends Component {
         const { creditCards, selectCreditCard } = this.props;
         if (creditCards.length === 1) {
           selectCreditCard(creditCards[0]);
+        } else {
+          const defaultCard = _.filter(creditCards, { isDefault: true });
+          selectCreditCard(defaultCard[0]);
         }
       });
   }
