@@ -62,7 +62,7 @@
 
 .header-classic,
 .header-modern,
-.header-all, 
+.header-all,
 .header-bundles {
   composes: header;
 }
@@ -75,25 +75,21 @@
   color: var(--whitish);
 }
 
-
-.header {
-  &-classic {
-    background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Classic_Collection_New_Hero_2x.jpg');
-  }
-
-  &-modern {
-    background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Modern_Collection_Hero_New_2x.jpg');
-  }
-
-  &-all {
-    background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/All_Collections_Hero_New_2x.jpg');
-  }
-
-  &-bundles {
-    background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Bundles_Hero_2x.jpg');
-  }
+.header-classic {
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Classic_Collection_New_Hero_2x.jpg');
 }
 
+.header-modern {
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Modern_Collection_Hero_New_2x.jpg');
+}
+
+.header-all {
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/All_Collections_Hero_New_2x.jpg');
+}
+
+.header-bundles {
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Bundles_Hero_2x.jpg');
+}
 
 .not-found {
   text-transform: uppercase;
