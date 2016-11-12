@@ -240,7 +240,9 @@ export function addCreditCard(billingAddressIsSame: boolean): Function {
     const address = addressToPayload(billingAddress, countries, billingAddressIsSame);
 
     return foxApi.creditCards.create(cardData, address, !billingAddressIsSame).then((newCard) => {
-      dispatch(setDefaultCard(newCard.id, cardData.isDefault))
+      if (cardData.isDefault === true) { 
+        dispatch(setDefaultCard(newCard.id, cardData.isDefault)) 
+      }
     });
   };
 }
