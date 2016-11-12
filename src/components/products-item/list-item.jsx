@@ -6,8 +6,9 @@ import styles from './list-item.css';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
 
+import ProductImage from '../product-image/image';
+
 import Currency from 'ui/currency';
-import ImagePlaceholder from './image-placeholder';
 
 type Image = {
   alt?: string,
@@ -37,17 +38,12 @@ class ListItem extends React.Component {
   render(): HTMLElement {
     const {productId, title, albums, salePrice, currency} = this.props;
     const previewImage = _.get(albums, [0, 'images', 0, 'src']);
-
-    const image = previewImage
-      ? <img src={previewImage} styleName="preview-image" />
-      : <ImagePlaceholder/>;
-
     const click = () => browserHistory.push(`/products/${productId}`);
 
     return (
       <div styleName="list-item" onClick={click}>
         <div styleName="preview">
-          {image}
+          <ProductImage src={previewImage}/>
         </div>
         <div styleName="name">
           {title}

@@ -18,6 +18,8 @@ type Props = {
   images: Array<string>;
 }
 
+const imgixAppendix = `?w=975&h=1015&q=60&fit=clip&fm=jpg`;
+
 export default class Gallery extends Component {
   props: Props;
 
@@ -44,7 +46,7 @@ export default class Gallery extends Component {
         {this.props.images.map((image, index) => (
           <img
             key={`image-${index}`}
-            src={image}
+            src={`${image}${imgixAppendix}`}
             styleName={index === selected ? 'selected' : null}
             onClick={() => this.setSelected(index)}
           />
@@ -54,9 +56,10 @@ export default class Gallery extends Component {
   }
 
   get currentImage(): HTMLElement {
+    const url = `${this.props.images[this.state.selected]}${imgixAppendix}`;
     return (
       <div styleName="image">
-        <img src={this.props.images[this.state.selected]} />
+        <img src={url} />
       </div>
     );
   }
