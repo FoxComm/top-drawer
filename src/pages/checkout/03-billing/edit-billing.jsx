@@ -49,6 +49,7 @@ type Props = CheckoutActions & {
 type State = {
   addingNew: boolean,
   billingAddressIsSame: boolean,
+  cardAdded: boolean,
 };
 
 class EditBilling extends Component {
@@ -57,6 +58,7 @@ class EditBilling extends Component {
   state: State = {
     addingNew: false,
     billingAddressIsSame: true,
+    cardAdded: false,
   };
 
   componentWillMount() {
@@ -163,7 +165,7 @@ class EditBilling extends Component {
   @autobind
   cancelEditing() {
     this.props.performStageTransition('billingInProgress', () => {
-      this.setState({ addingNew: false });
+      this.setState({ addingNew: false, cardAdded: false });
     });
   }
 
@@ -182,7 +184,7 @@ class EditBilling extends Component {
       const operation = id
         ? this.props.updateCreditCard(id, billingAddressIsSame)
         : this.props.addCreditCard(billingAddressIsSame);
-      return operation.then(() => this.setState({ addingNew: false }));
+      return operation.then(() => this.setState({ addingNew: false, cardAdded: (id === undefined) }));
     });
   }
 
@@ -356,6 +358,7 @@ class EditBilling extends Component {
             selectCreditCard={this.selectCreditCard}
             editCard={this.editCard}
             deleteCard={this.deleteCreditCard}
+            cardAdded={this.state.cardAdded}
           />
           <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
         </fieldset>
