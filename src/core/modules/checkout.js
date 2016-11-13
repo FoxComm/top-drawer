@@ -297,11 +297,8 @@ function setEmptyCard() {
 }
 
 function setDefaultCard(id: number, isDefault: boolean): Function {
-  return (dispatch) => {
-    return foxApi.creditCards.setAsDefault(id, isDefault)
-      .then(() => {
-        dispatch(fetchCreditCards());
-      });
+  return () => {
+    return foxApi.creditCards.setAsDefault(id, isDefault);
   };
 }
 
