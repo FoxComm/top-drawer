@@ -41,7 +41,6 @@ type Props = CheckoutState & CheckoutActions & {
   addresses: Array<any>,
   shippingMethods: Object,
   cart: Object,
-  isAddressLoaded: boolean,
   location: Object,
 
   deliveryInProgressError: boolean,
@@ -260,7 +259,6 @@ class Checkout extends Component {
                 fetchAddresses={this.props.fetchAddresses}
                 shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
                 updateAddress={this.props.updateAddress}
-                isAddressLoaded={this.props.isAddressLoaded}
                 auth={this.props.auth}
               />
               <Delivery
@@ -283,7 +281,6 @@ class Checkout extends Component {
                 inProgress={this.state.isPerformingCheckout}
                 continueAction={this.placeOrder}
                 error={this.state.isProceedingCardError}
-                isAddressLoaded={props.isAddressLoaded}
                 paymentMethods={_.get(props.cart, 'paymentMethods', [])}
                 proceedCreditCard={this.proceedCreditCard}
                 performStageTransition={this.performStageTransition}
