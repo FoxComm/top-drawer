@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { authBlockTypes } from 'paragons/auth';
 
+import { resetPassword } from 'modules/auth';
+
 import localized from 'lib/i18n';
 
 import ShowHidePassword from 'ui/forms/show-hide-password';
@@ -23,7 +25,7 @@ type ResetState = {
 };
 
 /* ::`*/
-@connect()
+@connect(null, { resetPassword })
 @localized
 /* ::`*/
 export default class ResetPassword extends Component {
@@ -52,12 +54,22 @@ export default class ResetPassword extends Component {
       this.setState({
         error: this.props.t('Passwords must match'),
       });
-    } else {
+
+      return Promise.reject({
+        password: 'Passwords must match',
+      });
+    }
+
+    return this.props.resetPassword('', passwd1).then(() => {
       this.setState({
         isReseted: true,
         error: null,
       });
-    }
+    }).catch((err) => {
+      return this.setState({
+        error: this.props.t('Passwords does not match or security code is invalid.'),
+      });
+    });
   }
 
   get topMessage(): HTMLElement {

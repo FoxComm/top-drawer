@@ -1,5 +1,6 @@
 /* @flow */
 
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import styles from './auth.css';
 import { autobind } from 'core-decorators';
@@ -14,6 +15,8 @@ import { TextInput } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
 
+import { restorePassword } from 'modules/auth';
+
 import type { HTMLElement } from 'types';
 
 type RestoreState = {
@@ -23,7 +26,7 @@ type RestoreState = {
 };
 
 /* ::`*/
-@connect()
+@connect(null, { restorePassword })
 @localized
 /* ::`*/
 export default class RestorePassword extends Component {
@@ -37,6 +40,7 @@ export default class RestorePassword extends Component {
     dispatch: PropTypes.func,
     changeAuthBlockType: PropTypes.func,
     getPath: PropTypes.func,
+    restorePassword: Function,
   };
 
   state: RestoreState = {
@@ -50,20 +54,24 @@ export default class RestorePassword extends Component {
     const { email } = this.state;
     const { t } = this.props;
 
-    if (email.endsWith('.com')) {
-      this.setState({
-        emailSent: true,
-        error: null,
-      });
-    } else {
-      this.setState({
-        error: t(`Oops! We don’t have a user with that email. Please check your entry and try again.`),
-      });
-
+    if (_.isEmpty(email)) {
       return Promise.reject({
-        email: t('A user with this email does not exist.'),
+        email: t('Oops! We don’t have a user with that email. Please check your entry and try again.'),
       });
     }
+
+    return this.props.restorePassword(email)
+      .then(() => {
+        this.setState({
+          emailSent: true,
+          error: null,
+        });
+      }).catch(() => {
+        this.setState({
+          error: t(`Oops! We don’t have a user with that email. Please check your entry and try again.`),
+        });
+      }
+    );
   }
 
   get topMessage(): HTMLElement {
