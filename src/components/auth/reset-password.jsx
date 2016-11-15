@@ -1,5 +1,6 @@
 /* @flow */
 
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import styles from './auth.css';
 import { autobind } from 'core-decorators';
@@ -37,6 +38,7 @@ export default class ResetPassword extends Component {
     submitting: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     getPath: PropTypes.func,
+    path: PropTypes.object.isRequired,
   };
 
   state: ResetState = {
@@ -49,6 +51,7 @@ export default class ResetPassword extends Component {
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
+    const code = _.get(this.props, 'path.query.code');
 
     if (passwd1 != passwd2) {
       this.setState({
@@ -60,7 +63,17 @@ export default class ResetPassword extends Component {
       });
     }
 
-    return this.props.resetPassword('', passwd1).then(() => {
+    if (code == null || _.isEmpty(code)) {
+      this.setState({
+        error: this.props.t('Code cannot be empty'),
+      });
+
+      return Promise.reject({
+        code: 'Code cannot be empty',
+      });
+    }
+
+    return this.props.resetPassword(code, passwd1).then(() => {
       this.setState({
         isReseted: true,
         error: null,
@@ -119,7 +132,7 @@ export default class ResetPassword extends Component {
           placeholder={t('NEW PASSWORD')}
           required
           type="password"
-          minLength="8"
+          minLength={8}
           value={passwd1}
           name="passwd1"
           onChange={this.updateForm}
@@ -131,7 +144,7 @@ export default class ResetPassword extends Component {
           placeholder={t('CONFIRM PASSWORD')}
           required
           type="password"
-          minLength="8"
+          minLength={8}
           value={passwd2}
           name="passwd2"
           onChange={this.updateForm}
