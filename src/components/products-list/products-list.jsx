@@ -103,13 +103,16 @@ class ProductsList extends React.Component {
   }
 
   getItemList() {
-    const items = _.map(this.props.list, (item) => {
+    return _.map(this.props.list, (item, index) => {
       return (
-        <ListItem {...item} key={`product-${item.id}`} ref={`product-${item.id}`}/>
+        <ListItem
+          {...item}
+          index={index}
+          key={`product-${item.id}`}
+          ref={`product-${item.id}`}
+        />
       );
     });
-
-    return items;
   }
 
   render() : HTMLElement {

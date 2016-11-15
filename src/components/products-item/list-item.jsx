@@ -23,6 +23,7 @@ type Album = {
 
 type Product = {
   id: number,
+  index: number,
   productId: number,
   context: string,
   title: string,
@@ -30,6 +31,7 @@ type Product = {
   salePrice: string,
   currency: string,
   albums: ?Array<Album>,
+  tags: Array<string>,
 };
 
 class ListItem extends React.Component {
