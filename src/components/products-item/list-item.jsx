@@ -1,6 +1,7 @@
 /* @flow */
 
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { browserHistory } from 'react-router';
@@ -31,11 +32,15 @@ type Product = {
   salePrice: string,
   currency: string,
   albums: ?Array<Album>,
-  tags: Array<string>,
+  tags?: Array<string>,
 };
 
 class ListItem extends React.Component {
   props: Product;
+
+  getImageNode() {
+    return findDOMNode(this.refs.image);
+  }
 
   render(): HTMLElement {
     const {productId, title, albums, salePrice, currency} = this.props;
@@ -45,7 +50,7 @@ class ListItem extends React.Component {
     return (
       <div styleName="list-item" onClick={click}>
         <div styleName="preview">
-          <ProductImage src={previewImage}/>
+          <ProductImage ref="image" src={previewImage}/>
         </div>
         <div styleName="name">
           {title}
