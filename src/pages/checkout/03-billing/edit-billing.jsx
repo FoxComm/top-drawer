@@ -156,6 +156,15 @@ class EditBilling extends Component {
   }
 
   @autobind
+  validateExpiry() {
+    const { expMonth, expYear } = this.props.data;
+    const { t } = this.props;
+
+    return foxApi.creditCards.validateExpiry(expMonth, expYear)
+        ? null : t(`Please enter a valid expiration date`);
+  }
+
+  @autobind
   addNew() {
     this.props.resetBillingData();
     this.setState({ addingNew: true });
@@ -268,7 +277,7 @@ class EditBilling extends Component {
             </FormField>
           </div>
           <div styleName="union-fields">
-            <FormField required styleName="text-field" getTargetValue={() => data.expMonth}>
+            <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expMonth}>
               <Autocomplete
                 inputProps={{
                   placeholder: t('MONTH'),
@@ -281,7 +290,7 @@ class EditBilling extends Component {
                 selectedItem={data.expMonth}
               />
             </FormField>
-            <FormField required styleName="text-field" getTargetValue={() => data.expYear}>
+            <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expYear}>
               <Autocomplete
                 inputProps={{
                   placeholder: t('YEAR'),
