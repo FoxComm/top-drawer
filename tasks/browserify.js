@@ -74,6 +74,8 @@ module.exports = function(gulp, $, opts) {
       jsonOutput: 'build/css-modules.json',
     }));
 
+    bundler.transform('brfs');
+
     if (opts.devMode) {
       let watchifyOpts = {
         poll: parseInt(process.env.WATCHIFY_POLL_INTERVAL || 250, 10),
