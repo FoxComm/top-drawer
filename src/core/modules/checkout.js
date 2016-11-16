@@ -194,8 +194,14 @@ export function updateCreditCard(id, billingAddressIsSame: boolean): Function {
     const billingAddress = getUpdatedBillingAddress(getState, billingAddressIsSame);
     const address = addressToPayload(billingAddress);
     const updatedCard = assoc(creditCard, 'address', address);
+    updatedCard.expMonth = parseInt(updatedCard.expMonth);
+    updatedCard.expYear = parseInt(updatedCard.expYear);
 
-    return foxApi.creditCards.update(id, updatedCard);
+    return foxApi.creditCards.update(id, updatedCard).then((newCard) => {
+      if (creditCard.isDefault === true) {
+        dispatch(setDefaultCard(newCard.id, creditCard.isDefault))
+      }
+    });
   };
 }
 
