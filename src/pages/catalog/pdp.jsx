@@ -98,6 +98,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Pdp extends Component {
   props: Props;
+  productPromise: Promise;
 
   state: State = {
     quantity: 1,
@@ -107,9 +108,17 @@ class Pdp extends Component {
     const {product, actions} = this.props;
 
     actions.fetchProducts();
-    if (!product) {
-      actions.fetch(this.productId);
+    if (_.isEmpty(product)) {
+      this.productPromise = actions.fetch(this.productId);
+    } else {
+      this.productPromise = Promise.resolve();
     }
+  }
+
+  componentDidMount() {
+    this.productPromise.then(() => {
+      tracking.viewDetails(this.product);
+    });
   }
 
   componentWillUnmount() {
@@ -119,6 +128,7 @@ class Pdp extends Component {
   componentWillUpdate(nextProps) {
     const id = this.getId(nextProps);
     if (this.productId !== id) {
+      this.props.actions.resetProduct();
       this.props.actions.fetch(id);
     }
   }
@@ -201,7 +211,7 @@ class Pdp extends Component {
         <div styleName="gallery">
           {this.renderGallery()}
         </div>
-        <div styleName="details" ref={() => tracking.viewDetails(this.product)}>
+        <div styleName="details">
           <h1 styleName="name">{title}</h1>
           <div styleName="price">
             <Currency value={price} currency={currency} />
