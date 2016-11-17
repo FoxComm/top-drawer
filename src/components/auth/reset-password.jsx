@@ -1,11 +1,14 @@
 /* @flow */
 
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import styles from './auth.css';
 import { autobind } from 'core-decorators';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { authBlockTypes } from 'paragons/auth';
+
+import { resetPassword } from 'modules/auth';
 
 import localized from 'lib/i18n';
 
@@ -23,7 +26,7 @@ type ResetState = {
 };
 
 /* ::`*/
-@connect()
+@connect(null, { resetPassword })
 @localized
 /* ::`*/
 export default class ResetPassword extends Component {
@@ -35,6 +38,7 @@ export default class ResetPassword extends Component {
     submitting: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     getPath: PropTypes.func,
+    path: PropTypes.object.isRequired,
   };
 
   state: ResetState = {
@@ -47,17 +51,38 @@ export default class ResetPassword extends Component {
   @autobind
   handleSubmit(): ?Promise {
     const { passwd1, passwd2 } = this.state;
+    const code = _.get(this.props, 'path.query.code');
 
     if (passwd1 != passwd2) {
       this.setState({
         error: this.props.t('Passwords must match'),
       });
-    } else {
+
+      return Promise.reject({
+        password: 'Passwords must match',
+      });
+    }
+
+    if (code == null || _.isEmpty(code)) {
+      this.setState({
+        error: this.props.t('Code cannot be empty'),
+      });
+
+      return Promise.reject({
+        code: 'Code cannot be empty',
+      });
+    }
+
+    return this.props.resetPassword(code, passwd1).then(() => {
       this.setState({
         isReseted: true,
         error: null,
       });
-    }
+    }).catch((err) => {
+      return this.setState({
+        error: this.props.t('Passwords does not match or security code is invalid.'),
+      });
+    });
   }
 
   get topMessage(): HTMLElement {
@@ -107,7 +132,7 @@ export default class ResetPassword extends Component {
           placeholder={t('NEW PASSWORD')}
           required
           type="password"
-          minLength="8"
+          minLength={8}
           value={passwd1}
           name="passwd1"
           onChange={this.updateForm}
@@ -119,7 +144,7 @@ export default class ResetPassword extends Component {
           placeholder={t('CONFIRM PASSWORD')}
           required
           type="password"
-          minLength="8"
+          minLength={8}
           value={passwd2}
           name="passwd2"
           onChange={this.updateForm}
