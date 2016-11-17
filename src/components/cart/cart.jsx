@@ -26,7 +26,7 @@ import styles from './cart.css';
 
 // actions
 import * as actions from 'modules/cart';
-import { saveCouponCode } from 'modules/checkout';
+import { saveCouponCode, removeCouponCode } from 'modules/checkout';
 
 const mapStateToProps = state => ({ ...state.cart, ...state.auth });
 
@@ -36,7 +36,10 @@ type Props = {
   updateLineItemQuantity: Function,
   toggleCart: Function,
   saveCouponCode: Function,
+  removeCouponCode: Function,
   skus: Array<any>,
+  coupon: ?Object,
+  promotion: ?Object,
   totals: Object,
   user?: ?Object,
   isVisible: boolean,
@@ -133,6 +136,9 @@ class Cart extends Component {
     });
 
     const checkoutDisabled = _.size(props.skus) < 1;
+    const couponCode = _.get(this.props, 'coupon.code');
+    const couponPromotionName = _.get(this.props, 'promotion.attributes.name.v');
+    const couponDiscountValue = this.props.totals.adjustments;
 
     return (
       <div styleName={cartClass}>
@@ -147,15 +153,34 @@ class Cart extends Component {
             <div styleName="line-items">
               {this.lineItems}
             </div>
-            <div styleName="coupon">
-              <CouponCode saveCode={this.props.saveCouponCode}/>
-            </div>
+
+            {!this.props.promotion &&
+              <div styleName="coupon">
+                <CouponCode saveCode={this.props.saveCouponCode}/>
+              </div>}
+
+            {this.props.promotion &&
+              <div styleName="coupon-description">
+                <div styleName="coupon-description-wrapper">
+                  <div>Coupon discount:</div>
+                  <div styleName="coupon-code">{couponCode}</div>
+                  <div styleName="promotion-name">{couponPromotionName}</div>
+                </div>
+                <div styleName="subtotal-price">
+                  <span>- &nbsp;<Currency value={couponDiscountValue} /></span>
+                </div>
+                <a styleName="delete-coupon-btn" onClick={this.props.removeCouponCode}>
+                  <Icon name="fc-close" styleName="delete-coupon-icon" />
+                </a>
+              </div>}
+
             <div styleName="cart-subtotal">
               <div styleName="subtotal-title">{t('SUBTOTAL')}</div>
               <div styleName="subtotal-price">
-                <Currency value={props.totals.subTotal} />
+                <Currency value={props.totals.total} />
               </div>
             </div>
+
             {this.errorsLine}
           </div>
 
@@ -170,4 +195,8 @@ class Cart extends Component {
   }
 }
 
-export default connect(mapStateToProps, { ...actions, saveCouponCode })(localized(Cart));
+export default connect(mapStateToProps, {
+  ...actions,
+  saveCouponCode,
+  removeCouponCode,
+})(localized(Cart));
