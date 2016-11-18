@@ -1,0 +1,14 @@
+
+@import "colors.css";
+
+.banner {
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  background: var(--blackish);
+  color: var(--whitish);
+  height: 66px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 60px;
+}
