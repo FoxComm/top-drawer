@@ -46,7 +46,7 @@
   background-size: 300px 425px;
 
   & .ro-header {
-    font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+    font-family: var(--font-main);
     margin-bottom: 30px;
     font-size: 44px;
     font-weight: 600;
@@ -60,7 +60,7 @@
 }
 
 .supporting-text {
-    font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+    font-family: var(--font-main);
     font-weight: 400;
     font-size: 17px;
     color: #212121;

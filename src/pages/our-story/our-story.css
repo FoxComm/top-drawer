@@ -104,7 +104,7 @@
 }
 
 .tdc-header {
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   font-size: 20px;
   color: #363636;
   line-height: 30px;
@@ -115,7 +115,7 @@
 }
 
 .tdc-description {
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 14px;
   color: #363636;

@@ -6,7 +6,7 @@
 }
 
 .nav-base {
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 13px;
   color: #212121;

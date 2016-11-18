@@ -1,8 +1,10 @@
+
+@import "variables.css";
 @import "colors.css";
 @import "media-queries.css";
 
 .markdown-content {
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   font-weight: 400;
   text-align: justify;
   font-size: 17px;
@@ -66,7 +68,7 @@
 
 }
 .page-title {
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   text-align: center;
   font-weight: 600;
   font-size: 27px;
@@ -112,7 +114,7 @@
 
 .paragraph-title {
   line-height: 33px;
-  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 20px;
   color: #212121;

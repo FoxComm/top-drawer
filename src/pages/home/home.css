@@ -42,7 +42,7 @@
   }
 
   & .dc-text {
-    font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+    font-family: var(--font-main);
     font-weight: 400px;
     font-size: 27px;
     color: #212121;
