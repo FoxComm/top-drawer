@@ -46,7 +46,7 @@
   background-size: 300px 425px;
 
   & .ro-header {
-    font-family: Lato;
+    font-family: var(--font-main);
     margin-bottom: 30px;
     font-size: 44px;
     font-weight: 600;
@@ -60,7 +60,7 @@
 }
 
 .supporting-text {
-    font-family: Lato;
+    font-family: var(--font-main);
     font-weight: 400;
     font-size: 17px;
     color: #212121;
@@ -72,7 +72,7 @@
 
 .custom-contact-form-container {
 }
-.custom-contact-form { 
+.custom-contact-form {
   width: 60%;
   margin-left: 20%;
   margin-right: 20%;
@@ -82,7 +82,7 @@
     width: 100%;
     display: none;
     padding-bottom: 10px;
-    
+
     & input[type=text] {
       width: 100%;
     }

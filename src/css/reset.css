@@ -15,7 +15,10 @@ table {
 }
 
 body {
-  font-family: Roboto, 'Open Sans', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: always;
   margin: 0;
   padding: 0;
 }
@@ -27,7 +30,7 @@ fieldset {
 }
 
 input, textarea, keygen, select, button {
-  font-family: Roboto, 'Open Sans', sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
 }
 
 hr {

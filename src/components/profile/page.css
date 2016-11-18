@@ -3,7 +3,7 @@
 @import "colors.css";
 
 .title {
-  font-family: Lato;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 41px;
   color: var(--blackish);

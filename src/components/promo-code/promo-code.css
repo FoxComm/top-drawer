@@ -1,5 +1,6 @@
 @import 'media-queries.css';
 @import 'colors.css';
+@import "variables.css";
 
 .fieldset {
   display: flex;
@@ -18,7 +19,7 @@
 .submit {
   padding: 0 20px;
   border: none;
-  font-family: Lato;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 14px;
   color: #FFFFFF;

@@ -1,6 +1,9 @@
+
+@import "variables.css";
+
 .banner {
   color: #314664;
-  font-family: Lato, 'Open Sans', sans-serif;
+  font-family: var(--font-main);
 }
 
 .header {

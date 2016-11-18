@@ -1,14 +1,16 @@
+
+@import "variables.css";
 @import "colors.css";
 @import "media-queries.css";
 
-.markdown-content { 
-  font-family: 'Lato';
+.markdown-content {
+  font-family: var(--font-main);
   font-weight: 400;
   text-align: justify;
   font-size: 17px;
   letter-spacing: 0.02em;
   line-height: 39px;
-  
+
   & p {
     font-weight: 400;
     text-align: justify;
@@ -33,7 +35,7 @@
     text-align: justify;
   }
 
-  & ol { 
+  & ol {
     line-height: 39px;
     text-align: justify;
     padding-left: 1em;
@@ -66,7 +68,7 @@
 
 }
 .page-title {
-  font-family: 'Lato';
+  font-family: var(--font-main);
   text-align: center;
   font-weight: 600;
   font-size: 27px;
@@ -74,7 +76,7 @@
   letter-spacing: 2.7px;
   margin-top: 60px;
   margin-bottom: 20px;
-  
+
 }
 
 
@@ -112,7 +114,7 @@
 
 .paragraph-title {
   line-height: 33px;
-  font-family: 'Playfair Display';
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 20px;
   color: #212121;

@@ -97,15 +97,14 @@
   padding-top: 75px;
 }
 
-.tdc-icon { 
+.tdc-icon {
   height: 129px;
   width: 129px;
   position: relative;
 }
 
 .tdc-header {
-  font-family: Lato;
-  font-weight: 400;
+  font-family: var(--font-main);
   font-size: 20px;
   color: #363636;
   line-height: 30px;
@@ -116,14 +115,14 @@
 }
 
 .tdc-description {
-  font-family: Lato;
+  font-family: var(--font-main);
   font-weight: 400;
   font-size: 14px;
   color: #363636;
   line-height: 30px;
   position: relative;
   lost-align: center;
-  height: 275px; 
+  height: 275px;
   text-align: center;
 }
 
