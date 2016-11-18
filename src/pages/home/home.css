@@ -11,11 +11,21 @@
   color: var(--blackish);
 
   & a {
-    color: var(--blackish);
-    border-color: var(--blackish);
+    height: 68px;
+    font-weight: 500;
+    color: var(--whitish);
+    background-color: var(--bunker);
+    border-color: var(--bunker);
+    text-transform: uppercase;
 
     &:before {
       background-color: var(--blackish);
+    }
+
+    &:hover {
+      background: rgba(32, 32, 32, 0.9);
+      border-color: rgba(32, 32, 32, 0.9);
+      color: var(--whitish);
     }
   }
 
@@ -44,12 +54,13 @@
   & .dc-text {
     font-family: var(--font-main);
     font-weight: 400px;
-    font-size: 27px;
+    font-size: 20px;
     color: #212121;
-    line-height: 39px;
+    line-height: 36px;
     text-align: center;
     padding-left: 200px;
     padding-right: 200px;
+    text-transform: uppercase;
   }
 }
 
