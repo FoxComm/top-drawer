@@ -16,6 +16,9 @@ table {
 
 body {
   font-family: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-smooth: always;
   margin: 0;
   padding: 0;
 }
