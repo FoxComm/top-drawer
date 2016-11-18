@@ -145,7 +145,6 @@ class ProductsList extends Component {
       tracking.addImpression(item, item.index);
     });
     tracking.sendImpressions();
-    ga('send', 'event', 'UX', 'impression', 'Product List');
     this.setState({
       shownProducts: {
         ...this.state.shownProducts,
