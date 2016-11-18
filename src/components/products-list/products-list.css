@@ -27,6 +27,21 @@
   white-space: nowrap;
 }
 
+.title {
+  font-weight: 600;
+  font-family: var(--font-main);
+  font-size: 30px;
+  color: var(--bunker);
+  letter-spacing: 1px;
+  text-transform: capitalize;
+}
+
+.description {
+  font-size: 27px;
+  font-family: var(--font-main);
+  color: var(--bunker);
+}
+
 @media (--x-large-viewport-up) {
   .header-wrap {
     lost-offset: -1/11;
@@ -45,18 +60,10 @@
 
   & .title {
     margin: 1em 0 0;
-    font-family: var(--font-main);
-    text-transform: capitalize;
-    font-weight: bold;
-    font-size: 47px;
-    color: #363636;
   }
 
   & .description {
     margin: .7em 0 0;
-    font-size: 27px;
-    color: #363636;
-    font-family: var(--font-main);
   }
 }
 

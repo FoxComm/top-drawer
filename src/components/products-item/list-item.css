@@ -32,11 +32,16 @@
 
 .name {
   margin-top: 20px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--bunker);
 }
 
 .price {
   margin-top: 10px;
   font-weight: 300;
+  font-size: 16px;
+  color: var(--bunker);
 }
 
 @media (--medium-viewport) {
