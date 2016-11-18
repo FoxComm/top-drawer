@@ -16,10 +16,13 @@
 }
 
 .title {
-    margin: 0;
-    font-size: 47px;
-    color: white;
-    text-align: center;
+  margin: 0;
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--whitish);
+  text-align: center;
 }
 
 .descriptive-content {
@@ -48,7 +51,8 @@
   & .ro-header {
     font-family: var(--font-main);
     margin-bottom: 30px;
-    font-size: 44px;
+    font-size: 30px;
+    letter-spacing: 0.83px;
     font-weight: 600;
     color: #212121;
     width: 65%;
@@ -60,14 +64,14 @@
 }
 
 .supporting-text {
-    font-family: var(--font-main);
-    font-weight: 400;
-    font-size: 17px;
-    color: #212121;
-    line-height: 39px;
-    text-align: center;
-    padding-left: 20%;
-    padding-right: 20%;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 17px;
+  color: #212121;
+  line-height: 39px;
+  text-align: center;
+  padding-left: 20%;
+  padding-right: 20%;
 }
 
 .custom-contact-form-container {
