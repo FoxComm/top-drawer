@@ -14,7 +14,7 @@
   margin-bottom: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: var(--bunker);
+  color: var(--whitish);
 }
 
 .description {
@@ -24,7 +24,7 @@
   font-size: 20px;
   height: 30px;
   margin-bottom: 60px;
-  color: var(--bunker);
+  color: var(--whitish);
   text-transform: uppercase;
 }
 
