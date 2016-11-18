@@ -15,7 +15,7 @@
 .about-us-banner {
   composes: banner;
   height: 400px;
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Our+Story/Our_Story_Hero_2x.jpg');
+  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Our+Story/Our_Story_Hero_Filtered_2x.jpg');
   padding-top: 150px;
 }
 
