@@ -39,8 +39,7 @@ export default class RestorePassword extends Component {
     error: PropTypes.string,
     dispatch: PropTypes.func,
     changeAuthBlockType: PropTypes.func,
-    getPath: PropTypes.func,
-    restorePassword: Function,
+    getPath: PropTypes.func
   };
 
   state: RestoreState = {
