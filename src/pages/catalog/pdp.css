@@ -24,24 +24,25 @@
 
 .name {
   margin: 0;
-  color: var(--blackish);
+  color: var(--bunker);
   font-size: 50px;
-  font-weight: normal;
   line-height: 1;
+  font-weight: 600;
+  letter-spacing: 1px;
 }
 
 .price {
   margin-top: 20px;
-  color: var(--blackish);
+  color: var(--bunker);
   font-size: 20px;
   line-height: 1;
 }
 
 .description {
   margin-top: 20px;
-  color: var(--blackish);
+  color: var(--bunker);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 22px;
 }
 
 .counter {
@@ -51,8 +52,10 @@
 
 .add-to-cart {
   composes: button-primary from "ui/css/buttons.css";
-  background-color: #363636;
+  background-color: var(--bunker);
   color: #FFFFFF;
   lost-column: 2/3;
   margin-top: 30px;
+  font-size: 14px;
+  font-weight: 500;
 }
