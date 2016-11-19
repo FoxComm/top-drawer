@@ -1,0 +1,107 @@
+@import 'variables.css';
+@import 'colors.css';
+
+.wrap {
+    composes: wrap from 'ui/css/layout.css';
+    composes: inner-wrap from 'ui/css/layout.css';
+}
+
+.banner {
+    width: 100%;
+    background-size: cover;
+    background-position: 100% 0;
+}
+
+.dc-logo {
+    background: url(/images/home/top-icon-logo-white.svg);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 33px;
+    margin: 0px auto 60px auto;
+}
+
+.chevron {
+    background: url(/images/svg/chevron-left-white.svg);
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 33px;
+    margin: 0px auto 60px auto;
+    -ms-transform: rotate(-90deg); /* IE 9 */
+    -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+    transform: rotate(-90deg);
+}
+
+.subscribe-basic-stylish-banner {
+    composes: banner;
+    height: 700px;
+    background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Subscription_Hero_2x.jpg');
+    padding-top: 150px;
+}
+
+.title {
+    margin: 0;
+    font-size: 58px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+
+.supporting-text {
+    font-family: var(--font-main);
+    font-weight: 400;
+    font-size: 20px;
+    color: #ffffff;
+    line-height: 0px;
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.submit-container {
+    width: 100%;
+    lost-align: center;
+    height: 80px;
+}
+
+.custom-contact-submit {
+    composes: button from "ui/css/buttons.css";
+    width: 300px;
+    background: var(--whitish);
+    border: 4px solid var(--whitish);
+    font-size: 16px;
+    color: #7ABAFF;
+    font-weight: 500;
+    line-height: 19px;
+    text-transform: uppercase;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+
+    &:hover {
+         background: #616161;
+         color: #fff;
+     }
+
+    &:active {
+         background: var(--blueish);
+     }
+}
+
+.learn-more {
+    font-family: var(--font-main);
+    font-weight: 400;
+    font-size: 16px;
+    color: #ffffff;
+    line-height: 0px;
+    text-align: center;
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.enjoy-subscription {
+    height: 700px;
+}
+
+.enjoy-subscription-row {
+    lost-utility: clearfix;
+}
