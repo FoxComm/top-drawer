@@ -178,6 +178,5 @@ class Login extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
-  saveLineItems,
-  mergeCartState
+  saveLineItems
 })(localized(Login));
