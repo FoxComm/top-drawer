@@ -111,6 +111,11 @@
   & article {
     lost-column: 1/2;
     lost-offset: -1/2;
+
+    & h2, 
+    & h3 {
+      color: var(--bunker);
+    }
   }
 
   & a {
