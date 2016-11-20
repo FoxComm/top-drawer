@@ -13,7 +13,6 @@
   font-weight: 600;
   letter-spacing: 1px;
   white-space: nowrap;
-  color: var(--bunker);
   text-transform: uppercase;
 }
 
@@ -21,5 +20,4 @@
   font-size: 17px;
   line-height: 39px;
   font-weight: 400;
-  color: var(--bunker);
 }
