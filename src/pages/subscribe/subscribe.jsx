@@ -24,7 +24,7 @@ class Subscribe extends Component {
           </p>
         </div>
         <div styleName="submit-container">
-          <a styleName="custom-contact-submit">SHOP SUBSCRIPTION PLANS</a>
+          <a styleName="custom-contact-submit" href="#choose">SHOP SUBSCRIPTION PLANS</a>
         </div>
         <div styleName="learn-more">
           <p>
@@ -75,7 +75,7 @@ class Subscribe extends Component {
           </div>
         </div>
         <div styleName="enjoy-submit-container">
-          <a styleName="enjoy-custom-contact-submit">SHOP SUBSCRIPTION PLANS</a>
+          <a styleName="enjoy-custom-contact-submit" href="#choose">SHOP SUBSCRIPTION PLANS</a>
         </div>
       </div>
     );
@@ -84,6 +84,7 @@ class Subscribe extends Component {
   get plan(): HTMLElement {
     return (
       <div styleName="the-details" styleName="plan-background">
+        <a name="choose" />
         <div styleName="the-details-row">
           <div styleName="the-details-row">
             <h2 styleName="plan-td-header">
@@ -195,7 +196,7 @@ class Subscribe extends Component {
           </div>
         </div>
         <div styleName="qa-submit-container">
-          <a styleName="qa-custom-contact-submit">SHOP SUBSCRIPTION PLANS</a>
+          <a styleName="qa-custom-contact-submit" href="#choose">SHOP SUBSCRIPTION PLANS</a>
         </div>
       </div>
     );
