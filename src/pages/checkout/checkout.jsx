@@ -56,6 +56,7 @@ type State = {
   errors: {
     [stageName: string]: boolean,
   },
+  cart: Object,
 }
 
 class Checkout extends Component {
@@ -70,6 +71,7 @@ class Checkout extends Component {
     guestAuthInProgress: false,
     isScrolled: false,
     errors: {},
+    cart: this.props.cart,
   };
 
   componentDidMount() {
@@ -88,6 +90,14 @@ class Checkout extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.checkScroll);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.cart != this.props.cart) {
+      this.setState({
+        cart: nextProps.cart,
+      });
+    }
   }
 
   checkScroll = () => {
@@ -143,10 +153,14 @@ class Checkout extends Component {
     });
   }
 
+  saveShippingMethod() {
+    return this.props.saveShippingMethod(this.state.cart.shippingMethod);
+  }
+
   @autobind
   setBillingState() {
     this.performStageTransition('deliveryInProgress', () => {
-      return this.props.saveShippingMethod().then(() => {
+      return this.saveShippingMethod().then(() => {
         this.props.setEditStage(EditStages.BILLING);
       });
     });
@@ -211,9 +225,16 @@ class Checkout extends Component {
     this.props.updateAddress().then(() => {
       return this.saveShippingAddress();
     }).then(() => {
-      return this.props.saveShippingMethod();
+      return this.saveShippingMethod();
     }).then(() => {
       return this.placeOrder();
+    });
+  }
+
+  @autobind
+  handleUpdateCart(cart) {
+    this.setState({
+      cart,
     });
   }
 
@@ -266,7 +287,8 @@ class Checkout extends Component {
                 collapsed={!props.isDeliveryDirty && props.editStage < EditStages.DELIVERY}
                 editAction={this.setDeliveryStage}
                 shippingMethods={props.shippingMethods}
-                selectedShippingMethod={props.cart.shippingMethod}
+                cart={this.state.cart}
+                onUpdateCart={this.handleUpdateCart}
                 fetchShippingMethods={props.fetchShippingMethods}
                 inProgress={this.state.deliveryInProgress}
                 continueAction={this.setBillingState}
