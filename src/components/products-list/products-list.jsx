@@ -139,18 +139,20 @@ class ProductsList extends Component {
 
   trackProductView() {
     const visibleProducts = this.getNewVisibleProducts();
-    const shownProducts = {};
-    _.each(visibleProducts, item => {
-      shownProducts[item.id] = 1;
-      tracking.addImpression(item, item.index);
-    });
-    tracking.sendImpressions();
-    this.setState({
-      shownProducts: {
-        ...this.state.shownProducts,
-        ...shownProducts,
-      },
-    });
+    if (visibleProducts.length) {
+      const shownProducts = {};
+      _.each(visibleProducts, item => {
+        shownProducts[item.id] = 1;
+        tracking.addImpression(item, item.index);
+      });
+      tracking.sendImpressions();
+      this.setState({
+        shownProducts: {
+          ...this.state.shownProducts,
+          ...shownProducts,
+        },
+      });
+    }
   }
 
   getNewVisibleProducts() {
@@ -164,7 +166,10 @@ class ProductsList extends Component {
       const item = products[i];
       if (item.id in shownProducts) continue;
 
-      const node = this.refs[`product-${item.id}`].getImageNode();
+      const refProduct = this.refs[`product-${item.id}`];
+      if (!refProduct) continue;
+
+      const node = refProduct.getImageNode();
       if (node) {
         if (isElementInViewport(node)) {
           visibleProducts = [...visibleProducts, {...item, index: i}];
