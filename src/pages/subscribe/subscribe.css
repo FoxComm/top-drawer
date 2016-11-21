@@ -1,5 +1,6 @@
-@import 'variables.css';
-@import 'colors.css';
+@import 'variables';
+@import "media-queries";
+@import 'colors';
 
 .content-wrap {
     width: 100%;
@@ -39,9 +40,10 @@
     background: transparent;
 }
 
-.boxes {
+.boxes-img {
     width: 381px;
     float: left;
+    position: absolute;
 }
 
 .subscribe-basic-stylish-banner {

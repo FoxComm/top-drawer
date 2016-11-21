@@ -74,6 +74,7 @@ class Subscribe extends Component {
             </p>
           </div>
         </div>
+        <img styleName="boxes-img" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Subscription_Boxes_2x.png" />
         <div styleName="enjoy-submit-container">
           <a href="#choose" styleName="enjoy-custom-contact-submit">SHOP SUBSCRIPTION PLANS</a>
         </div>
