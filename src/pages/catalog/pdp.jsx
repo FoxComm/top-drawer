@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
-import { browserHistory } from 'react-router';
+import * as tracking from 'lib/analytics';
 
 // i18n
 import localized from 'lib/i18n';
@@ -98,6 +98,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Pdp extends Component {
   props: Props;
+  productPromise: Promise;
 
   state: State = {
     quantity: 1,
@@ -107,9 +108,17 @@ class Pdp extends Component {
     const {product, actions} = this.props;
 
     actions.fetchProducts();
-    if (!product) {
-      actions.fetch(this.productId);
+    if (_.isEmpty(product)) {
+      this.productPromise = actions.fetch(this.productId);
+    } else {
+      this.productPromise = Promise.resolve();
     }
+  }
+
+  componentDidMount() {
+    this.productPromise.then(() => {
+      tracking.viewDetails(this.product);
+    });
   }
 
   componentWillUnmount() {
@@ -119,6 +128,7 @@ class Pdp extends Component {
   componentWillUpdate(nextProps) {
     const id = this.getId(nextProps);
     if (this.productId !== id) {
+      this.props.actions.resetProduct();
       this.props.actions.fetch(id);
     }
   }
@@ -161,6 +171,7 @@ class Pdp extends Component {
     const { quantity } = this.state;
 
     const skuId = _.get(this.firstSku, 'attributes.code.v', '');
+    tracking.addToCart(this.product, quantity);
     actions.addLineItem(skuId, quantity)
       .then(() => {
         actions.toggleCart();

@@ -28,6 +28,8 @@
 }
 
 .search {
+  font-size: 15px;
+  letter-spacing: 1px;
   flex: 1;
 }
 

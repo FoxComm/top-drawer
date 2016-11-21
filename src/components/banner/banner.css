@@ -1,4 +1,5 @@
 @import 'ui/css/links.css';
+@import 'colors.css';
 
 .banner {
   min-width: 360px;
@@ -9,17 +10,22 @@
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 47px;
-  margin-bottom: 20px;
+  font-size: 36px;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--whitish);
 }
 
 .description {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 27px;
+  font-size: 20px;
   height: 30px;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
+  color: var(--whitish);
+  text-transform: uppercase;
 }
 
 .links {
