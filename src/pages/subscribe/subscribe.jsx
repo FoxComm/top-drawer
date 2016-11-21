@@ -32,7 +32,7 @@ class Subscribe extends Component {
           </p>
         </div>
         <div styleName="chevron">
-          <a href="#" />
+          <a href="#learn" />
         </div>
       </div>
     );
@@ -41,7 +41,7 @@ class Subscribe extends Component {
   get enjoySubscription(): HTMLElement {
     return (
       <div styleName="the-details">
-        <div styleName="the-details-row">
+        <div id="learn" styleName="the-details-row">
           <h2 styleName="td-header">
             ENJOY SUBSCRIPTION BENEFITS.
           </h2>
@@ -75,7 +75,7 @@ class Subscribe extends Component {
           </div>
         </div>
         <div styleName="enjoy-submit-container">
-          <a styleName="enjoy-custom-contact-submit" href="#choose">SHOP SUBSCRIPTION PLANS</a>
+          <a href="#choose" styleName="enjoy-custom-contact-submit">SHOP SUBSCRIPTION PLANS</a>
         </div>
       </div>
     );
@@ -84,10 +84,9 @@ class Subscribe extends Component {
   get plan(): HTMLElement {
     return (
       <div styleName="the-details" styleName="plan-background">
-        <a name="choose" />
         <div styleName="the-details-row">
           <div styleName="the-details-row">
-            <h2 styleName="plan-td-header">
+            <h2 id="choose" styleName="plan-td-header">
               CHOOSE YOUR PLAN
             </h2>
             <div styleName="td-header-supporting-text" styleName="plan-supporting-text">
@@ -125,7 +124,9 @@ class Subscribe extends Component {
             QUESTIONS?
           </p>
         </div>
-        <div styleName="plan-chevron"/>
+        <div styleName="plan-chevron">
+          <a href="#qas" />
+        </div>
       </div>
     );
   }
@@ -135,7 +136,7 @@ class Subscribe extends Component {
       <div styleName="the-details" styleName="qa-background">
         <div styleName="the-details-row">
           <div styleName="the-details-row">
-            <h2 styleName="qa-td-header">
+            <h2 id="qas" styleName="qa-td-header">
               Qs & As
             </h2>
           </div>

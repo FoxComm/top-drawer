@@ -34,6 +34,11 @@
     transform: rotate(-90deg);
 }
 
+.chevron a {
+    padding: 20%;
+    background: transparent;
+}
+
 .boxes {
     width: 381px;
     float: left;
@@ -286,6 +291,11 @@
     -ms-transform: rotate(-90deg); /* IE 9 */
     -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
     transform: rotate(-90deg);
+}
+
+.plan-chevron a {
+    padding: 20%;
+    background: transparent;
 }
 
 .qa-background {
