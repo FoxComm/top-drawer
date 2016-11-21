@@ -43,7 +43,6 @@
 .boxes-img {
     width: 381px;
     float: left;
-    position: absolute;
 }
 
 .subscribe-basic-stylish-banner {
@@ -153,8 +152,14 @@
     background-color: #7B8EE3;
 }
 
-.plan-background {
+.plan-the-details {
+    height: 100%;
     background-color: #E3ECFA;
+    width: 100%;
+}
+
+.enjoy-details-height {
+    height: 1100px;
 }
 
 .the-details-row {
@@ -226,19 +231,14 @@
     width: 280px;
 }
 
-.plan-the-details-row {
-    margin-top: 100px;
-    lost-utility: clearfix;
-}
-
 .plan-td-header {
     margin-top: 80px;
     font-size: 36px;
     font-weight: 600;
     white-space: nowrap;
-    text-align: center;
     color: #212121;
     letter-spacing: 1px;
+    margin-left: 39%;
 }
 
 .plan-tdc-header {
@@ -251,7 +251,6 @@
     width: 100%;
     color: #212121;
 }
-
 
 .plan-supporting-text {
     font-weight: 400;
@@ -365,13 +364,13 @@
     margin-right: auto;
     text-decoration: none;
 
-&:hover {
-     background: #D2DDED;;
-     color: #363636;
- }
+    &:hover {
+        background: #D2DDED;;
+        color: #363636;
+    }
 
-&:active {
-     background: var(--blueish);
- }
+    &:active {
+        background: var(--blueish);
+    }
 }
 

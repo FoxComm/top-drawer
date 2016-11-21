@@ -2,10 +2,32 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import Loader from 'ui/loader';
+import ProductsList from '../../components/products-list/products-list';
+import type { Product } from 'modules/products';
+
+import _ from 'lodash';
+
+import { connect } from 'react-redux';
+import * as actions from 'modules/products';
 
 import styles from './subscribe.css';
 
+const mapStateToProps = state => {
+  const async = state.asyncActions.products;
+
+  return {
+    ...state.products,
+    isLoading: !!async ? async.inProgress : true,
+  };
+};
+
 class Subscribe extends Component {
+
+  componentWillMount() {
+    const { categoryName } = this.props.params;
+    this.props.fetch(categoryName);
+  }
 
   get basicStylish(): HTMLElement {
     return (
@@ -40,7 +62,7 @@ class Subscribe extends Component {
 
   get enjoySubscription(): HTMLElement {
     return (
-      <div styleName="the-details">
+      <div styleName="the-details" styleName="enjoy-details-height">
         <div id="learn" styleName="the-details-row">
           <h2 styleName="td-header">
             ENJOY SUBSCRIPTION BENEFITS.
@@ -82,11 +104,24 @@ class Subscribe extends Component {
     );
   }
 
+  get subscriptionsListing(): HTMLElement {
+    const productsList = _.filter(this.props.list, (prod: Product) => {
+      return _.includes(prod.tags, 'SUBSCRIPTION');
+    });
+
+    return this.props.isLoading
+      ? <Loader/>
+      : <ProductsList
+        list={productsList}
+        category={this.props.params.categoryName}
+        categoryType={this.props.location.query.type}
+      />;
+  }
+
   get plan(): HTMLElement {
     return (
-      <div styleName="the-details" styleName="plan-background">
+      <div styleName="plan-the-details">
         <div styleName="the-details-row">
-          <div styleName="the-details-row">
             <h2 id="choose" styleName="plan-td-header">
               CHOOSE YOUR PLAN
             </h2>
@@ -95,31 +130,8 @@ class Subscribe extends Component {
                 FREE SHIPPING. CANCEL ANYTIME. WE'LL ALWAYS CHECK BEFORE RENEWING.
               </p>
             </div>
-          </div>
         </div>
-        <div styleName="plan-the-details-row" styleName="second-row">
-          <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Icon_piggy_bank.svg" />
-            <h3 styleName="plan-tdc-header">1 PAIR MONTHLY SUBSCRIPTION</h3>
-            <p styleName="plan-tdc-description">
-              $10
-            </p>
-          </div>
-          <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Icon_Calendar.svg" />
-            <h3 styleName="plan-tdc-header">3 PAIR QUARTERLY SUBSCRIPTION</h3>
-            <p styleName="plan-tdc-description">
-              $30
-            </p>
-          </div>
-          <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Icon_Socks.svg" />
-            <h3 styleName="plan-tdc-header">6 PAIRS EVERY 6 MONTHS SUBSCRIPTION</h3>
-            <p styleName="plan-tdc-description">
-              $60
-            </p>
-          </div>
-        </div>
+        {this.subscriptionsListing}
         <div styleName="plan-questions">
           <p>
             QUESTIONS?
@@ -216,5 +228,4 @@ class Subscribe extends Component {
   }
 }
 
-
-export default Subscribe;
+export default connect(mapStateToProps, actions)(Subscribe);
