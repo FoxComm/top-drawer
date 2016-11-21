@@ -6,7 +6,7 @@ import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
-import * as tracking from 'lib/analythics';
+import * as tracking from 'lib/analytics';
 
 import ProductImage from '../product-image/image';
 
