@@ -6,6 +6,7 @@ import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
+import * as tracking from 'lib/analythics';
 
 import ProductImage from '../product-image/image';
 
@@ -43,9 +44,13 @@ class ListItem extends React.Component {
   }
 
   render(): HTMLElement {
-    const {productId, title, albums, salePrice, currency} = this.props;
+    const { props } = this;
+    const {productId, title, albums, salePrice, currency} = props;
     const previewImage = _.get(albums, [0, 'images', 0, 'src']);
-    const click = () => browserHistory.push(`/products/${productId}`);
+    const click = () => {
+      tracking.clickPdp(props, props.index);
+      browserHistory.push(`/products/${productId}`)
+    };
 
     return (
       <div styleName="list-item" onClick={click}>
