@@ -1,11 +1,15 @@
 /* @flow */
 
 import _ from 'lodash';
-import React from 'react';
+import React, { Component } from 'react';
 import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import type { Product } from 'modules/products';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+import { autobind, debounce } from 'core-decorators';
+import { isElementInViewport } from 'lib/dom-utils';
+import * as tracking from 'lib/analytics';
 
 import styles from './products-list.css';
 
@@ -27,21 +31,39 @@ type ProductsListParams = {
 }
 
 type State = {
+  shownProducts: {[productId: string]: number},
   viewedItems: number;
 }
 
 const mapStateToProps = state => ({categories: state.categories.list});
 
-class ProductsList extends React.Component {
+class ProductsList extends Component {
   props: ProductsListParams;
+  state: State = {
+    shownProducts: {},
+    viewedItems: 0,
+  };
+  _willUnmount: boolean = false;
 
   static defaultProps = {
     hasBanners: false,
   };
 
-  state: State = {
-    viewedItems: 0,
-  };
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    this._willUnmount = true;
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  @autobind
+  @debounce(100)
+  handleScroll() {
+    if (this._willUnmount) return;
+    this.trackProductView();
+  }
 
   countViewedItems = () => {
     let viewedItems = 0;
@@ -102,20 +124,68 @@ class ProductsList extends React.Component {
     );
   }
 
-  getItemList() {
-    const items = _.map(this.props.list, (item) => {
+  renderProducts() {
+    return _.map(this.props.list, (item, index) => {
       return (
-        <ListItem {...item} key={`product-${item.id}`} ref={`product-${item.id}`}/>
+        <ListItem
+          {...item}
+          index={index}
+          key={`product-${item.id}`}
+          ref={`product-${item.id}`}
+        />
       );
     });
+  }
 
-    return items;
+  trackProductView() {
+    const visibleProducts = this.getNewVisibleProducts();
+    const shownProducts = {};
+    _.each(visibleProducts, item => {
+      shownProducts[item.id] = 1;
+      tracking.addImpression(item, item.index);
+    });
+    tracking.sendImpressions();
+    this.setState({
+      shownProducts: {
+        ...this.state.shownProducts,
+        ...shownProducts,
+      },
+    });
+  }
+
+  getNewVisibleProducts() {
+    const { props } = this;
+    let visibleProducts = [];
+    const { shownProducts } = this.state;
+
+    const products = _.get(props, 'list', []);
+
+    for (let i = 0; i < products.length; i++) {
+      const item = products[i];
+      if (item.id in shownProducts) continue;
+
+      const node = this.refs[`product-${item.id}`].getImageNode();
+      if (node) {
+        if (isElementInViewport(node)) {
+          visibleProducts = [...visibleProducts, {...item, index: i}];
+        }
+      }
+    }
+
+    return visibleProducts;
+  }
+
+  @autobind
+  handleListRendered() {
+    setTimeout(() => {
+      if (!this._willUnmount) this.trackProductView();
+    }, 250);
   }
 
   render() : HTMLElement {
     const props = this.props;
     const items = props.list && props.list.length > 0
-      ? this.getItemList()
+      ? this.renderProducts()
       : <div styleName="not-found">No products found.</div>;
 
     const totalItems = this.props.list ? this.props.list.length : 0;
@@ -123,7 +193,7 @@ class ProductsList extends React.Component {
     return (
       <section styleName="catalog">
         {this.renderHeader()}
-        <div styleName="list">
+        <div styleName="list" ref={this.handleListRendered}>
           {items}
         </div>
       </section>

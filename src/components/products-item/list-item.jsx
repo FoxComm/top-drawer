@@ -1,10 +1,12 @@
 /* @flow */
 
 import React from 'react';
+import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import styles from './list-item.css';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
+import * as tracking from 'lib/analytics';
 
 import ProductImage from '../product-image/image';
 
@@ -23,6 +25,7 @@ type Album = {
 
 type Product = {
   id: number,
+  index: number,
   productId: number,
   context: string,
   title: string,
@@ -30,20 +33,29 @@ type Product = {
   salePrice: string,
   currency: string,
   albums: ?Array<Album>,
+  tags?: Array<string>,
 };
 
 class ListItem extends React.Component {
   props: Product;
 
+  getImageNode() {
+    return findDOMNode(this.refs.image);
+  }
+
   render(): HTMLElement {
-    const {productId, title, albums, salePrice, currency} = this.props;
+    const { props } = this;
+    const {productId, title, albums, salePrice, currency} = props;
     const previewImage = _.get(albums, [0, 'images', 0, 'src']);
-    const click = () => browserHistory.push(`/products/${productId}`);
+    const click = () => {
+      tracking.clickPdp(props, props.index);
+      browserHistory.push(`/products/${productId}`)
+    };
 
     return (
       <div styleName="list-item" onClick={click}>
         <div styleName="preview">
-          <ProductImage src={previewImage}/>
+          <ProductImage ref="image" src={previewImage}/>
         </div>
         <div styleName="name">
           {title}
