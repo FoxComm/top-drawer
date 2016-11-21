@@ -96,7 +96,7 @@ class Subscribe extends Component {
             </div>
           </div>
         </div>
-        <div styleName="the-details-row" styleName="second-row">
+        <div styleName="plan-the-details-row" styleName="second-row">
           <div styleName="the-details-column">
             <img styleName="tdc-icon" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Subscription/Icon_piggy_bank.svg" />
             <h3 styleName="plan-tdc-header">1 PAIR MONTHLY SUBSCRIPTION</h3>
@@ -203,7 +203,7 @@ class Subscribe extends Component {
 
   render(): HTMLElement {
     return (
-      <div>
+      <div styleName="content-wrap">
         {this.basicStylish}
         {this.enjoySubscription}
         {this.plan}
