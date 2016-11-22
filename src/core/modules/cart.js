@@ -17,7 +17,7 @@ export type ProductInCart = {
   skuId: number;
   quantity: number;
   imagePath: string;
-  referenceNumber: string;
+  referenceNumber: Array<string>;
   name: string;
   sku: string;
   price: number;
