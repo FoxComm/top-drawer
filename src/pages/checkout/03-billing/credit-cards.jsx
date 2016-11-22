@@ -26,6 +26,7 @@ type Props = {
   deleteCard: Function,
   isLoading: boolean,
   cardAdded: boolean,
+  cart: Object,
 };
 
 class CreditCards extends Component {
@@ -34,12 +35,17 @@ class CreditCards extends Component {
   componentWillMount() {
     this.props.fetchCreditCards()
       .then(() => {
-        const { creditCards, selectCreditCard, cardAdded } = this.props;
+        const { creditCards, selectCreditCard, cardAdded, cart } = this.props;
+        const paymentMethods = _.get(cart, 'paymentMethods', []);
+        const chosenCreditCard = _.find(paymentMethods, {type: 'creditCard'});
+
         if (creditCards.length === 1 || cardAdded) {
           selectCreditCard(creditCards[0]);
+        } else if (chosenCreditCard) {
+          selectCreditCard(chosenCreditCard);
         } else {
-           const defaultCard = _.filter(creditCards, { isDefault: true });
-          selectCreditCard(defaultCard[0]);
+          const defaultCards = _.filter(creditCards, { isDefault: true });
+          selectCreditCard(defaultCards[0]);
         }
       });
   }
@@ -83,6 +89,7 @@ function mapStateToProps(state) {
     isLoading: _.get(state.asyncActions, ['creditCards', 'inProgress'], true),
     creditCards: state.checkout.creditCards,
     selectedCreditCard: _.get(state.cart, 'creditCard', {}),
+    cart: state.cart,
   };
 }
 
