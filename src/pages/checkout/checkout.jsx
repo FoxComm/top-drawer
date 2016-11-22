@@ -44,6 +44,7 @@ type Props = CheckoutState & CheckoutActions & {
   shippingMethods: Object,
   cart: Object,
   location: Object,
+  fetchCartState: Object,
 };
 
 type State = {
@@ -325,7 +326,7 @@ class Checkout extends Component {
       setBillingState: this.setBillingState,
     };
 
-    const body = this.props.cart.referenceNumber ? this.content : <Loader />;
+    const body = props.fetchCartState.finished ? this.content : <Loader />;
 
     return (
       <section styleName="checkout">
@@ -376,6 +377,7 @@ function mapStateToProps(state) {
     auth: state.auth,
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
+    fetchCartState: _.get(state.asyncActions, 'cart', {}),
   };
 }
 
