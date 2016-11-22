@@ -26,13 +26,15 @@ type Props = {
   editAction: Function,
   updateAddress: Function,
   t: any,
+  error: any,
 };
 
 type State = {
   addressToEdit: Object,
   newAddress: Object|null,
   isEditFormActive: boolean,
-  activeAddressId?: number|string,
+  activeAddressId: number|null,
+  error?: any,
 };
 
 class AddressList extends Component {
@@ -134,7 +136,17 @@ class AddressList extends Component {
           isEditFormActive: false,
         });
       })
-      .catch((error) => {
+      .catch((err) => {
+        let error = err;
+        const messages = _.get(err, ['responseJson', 'errors'], [err.toString()]);
+        const zipErrorPresent = _.find(messages,
+          (msg) => { return msg.indexOf('zip') >= 0; });
+
+        if (zipErrorPresent) {
+          error = new Error(messages);
+          // $FlowFixMe: no such field
+          error.responseJson = { errors: ['Zip code is invalid']};
+        }
         this.setState({
           error,
         });
