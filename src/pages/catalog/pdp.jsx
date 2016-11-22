@@ -29,6 +29,8 @@ import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
+import { FormField } from 'ui/forms';
+import { TextInput } from 'ui/inputs';
 
 // styles
 import styles from './pdp.css';
@@ -160,6 +162,11 @@ class Pdp extends Component {
     };
   }
 
+  get isSubscription(): boolean {
+    const tags = _.get(this.props.product, 'attributes.tags.v', []);
+    return _.includes(tags, 'BACON');
+  }
+
   changeQuantity(change: number): void {
     const quantity = Math.max(this.state.quantity + change, 1);
     this.setState({quantity});
@@ -205,6 +212,52 @@ class Pdp extends Component {
     }
 
     const { title, description, currency, price } = this.product;
+
+    if (this.isSubscription) {
+      return (
+        <div styleName="container">
+          <div styleName="gallery">
+            {this.renderGallery()}
+          </div>
+          <div styleName="address-details">
+            <h1 styleName="name">{title}</h1>
+            <div styleName="price">
+              <Currency value={price} currency={currency} />
+            </div>
+            <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
+            <div styleName="shipping-to">Shipping To</div>
+            <div styleName="address-form-container">
+              <FormField styleName="text-field">
+                <TextInput class="address-column" name="address-name" placeholder={t('FIRST & LAST NAME')}/>
+              </FormField>
+              <FormField styleName="text-field">
+                <TextInput name="address-address1" placeholder={t('STREET ADDRESS 1')}/>
+              </FormField>
+              <FormField styleName="text-field">
+                <TextInput name="address-address2" placeholder={t('STREET ADDRESS 2 (optional)')} />
+              </FormField>
+              <FormField styleName="text-field" validator="zipCode">
+                <TextInput name="address-zip" placeholder={t('ZIP')} />
+              </FormField>
+              <div styleName="address-city-state">
+                <FormField styleName="text-field">
+                  <TextInput name="address-city" placeholder={t('CITY')} />
+                </FormField>
+                <FormField styleName="text-field">
+                  <TextInput name="address-state" placeholder={t('STATE')} />
+                </FormField>
+              </div>
+              <FormField styleName="text-field">
+                <TextInput name="address-phone" placeholder={t('PHONE')} />
+              </FormField>
+            </div>
+            <Button styleName="address-add-to-cart" isLoading={isCartLoading}>
+              {t('ADD TO CART')}
+            </Button>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div styleName="container">
