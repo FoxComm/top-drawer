@@ -65,6 +65,7 @@ type Props = Localized & {
 type State = {
   quantity: number;
   error?: any;
+  selectedCountryId?: number;
 };
 
 type Product = {
@@ -74,6 +75,12 @@ type Product = {
   currency: string;
   price: number;
 };
+
+type Country = {
+  alpha3: string;
+  id: number;
+  name: string;
+}
 
 const mapStateToProps = state => {
   const product = state.productDetails.product;
@@ -176,6 +183,11 @@ class Pdp extends Component {
   }
 
   @autobind
+  changeCountry(item: Country) {
+    this.setState({selectedCountryId: item.id, selectedRegions: []});
+  }
+
+  @autobind
   addToCart(): void {
     const { actions } = this.props;
     const { quantity } = this.state;
@@ -217,7 +229,11 @@ class Pdp extends Component {
     const { title, description, currency, price } = this.product;
 
     if (this.isSubscription) {
-      //const { countries } = this.props;
+      const { countries } = this.props;
+      const { selectedCountryId } = this.state;
+
+      const regions = (selectedCountryId !== undefined)
+        ? countries.details[selectedCountryId].regions : [];
 
       return (
         <div styleName="container">
@@ -233,7 +249,7 @@ class Pdp extends Component {
             <div styleName="shipping-to">Shipping To</div>
             <div styleName="address-form-container">
               <FormField styleName="text-field">
-                <TextInput class="address-column" name="address-name" placeholder={t('FIRST & LAST NAME')}/>
+                <TextInput name="address-name" placeholder={t('FIRST & LAST NAME')}/>
               </FormField>
               <FormField styleName="text-field">
                 <TextInput name="address-address1" placeholder={t('STREET ADDRESS 1')}/>
@@ -241,20 +257,38 @@ class Pdp extends Component {
               <FormField styleName="text-field">
                 <TextInput name="address-address2" placeholder={t('STREET ADDRESS 2 (optional)')} />
               </FormField>
-              <div styleName="address-country-zip">
-                <FormField styleName="text-field" validator="zipCode">
-                  <TextInput name="address-country" placeholder={t('UNITED STATES')} />
-                </FormField>
-                <FormField styleName="text-field" validator="zipCode">
-                  <TextInput name="address-zip" placeholder={t('ZIP')} />
+              <div styleName="address-country">
+                <FormField styleName="text-field">
+                  <Autocomplete
+                    inputProps={{
+                      placeholder: t('UNITED STATES'),
+                    }}
+                    getItemValue={item => item.name}
+                    items={countries.list}
+                    onSelect={this.changeCountry}
+                  />
                 </FormField>
               </div>
-              <div styleName="address-city-state">
+              <div styleName="address-zip">
                 <FormField styleName="text-field">
-                  <TextInput name="address-city" placeholder={t('CITY')} />
+                  <TextInput name="input-zip" placeholder={t('ZIP')} />
                 </FormField>
+              </div>
+              <div styleName="address-city">
                 <FormField styleName="text-field">
-                  <TextInput name="address-state" placeholder={t('STATE')} />
+                  <TextInput name="input-city" placeholder={t('CITY')} />
+                </FormField>
+              </div>
+              <div styleName="address-state">
+                <FormField styleName="text-field">
+                  <Autocomplete
+                    inputProps={{
+                      placeholder: t('STATE'),
+                    }}
+                    getItemValue={item => item.name}
+                    items={regions}
+                    onSelect={() => {}}
+                  />
                 </FormField>
               </div>
               <FormField styleName="text-field">

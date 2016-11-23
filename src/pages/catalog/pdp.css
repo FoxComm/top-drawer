@@ -79,31 +79,29 @@
   lost-column: 3/3;
 }
 
-.address-country-zip > .text-field > input[name^=address-] {
-  border-color: var(--blackish);
+.address-country > * {
   margin-top: 10px;
   lost-column: 1/2;
-}
-
-.address-country-zip > .text-field > input[name=address-country] {
   float: left;
 }
 
-.address-country-zip > .text-field > input[name=address-zip] {
+.address-zip > .text-field > input[name^=input-zip] {
+  border-color: var(--blackish);
+  margin-top: 10px;
+  lost-column: 1/2;
   float: right;
 }
 
-.address-city-state > .text-field > input[name^=address-] {
+.address-city > .text-field > input[name^=input-city] {
   border-color: var(--blackish);
   margin-top: 10px;
   lost-column: 1/2;
-}
-
-.address-city-state > .text-field > input[name=address-city] {
   float: left;
 }
 
-.address-city-state > .text-field > input[name=address-state] {
+.address-state > * {
+  margin-top: 10px;
+  lost-column: 1/2;
   float: right;
 }
 
