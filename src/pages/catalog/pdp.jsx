@@ -31,6 +31,7 @@ import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
+import Autocomplete from 'ui/autocomplete';
 
 // styles
 import styles from './pdp.css';
@@ -58,6 +59,7 @@ type Props = Localized & {
   isLoading: boolean;
   isCartLoading: boolean;
   notFound: boolean;
+  countries: Array<any>|Object;
 };
 
 type State = {
@@ -82,6 +84,7 @@ const mapStateToProps = state => {
     notFound: !product && _.get(state.asyncActions, ['pdp', 'err', 'status']) == 404,
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
+    countries: state.countries,
   };
 };
 
@@ -214,6 +217,8 @@ class Pdp extends Component {
     const { title, description, currency, price } = this.product;
 
     if (this.isSubscription) {
+      //const { countries } = this.props;
+
       return (
         <div styleName="container">
           <div styleName="gallery">
@@ -236,9 +241,14 @@ class Pdp extends Component {
               <FormField styleName="text-field">
                 <TextInput name="address-address2" placeholder={t('STREET ADDRESS 2 (optional)')} />
               </FormField>
-              <FormField styleName="text-field" validator="zipCode">
-                <TextInput name="address-zip" placeholder={t('ZIP')} />
-              </FormField>
+              <div styleName="address-country-zip">
+                <FormField styleName="text-field" validator="zipCode">
+                  <TextInput name="address-country" placeholder={t('UNITED STATES')} />
+                </FormField>
+                <FormField styleName="text-field" validator="zipCode">
+                  <TextInput name="address-zip" placeholder={t('ZIP')} />
+                </FormField>
+              </div>
               <div styleName="address-city-state">
                 <FormField styleName="text-field">
                   <TextInput name="address-city" placeholder={t('CITY')} />

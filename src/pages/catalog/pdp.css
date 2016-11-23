@@ -67,6 +67,8 @@
   color: #212121;
 }
 
+/* Subscription Address Form */
+
 .address-form-container {
   margin-top: 10px;
 }
@@ -77,18 +79,32 @@
   lost-column: 3/3;
 }
 
-.address-city-state {
-
-}
-
-.address-city-state > .text-field > input[name^=address-] {
-  lost-column: none;
-  lost-flex-container: column;
-  lost-utility: clearfix;
-
+.address-country-zip > .text-field > input[name^=address-] {
   border-color: var(--blackish);
   margin-top: 10px;
   lost-column: 1/2;
+}
+
+.address-country-zip > .text-field > input[name=address-country] {
+  float: left;
+}
+
+.address-country-zip > .text-field > input[name=address-zip] {
+  float: right;
+}
+
+.address-city-state > .text-field > input[name^=address-] {
+  border-color: var(--blackish);
+  margin-top: 10px;
+  lost-column: 1/2;
+}
+
+.address-city-state > .text-field > input[name=address-city] {
+  float: left;
+}
+
+.address-city-state > .text-field > input[name=address-state] {
+  float: right;
 }
 
 .address-add-to-cart {

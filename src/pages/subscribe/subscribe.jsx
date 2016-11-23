@@ -106,7 +106,7 @@ class Subscribe extends Component {
 
   get subscriptionsListing(): HTMLElement {
     const productsList = _.filter(this.props.list, (prod: Product) => {
-      return _.includes(prod.tags, 'SUBSCRIPTION');
+      return _.includes(prod.tags, 'BACON');
     });
 
     return this.props.isLoading
