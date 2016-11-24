@@ -184,7 +184,7 @@ class Pdp extends Component {
 
   @autobind
   changeCountry(item: Country) {
-    this.setState({selectedCountryId: item.id, selectedRegions: []});
+    this.setState({selectedCountryId: item.id});
   }
 
   @autobind
@@ -295,9 +295,10 @@ class Pdp extends Component {
                 <TextInput name="address-phone" placeholder={t('PHONE')} />
               </FormField>
             </div>
-            <Button styleName="address-add-to-cart" isLoading={isCartLoading}>
+            <Button styleName="address-add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
               {t('ADD TO CART')}
             </Button>
+            <ErrorAlerts error={this.state.error} />
           </div>
         </div>
       );

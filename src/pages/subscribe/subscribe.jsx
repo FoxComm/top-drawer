@@ -38,10 +38,7 @@ class Subscribe extends Component {
         <div styleName="supporting-text">
           <p>
             SUBSCRIBE TO TOP DRAWER & NEVER RUN OUT OF FRESH
-          </p>
-        </div>
-        <div styleName="supporting-text">
-          <p>
+            <br />
             SOCKS AGAIN!
           </p>
         </div>
@@ -131,7 +128,9 @@ class Subscribe extends Component {
               </p>
             </div>
         </div>
-        {this.subscriptionsListing}
+        <div styleName="nada">
+          {this.subscriptionsListing}
+        </div>
         <div styleName="plan-questions">
           <p>
             QUESTIONS?
@@ -157,30 +156,26 @@ class Subscribe extends Component {
         <div styleName="the-details-row" styleName="qa-second-row">
           <div styleName="qa-the-details-column">
             <div styleName="header">
-              <article styleName="qa-article-banner">
-                <h2 styleName="qa-article-header">HOW DOES THIS WORK?</h2>
-                <div styleName="qa-article-description">
-                  <p>
-                    Pick your plan-of-choice based on quantity and frequency and we'll create the
-                    shipment based on your selection. You'll never be without cool socks and oh
-                    yeah, free shipping every single time!
-                  </p>
-                </div>
-              </article>
+              <h2 styleName="qa-article-header">HOW DOES THIS WORK?</h2>
+              <div styleName="qa-article-description">
+                <p>
+                  Pick your plan-of-choice based on quantity and frequency and we'll create the
+                  shipment based on your selection. You'll never be without cool socks and oh
+                  yeah, free shipping every single time!
+                </p>
+              </div>
             </div>
           </div>
           <div styleName="qa-the-details-column">
             <div styleName="header">
-                <article styleName="qa-article-banner">
-                  <h2 styleName="qa-article-header">WHAT IF I WANT TO CHANGE PLANS OR CANCEL?</h2>
-                  <div styleName="qa-article-description">
-                    <p>
-                      No problem! Totally understand sometimes you go through ups and downs with
-                      those sock holes. Just respond to our renewal emails when it comes time to
-                      renew or email support@topdrawer.com to update or cancel the plan.
-                    </p>
-                  </div>
-                </article>
+              <h2 styleName="qa-article-header">WHAT IF I WANT TO CHANGE PLANS OR CANCEL?</h2>
+              <div styleName="qa-article-description">
+                <p>
+                  No problem! Totally understand sometimes you go through ups and downs with
+                  those sock holes. Just respond to our renewal emails when it comes time to
+                  renew or email support@topdrawer.com to update or cancel the plan.
+                </p>
+              </div>
             </div>
           </div>
         </div>
