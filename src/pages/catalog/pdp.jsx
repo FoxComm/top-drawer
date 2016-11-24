@@ -65,7 +65,8 @@ type Props = Localized & {
 type State = {
   quantity: number;
   error?: any;
-  selectedCountryId?: number;
+  selectedCountry?: Country;
+  selectedRegion?: Region;
 };
 
 type Product = {
@@ -78,6 +79,12 @@ type Product = {
 
 type Country = {
   alpha3: string;
+  id: number;
+  name: string;
+}
+
+type Region = {
+  countryId: number;
   id: number;
   name: string;
 }
@@ -184,7 +191,10 @@ class Pdp extends Component {
 
   @autobind
   changeCountry(item: Country) {
-    this.setState({selectedCountryId: item.id});
+    this.setState({
+      selectedCountry: item,
+      selectedRegion: {name: "", id: undefined, countryId: undefined}
+    });
   }
 
   @autobind
@@ -230,10 +240,10 @@ class Pdp extends Component {
 
     if (this.isSubscription) {
       const { countries } = this.props;
-      const { selectedCountryId } = this.state;
+      const { selectedCountry, selectedRegion } = this.state;
 
-      const regions = (selectedCountryId !== undefined)
-        ? countries.details[selectedCountryId].regions : [];
+      const regions = (selectedCountry && selectedCountry.id !== undefined)
+        ? countries.details[selectedCountry.id].regions : [];
 
       return (
         <div styleName="container">
@@ -266,6 +276,7 @@ class Pdp extends Component {
                     getItemValue={item => item.name}
                     items={countries.list}
                     onSelect={this.changeCountry}
+                    selectedItem={selectedCountry}
                   />
                 </FormField>
               </div>
@@ -288,6 +299,7 @@ class Pdp extends Component {
                     getItemValue={item => item.name}
                     items={regions}
                     onSelect={() => {}}
+                    selectedItem={selectedRegion}
                   />
                 </FormField>
               </div>
