@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import * as tracking from 'lib/analytics';
+import { assoc } from 'sprout-data';
 
 // i18n
 import localized from 'lib/i18n';
@@ -31,7 +32,7 @@ import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
-import Autocomplete from 'ui/autocomplete';
+import SubscribeForm from 'ui/subscribe-form';
 
 // styles
 import styles from './pdp.css';
@@ -67,6 +68,7 @@ type State = {
   error?: any;
   selectedCountry?: Country;
   selectedRegion?: Region;
+  attributes?: Object;
 };
 
 type Product = {
@@ -121,6 +123,7 @@ class Pdp extends Component {
 
   state: State = {
     quantity: 1,
+    attributes: {},
   };
 
   componentWillMount() {
@@ -181,7 +184,7 @@ class Pdp extends Component {
 
   get isSubscription(): boolean {
     const tags = _.get(this.props.product, 'attributes.tags.v', []);
-    return _.includes(tags, 'BACON');
+    return _.includes(tags, 'subscription');
   }
 
   changeQuantity(change: number): void {
@@ -190,24 +193,47 @@ class Pdp extends Component {
   }
 
   @autobind
+  setAttributeFromField({ target: { name, value } }) {
+    const namePath = ['attributes', ...name.split('.')];
+    this.setState(assoc(this.state, namePath, value));
+  }
+
+  @autobind
   changeCountry(item: Country) {
     this.setState({
       selectedCountry: item,
-      selectedRegion: {name: "", id: undefined, countryId: undefined}
+      selectedRegion: {name: "", id: undefined, countryId: undefined},
+    }, () => {
+      this.setState(assoc(this.state, ["attributes", "subscription", "country"], this.state.selectedCountry.name), () => {
+        this.setState(assoc(this.state, ["attributes", "subscription", "state"], ""));
+      });
+    });
+  }
+
+  @autobind
+  changeRegion(item: Region) {
+    this.setState({
+      selectedRegion: item,
+    }, () => {
+      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name));
     });
   }
 
   @autobind
   addToCart(): void {
     const { actions } = this.props;
-    const { quantity } = this.state;
+    const { quantity, attributes } = this.state;
 
     const skuId = _.get(this.firstSku, 'attributes.code.v', '');
     tracking.addToCart(this.product, quantity);
-    actions.addLineItem(skuId, quantity)
+    actions.addLineItem(skuId, quantity, attributes)
       .then(() => {
         actions.toggleCart();
-        this.setState({quantity: 1});
+        this.setState({
+          quantity: 1,
+          attributes: {},
+          currentSku: null,
+        });
       })
       .catch(ex => {
         this.setState({
@@ -240,78 +266,25 @@ class Pdp extends Component {
 
     if (this.isSubscription) {
       const { countries } = this.props;
-      const { selectedCountry, selectedRegion } = this.state;
-
-      const regions = (selectedCountry && selectedCountry.id !== undefined)
-        ? countries.details[selectedCountry.id].regions : [];
+      const { selectedCountry, selectedRegion, attributes } = this.state;
+      const product = this.product;
 
       return (
         <div styleName="container">
           <div styleName="gallery">
             {this.renderGallery()}
           </div>
-          <div styleName="address-details">
-            <h1 styleName="name">{title}</h1>
-            <div styleName="price">
-              <Currency value={price} currency={currency} />
-            </div>
-            <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
-            <div styleName="shipping-to">Shipping To</div>
-            <div styleName="address-form-container">
-              <FormField styleName="text-field">
-                <TextInput name="address-name" placeholder={t('FIRST & LAST NAME')}/>
-              </FormField>
-              <FormField styleName="text-field">
-                <TextInput name="address-address1" placeholder={t('STREET ADDRESS 1')}/>
-              </FormField>
-              <FormField styleName="text-field">
-                <TextInput name="address-address2" placeholder={t('STREET ADDRESS 2 (optional)')} />
-              </FormField>
-              <div styleName="address-country">
-                <FormField styleName="text-field">
-                  <Autocomplete
-                    inputProps={{
-                      placeholder: t('UNITED STATES'),
-                    }}
-                    getItemValue={item => item.name}
-                    items={countries.list}
-                    onSelect={this.changeCountry}
-                    selectedItem={selectedCountry}
-                  />
-                </FormField>
-              </div>
-              <div styleName="address-zip">
-                <FormField styleName="text-field">
-                  <TextInput name="input-zip" placeholder={t('ZIP')} />
-                </FormField>
-              </div>
-              <div styleName="address-city">
-                <FormField styleName="text-field">
-                  <TextInput name="input-city" placeholder={t('CITY')} />
-                </FormField>
-              </div>
-              <div styleName="address-state">
-                <FormField styleName="text-field">
-                  <Autocomplete
-                    inputProps={{
-                      placeholder: t('STATE'),
-                    }}
-                    getItemValue={item => item.name}
-                    items={regions}
-                    onSelect={() => {}}
-                    selectedItem={selectedRegion}
-                  />
-                </FormField>
-              </div>
-              <FormField styleName="text-field">
-                <TextInput name="address-phone" placeholder={t('PHONE')} />
-              </FormField>
-            </div>
-            <Button styleName="address-add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
-              {t('ADD TO CART')}
-            </Button>
-            <ErrorAlerts error={this.state.error} />
-          </div>
+          <SubscribeForm
+            product={product}
+            countries={countries}
+            selectedCountry={selectedCountry}
+            selectedRegion={selectedRegion}
+            onChangeCountry={this.changeCountry}
+            onChangeRegion={this.changeRegion}
+            addToCart={this.addToCart}
+            attributes={attributes}
+            onAttributeChange={this.setAttributeFromField}
+          />
         </div>
       );
     }
