@@ -17,6 +17,7 @@
     background-color: var(--bunker);
     border-color: var(--bunker);
     text-transform: uppercase;
+    font-size: 20px;
 
     &:before {
       background-color: var(--blackish);
@@ -112,7 +113,7 @@
     lost-column: 1/2;
     lost-offset: -1/2;
 
-    & h2, 
+    & h2,
     & h3 {
       color: var(--bunker);
     }
@@ -134,4 +135,10 @@
   background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_Filtered_2x.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+@media (min-width: 1300px) {
+  .top-banner a {
+    font-size: 23px;
+  }
 }
