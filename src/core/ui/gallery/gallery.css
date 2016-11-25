@@ -14,13 +14,12 @@
   }
 }
 
-.single-gallery {
+.single-gallery,
+.multiple-gallery {
   composes: gallery;
 }
 
 .multiple-gallery {
-  composes: gallery;
-
   & .image {
     lost-column: 5/6;
   }
@@ -47,5 +46,27 @@
 
   & img:not(:last-child) {
     margin-bottom: 10px;
+  }
+}
+
+@media (--small-only), (--medium-only) {
+  .gallery {
+    flex-direction: column;
+  }
+
+  .previews,
+  .multiple-gallery .image {
+    lost-column: 1/1;
+    margin: 10px 0;
+  }
+
+  .previews {
+    height: 100px;
+    flex-direction: row;
+
+    & img {
+      width: auto;
+      height: 100%;
+    }
   }
 }
