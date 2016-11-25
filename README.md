@@ -1,6 +1,6 @@
 # Top Drawer
 
-[![Build status](https://badge.buildkite.com/e9143615d9d894b2cfc2d23dbf3bdcd8b217e10e56710564a7.svg)](https://buildkite.com/foxcommerce/firebrand)
+[![Build status](https://badge.buildkite.com/e9143615d9d894b2cfc2d23dbf3bdcd8b217e10e56710564a7.svg)](https://buildkite.com/foxcommerce/top-drawer)
 
 Top Drawer's very own storefront powered by FoxCommerce. It's a spiffy isomorphic React app.
 
