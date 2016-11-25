@@ -3,6 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import classNames from 'classnames';
 
 import { toggleSidebar } from 'modules/sidebar';
 import { toggleActive, resetTerm } from 'modules/search';
@@ -16,17 +17,19 @@ import Navigation from '../navigation/navigation';
 import TopBanner from '../top-banner/top-banner';
 
 type Props = {
-  toggleSidebar: Function;
-  toggleSearch: Function;
-  isSearchActive: boolean;
-  resetTerm: Function;
-  path: string;
-  query: ?Object;
-}
+  toggleSidebar: Function,
+  toggleSearch: Function,
+  isSearchActive: boolean,
+  resetTerm: Function,
+  path: string,
+  query: ?Object,
+  closeBanner: Function,
+  isBannerVisible: boolean,
+};
 
 type State = {
   isScrolled: boolean;
-}
+};
 
 class Header extends React.Component {
   props: Props;
@@ -62,10 +65,17 @@ class Header extends React.Component {
   render() {
     const headerStyle = this.state.isScrolled ? 'header-scrolled' : 'header';
 
+    const headerClass = classNames(styles[headerStyle], {
+      [styles['_without-banner']]: !this.props.isBannerVisible,
+    });
+
     return (
       <div>
-        <TopBanner />
-        <div styleName={headerStyle}>
+        <TopBanner
+          isVisible={this.props.isBannerVisible}
+          onClose={this.props.closeBanner}
+        />
+        <div className={headerClass}>
           <div styleName="wrap">
             <div styleName="hamburger" onClick={this.props.toggleSidebar}>
               <Icon name="fc-hamburger" styleName="head-icon"/>

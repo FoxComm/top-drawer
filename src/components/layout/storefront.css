@@ -11,6 +11,10 @@
 .content-container {
   margin-top: 66px;
   flex: 1 1 auto;
+
+  &._without-banner {
+    margin-top: 0;
+  }
 }
 
 .categories {
