@@ -48,10 +48,10 @@ class Header extends React.Component {
   }
 
   checkScroll = () => {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollTop  = document.documentElement.scrollTop || document.body.scrollTop;
     const isScrolled = scrollTop > 146;
 
-    this.setState({isScrolled});
+    this.setState({ isScrolled });
   };
 
   changeCategoryCallback = () => {
@@ -78,17 +78,19 @@ class Header extends React.Component {
         <div className={headerClass}>
           <div styleName="wrap">
             <div styleName="hamburger" onClick={this.props.toggleSidebar}>
-              <Icon name="fc-hamburger" styleName="head-icon"/>
+              <Icon name="fc-hamburger" styleName="head-icon" />
             </div>
             <Link to="/" styleName="logo-link">
               <img styleName="logo" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
             </Link>
-            <Navigation onClick={this.changeCategoryCallback}/>
+            <div styleName="navigation">
+              <Navigation onClick={this.changeCategoryCallback} />
+            </div>
             <div styleName="search">
-              <Search onSearch={this.props.toggleSearch}/>
+              <Search onSearch={this.props.toggleSearch} />
             </div>
             <div styleName="tools">
-              <UserTools path={this.props.path} query={this.props.query}/>
+              <UserTools path={this.props.path} query={this.props.query} />
             </div>
           </div>
         </div>

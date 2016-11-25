@@ -43,6 +43,7 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
   const handleLogout = e => {
     e.stopPropagation();
     e.preventDefault();
+    changeCategoryCallback();
     props.logout();
   };
 
@@ -51,7 +52,7 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
       {t('LOG OUT')}
     </a>
   ) : (
-    <Link styleName="session-link" to={{pathname: props.path, query: {auth: 'LOGIN'}}}>
+    <Link styleName="session-link" to={{pathname: props.path, query: {auth: 'LOGIN'}}} onClick={changeCategoryCallback}>
       {t('LOG IN')}
     </Link>
   );
