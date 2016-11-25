@@ -1,7 +1,7 @@
 @import "media-queries.css";
 @import "colors.css";
 
-.header {
+.header-base {
   position: fixed;
   top: 66px;
   width: 100%;
@@ -16,8 +16,12 @@
   }
 }
 
+.header,
 .header-scrolled {
-  composes: header;
+  composes: header-base;
+}
+
+.header-scrolled {
   background: var(--whitish);
   box-shadow: 0 1px #e9e9e9;
 
@@ -29,6 +33,12 @@
 .wrap {
   composes: wrap from "ui/css/layout.css";
   display: flex;
+}
+
+.navigation {
+  display: flex;
+  align-self: stretch;
+  transition: all 300ms;
 }
 
 .hamburger {
@@ -72,17 +82,30 @@
 }
 
 :global(.icon--top_drawer_logo) {
-    background: url(/images/home/top-icon-logo.svg);
-    background-repeat: no-repeat;
-    width: 60px;
-    height: 33px;
-    margin: 0px auto 60px auto;
+  background: url(/images/home/top-icon-logo.svg);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 33px;
+  margin: 0px auto 60px auto;
 }
 
-@media (--small-viewport) {
+@media (--small-only), (--medium-only) {
   :global(.icon).logo {
     width: 40px;
     height: 40px;
+  }
+
+  .wrap {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-link {
+    margin-right: 0;
+  }
+
+  .navigation {
+    display: none;
   }
 
   .search {
@@ -95,5 +118,9 @@
     & :global(.icon) {
       cursor: pointer;
     }
+  }
+
+  .tools {
+    flex: 0;
   }
 }

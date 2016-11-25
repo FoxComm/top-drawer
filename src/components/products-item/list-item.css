@@ -4,19 +4,14 @@
 @import "media-queries";
 
 .list-item {
-  width: 30%;
+  width: calc(33% - var(--grid-margin));
   margin-bottom: 40px;
-  margin-right: 5%;
   padding-bottom: 20px;
   text-align: center;
   line-height: 19px;
   font-size: 16px;
   color: var(--blackish);
   transition: all 400ms;
-
-  &:nth-child(3n+3) {
-    margin-right: 0;
-  }
 
   &:hover {
     box-shadow: 0 0 0 1vw var(--whitish), 0 0 0 1.1vw var(--greyish);
@@ -44,17 +39,10 @@
   color: var(--bunker);
 }
 
-@media (--medium-viewport) {
+@media (--small-only), (--medium-only) {
   .list-item {
+    width: calc(50% - (var(--grid-margin) / 2));
     margin-bottom: 20px;
-  }
-}
-
-@media (--small-viewport) {
-  .list-item {
-    width: 48%;
-    margin-bottom: 20px;
-    margin-right: 0;
   }
 
   .name {

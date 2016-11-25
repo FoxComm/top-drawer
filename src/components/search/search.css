@@ -94,20 +94,22 @@
   fill: var(--whitish);
 }
 
-@media (--small-viewport) {
-  .search-input,
+@media (--small-only), (--medium-only) {
   .search-expanded .search-input {
     font-size: 16px;
     line-height: 38px;
     padding-left: 40px;
     width: 100%;
+    background: rgba(255, 255, 255, .05);
   }
 
-  .search .head-icon,
   .search-expanded .head-icon {
     display: block;
     top: 9px;
     left: 10px;
+    width: 20px;
+    height: 20px;
+    color: rgba(255, 255, 255, .3);
     z-index: 1;
   }
 

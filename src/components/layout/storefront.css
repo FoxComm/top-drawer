@@ -33,8 +33,11 @@
   .categories {
     display: none;
   }
+}
 
+@media (--small-only), (--medium-only) {
   .mobile-sidebar {
     display: block;
+    z-index: 10;
   }
 }

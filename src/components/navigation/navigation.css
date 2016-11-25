@@ -1,9 +1,8 @@
+@import "media-queries.css";
 @import "colors.css";
 
 .list {
   display: flex;
-  justify-content: center;
-  align-self: stretch;
 }
 
 .item {
@@ -25,7 +24,8 @@
       display: block;
       position: absolute;
       top: 100%;
-      left: -15px;
+      left: 50%;
+      transform: translateX(calc(-50% - 4px));
       padding: 10px 0;
       min-width: 117px;
       text-align: center;
@@ -79,16 +79,21 @@
   }
 }
 
-@media (--small-viewport) {
+@media (--small-only), (--medium-only) {
   .list {
     display: block;
   }
 
   .item {
-    margin: 32px 0 0 0;
+    &:hover {
+      & ul {
+        display: none;
+      }
+    }
   }
 
   .item-link {
+    line-height: 40px;
     color: var(--whitish);
     text-decoration: none;
     margin: 0;

@@ -59,3 +59,29 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+@media (--small-only), (--medium-only) {
+  .container {
+    padding: 0;
+  }
+
+  .gallery,
+  .details {
+    lost-column: 1/1;
+  }
+
+  .details {
+    align-items: center;
+  }
+
+  .name {
+    margin: 20px 0;
+    font-size: 30px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .description {
+    text-align: center;
+  }
+}
