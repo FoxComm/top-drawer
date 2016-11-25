@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import * as tracking from 'lib/analytics';
+import { assoc } from 'sprout-data';
 
 // i18n
 import localized from 'lib/i18n';
@@ -29,6 +30,9 @@ import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
+import { FormField } from 'ui/forms';
+import { TextInput } from 'ui/inputs';
+import SubscribeForm from 'ui/subscribe-form';
 
 // styles
 import styles from './pdp.css';
@@ -56,11 +60,15 @@ type Props = Localized & {
   isLoading: boolean;
   isCartLoading: boolean;
   notFound: boolean;
+  countries: Array<any>|Object;
 };
 
 type State = {
   quantity: number;
   error?: any;
+  selectedCountry?: Country;
+  selectedRegion?: Region;
+  attributes?: Object;
 };
 
 type Product = {
@@ -71,6 +79,18 @@ type Product = {
   price: number;
 };
 
+type Country = {
+  alpha3: string;
+  id: number;
+  name: string;
+}
+
+type Region = {
+  countryId: number;
+  id: number;
+  name: string;
+}
+
 const mapStateToProps = state => {
   const product = state.productDetails.product;
 
@@ -80,6 +100,7 @@ const mapStateToProps = state => {
     notFound: !product && _.get(state.asyncActions, ['pdp', 'err', 'status']) == 404,
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
+    countries: state.countries,
   };
 };
 
@@ -102,6 +123,7 @@ class Pdp extends Component {
 
   state: State = {
     quantity: 1,
+    attributes: {},
   };
 
   componentWillMount() {
@@ -160,22 +182,58 @@ class Pdp extends Component {
     };
   }
 
+  get isSubscription(): boolean {
+    const tags = _.get(this.props.product, 'attributes.tags.v', []);
+    return _.includes(tags, 'subscription');
+  }
+
   changeQuantity(change: number): void {
     const quantity = Math.max(this.state.quantity + change, 1);
     this.setState({quantity});
   }
 
   @autobind
+  setAttributeFromField({ target: { name, value } }) {
+    const namePath = ['attributes', ...name.split('.')];
+    this.setState(assoc(this.state, namePath, value));
+  }
+
+  @autobind
+  changeCountry(item: Country) {
+    this.setState({
+      selectedCountry: item,
+      selectedRegion: {name: "", id: undefined, countryId: undefined},
+    }, () => {
+      this.setState(assoc(this.state, ["attributes", "subscription", "country"], this.state.selectedCountry.name), () => {
+        this.setState(assoc(this.state, ["attributes", "subscription", "state"], ""));
+      });
+    });
+  }
+
+  @autobind
+  changeRegion(item: Region) {
+    this.setState({
+      selectedRegion: item,
+    }, () => {
+      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name));
+    });
+  }
+
+  @autobind
   addToCart(): void {
     const { actions } = this.props;
-    const { quantity } = this.state;
+    const { quantity, attributes } = this.state;
 
     const skuId = _.get(this.firstSku, 'attributes.code.v', '');
     tracking.addToCart(this.product, quantity);
-    actions.addLineItem(skuId, quantity)
+    actions.addLineItem(skuId, quantity, attributes)
       .then(() => {
         actions.toggleCart();
-        this.setState({quantity: 1});
+        this.setState({
+          quantity: 1,
+          attributes: {},
+          currentSku: null,
+        });
       })
       .catch(ex => {
         this.setState({
@@ -205,6 +263,31 @@ class Pdp extends Component {
     }
 
     const { title, description, currency, price } = this.product;
+
+    if (this.isSubscription) {
+      const { countries } = this.props;
+      const { selectedCountry, selectedRegion, attributes } = this.state;
+      const product = this.product;
+
+      return (
+        <div styleName="container">
+          <div styleName="gallery">
+            {this.renderGallery()}
+          </div>
+          <SubscribeForm
+            product={product}
+            countries={countries}
+            selectedCountry={selectedCountry}
+            selectedRegion={selectedRegion}
+            onChangeCountry={this.changeCountry}
+            onChangeRegion={this.changeRegion}
+            addToCart={this.addToCart}
+            attributes={attributes}
+            onAttributeChange={this.setAttributeFromField}
+          />
+        </div>
+      );
+    }
 
     return (
       <div styleName="container">

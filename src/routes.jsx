@@ -8,6 +8,7 @@ import Locations from './pages/locations/locations';
 import OurStory from './pages/our-story/our-story';
 import Pdp from './pages/catalog/pdp';
 import Search from './pages/search/search';
+import Subscribe from './pages/subscribe/subscribe';
 import Custom from './pages/custom/custom';
 import Social from './pages/social/social';
 import PrivacyPolicy from './pages/static/privacy-policy';
@@ -39,6 +40,7 @@ const routes = (
         </Route>
       </Route>
       <Route path="/our-story" component={OurStory} />
+      <Route path="/subscribe" component={Subscribe} />
       <Route path="/custom" component={Custom} />
       <Route path="/social" component={Social} />
       <Route path="/privacy" component={PrivacyPolicy} />
