@@ -1,13 +1,34 @@
 /* @flow */
 
 import React from 'react';
+import classNames from 'classnames';
+
+import Icon from 'ui/icon';
 
 import styles from './top-banner.css';
 
-const TopBanner = () => {
+type Props = {
+  isVisible: boolean,
+  onClose: Function,
+};
+
+const TopBanner = (props: Props) => {
+  const bannerClass = classNames(styles.banner, {
+    [styles._hidden]: !props.isVisible,
+  });
+
   return (
-    <div styleName="banner">
+    <div className={bannerClass}>
+      <div styleName="content">
+        <span>
       FREE SHIPPING on all orders of $50 and more!
+        </span>
+      </div>
+      <div styleName="button">
+        <a styleName="close" onClick={props.onClose}>
+          <Icon name="fc-close" className="close-icon"/>
+        </a>
+      </div>
     </div>
   );
 };
