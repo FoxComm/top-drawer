@@ -250,6 +250,14 @@ class Pdp extends Component {
       : <ImagePlaceholder />;
   }
 
+  @autobind
+  submitSubscribeForm(): void {
+    if (!this.isSubscription) {
+      return;
+    }
+
+    this.addToCart();
+  }
 
   render(): HTMLElement {
     const { t, isLoading, isCartLoading, notFound } = this.props;
@@ -266,7 +274,7 @@ class Pdp extends Component {
 
     if (this.isSubscription) {
       const { countries } = this.props;
-      const { selectedCountry, selectedRegion, attributes } = this.state;
+      const { selectedCountry, selectedRegion, attributes, error } = this.state;
       const product = this.product;
 
       return (
@@ -281,9 +289,10 @@ class Pdp extends Component {
             selectedRegion={selectedRegion}
             onChangeCountry={this.changeCountry}
             onChangeRegion={this.changeRegion}
-            addToCart={this.addToCart}
+            onSubmit={this.submitSubscribeForm}
             attributes={attributes}
             onAttributeChange={this.setAttributeFromField}
+            error={error}
           />
         </div>
       );

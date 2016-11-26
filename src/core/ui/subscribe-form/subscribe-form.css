@@ -20,7 +20,7 @@
     margin-top: 10px;
 }
 
-.address-form-container > .text-field > input[name^="subscription."] {
+.address-form-container .text-field > input[name^="subscription."] {
     border-color: var(--blackish);
     margin-top: 10px;
     lost-column: 3/3;
@@ -32,14 +32,14 @@
     float: left;
 }
 
-.address-zip > .text-field > input[name^="subscription.zip"] {
+.address-zip .text-field > input[name^="subscription.zip"] {
     border-color: var(--blackish);
     margin-top: 10px;
     lost-column: 1/2;
     float: right;
 }
 
-.address-city > .text-field > input[name^="subscription.city"] {
+.address-city .text-field > input[name^="subscription.city"] {
     border-color: var(--blackish);
     margin-top: 10px;
     lost-column: 1/2;
