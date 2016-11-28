@@ -70,10 +70,6 @@
     lost-column: 1/1;
   }
 
-  .details {
-    align-items: center;
-  }
-
   .name {
     margin: 20px 0;
     font-size: 30px;
@@ -88,11 +84,6 @@
 
 
 @media (--small-only) {
-  .details {
-    margin: 0 auto;
-    width: 90%;
-  }
-
   .name {
     text-align: left;
   }
@@ -106,11 +97,17 @@
   }
 
   .counter {
-    margin-right: 0px;
+    margin-right: 0;
     lost-column: 3/3;
   }
 
   .add-to-cart {
     lost-column: 3/3;
+  }
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
   }
 }
