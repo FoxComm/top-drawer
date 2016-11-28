@@ -296,8 +296,8 @@ class Pdp extends Component {
         </div>
         <div styleName="details">
           <h1 styleName="name">{title}</h1>
-          <div styleName="price">
-            <Currency value={price} currency={currency} />
+          <div styleName="price-container">
+            <Currency value={price} currency={currency} className="price" />
           </div>
           <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
           <div styleName="counter">
