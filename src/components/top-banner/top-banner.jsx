@@ -21,7 +21,8 @@ const TopBanner = (props: Props) => {
     <div className={bannerClass}>
       <div styleName="content">
         <span>
-      FREE SHIPPING on all orders of $50 and more!
+          <span styleName="emph">FREE SHIPPING</span> on all orders of $50 and more.
+          Plus use code <span styleName="emph">SOCKS&SNOW20</span> to get 20% off your entire order!
         </span>
       </div>
       <div styleName="button">
