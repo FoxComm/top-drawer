@@ -33,6 +33,7 @@ import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import SubscribeForm from 'ui/subscribe-form';
+import Carousel from 'ui/carousel';
 
 // styles
 import styles from './pdp.css';
@@ -127,6 +128,10 @@ class Pdp extends Component {
   };
 
   componentWillMount() {
+    const mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    mqSmallOnly.addListener(this.mediaQueryChanged);
+    this.setState({mqSmallOnly: mqSmallOnly, smallOnly: mqSmallOnly.matches});
+
     const {product, actions} = this.props;
 
     actions.fetchProducts();
@@ -193,6 +198,11 @@ class Pdp extends Component {
   }
 
   @autobind
+  mediaQueryChanged() {
+    this.setState({smallOnly: this.state.mqSmallOnly.matches});
+  }
+
+  @autobind
   setAttributeFromField({ target: { name, value } }) {
     const namePath = ['attributes', ...name.split('.')];
     this.setState(assoc(this.state, namePath, value));
@@ -250,6 +260,25 @@ class Pdp extends Component {
       : <ImagePlaceholder />;
   }
 
+  renderCarousel() {
+    const { images } = this.product;
+    const imgixAppendix = `?w=975&h=1015&q=60&fit=clip&fm=jpg`;
+
+    return !_.isEmpty(images)
+      ? (
+        <Carousel className="slider" switcher={true}>
+          {images.map((image, index) => (
+            <div styleName="image">
+              <img
+                key={`image-${index}`}
+                src={`${image}${imgixAppendix}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+      )
+      : <ImagePlaceholder />;
+  }
 
   render(): HTMLElement {
     const { t, isLoading, isCartLoading, notFound } = this.props;
@@ -291,9 +320,13 @@ class Pdp extends Component {
 
     return (
       <div styleName="container">
-        <div styleName="gallery">
-          {this.renderGallery()}
-        </div>
+        {this.state.smallOnly ? (
+          this.renderCarousel()
+        ) : (
+          <div styleName="gallery">
+            {this.renderGallery()}
+          </div>
+        )}
         <div styleName="details">
           <h1 styleName="name">{title}</h1>
           <div styleName="price-container">
