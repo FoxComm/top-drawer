@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import { Link } from 'react-router';
 
 import Banner from '../../components/banner/banner';
 import styles from './home.css';
@@ -26,15 +27,39 @@ class Home extends Component {
     );
   }
 
-  get descriptiveContent(): HTMLElement {
+  get holidayBanner1(): HTMLElement {
     return (
-      <div styleName="descriptive-content">
-        <div styleName="dc-logo"/>
-        <div styleName="dc-text">
-          <p>
-            Whether you’re getting ready for work or for a 
-            night out, stand out and be you with socks from your Top Drawer.
-          </p>
+      <div styleName="holiday-banner1">
+        <div styleName="wrap">
+          <Banner
+            header="tis the season for socks and snow"
+            description=""
+            links={[
+              {to: '/products/17', text: 'buy holiday socks now'},
+            ]}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  get holidayBanner2(): HTMLElement {
+    return (
+      <div styleName="holiday-banner2">
+        <div styleName="wrap">
+          <article>
+            <h2>Use code <span styleName="emph">SOCKS&SNOW20</span> and get 20% off your entire order!</h2>
+            <h3>Be ready for the holiday season with holiday socks!</h3>
+              <div styleName="links">
+              <Link
+                styleName="link"
+                key="link-/products/17"
+                to="/products/17"
+              >
+              Buy holiday socks now
+              </Link>
+            </div>
+          </article>
         </div>
       </div>
     );
@@ -45,26 +70,10 @@ class Home extends Component {
       <div styleName="subscribe-banner">
         <div styleName="wrap">
           <Banner
-            header="We are passionate about the craft."
-            description="We live and breathe the art of socks."
+            header="Subscribe to Top Drawer"
+            description="Monthly. Quarterly. Cancel anytime."
             links={[
-              {to: '/our-story', text: 'Learn More'},
-            ]}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  get bundlesBanner(): HTMLElement {
-    return (
-      <div styleName="bundles-banner">
-        <div styleName="wrap">
-          <Banner
-            header="Start your top drawer fresh with our 6-pair promo!"
-            description="Pick any 2 bundles, get 20% off!"
-            links={[
-              {to: '/bundles', text: 'Shop Bundles'},
+              {to: '/subscribe', text: 'Learn More'},
             ]}
           />
         </div>
@@ -91,10 +100,9 @@ class Home extends Component {
   render(): HTMLElement {
     return (
       <div>
-        {this.topBanner}
-        {this.descriptiveContent}
+        {this.holidayBanner1}
+        {this.holidayBanner2}
         {this.subscribeBanner}
-        {this.bundlesBanner}
         {this.customSocksBanner}
       </div>
     );
