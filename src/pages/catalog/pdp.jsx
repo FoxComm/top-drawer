@@ -37,6 +37,7 @@ import Carousel from 'ui/carousel';
 
 // styles
 import styles from './pdp.css';
+import carouselStyles from 'ui/carousel/carousel.css';
 
 
 type Params = {
@@ -192,6 +193,17 @@ class Pdp extends Component {
     return _.includes(tags, 'subscription');
   }
 
+  get gallery() {
+    if (this.state.smallOnly) {
+      return this.renderCarousel();
+    }
+    return (
+      <div styleName="gallery">
+        {this.renderGallery()}
+      </div>
+    );
+  }
+
   changeQuantity(change: number): void {
     const quantity = Math.max(this.state.quantity + change, 1);
     this.setState({quantity});
@@ -266,7 +278,7 @@ class Pdp extends Component {
 
     return !_.isEmpty(images)
       ? (
-        <Carousel className="slider" switcher={true}>
+        <Carousel className="slider" buttonNav={true}>
           {images.map((image, index) => (
             <div styleName="image">
               <img
@@ -301,7 +313,7 @@ class Pdp extends Component {
       return (
         <div styleName="container">
           <div styleName="gallery">
-            {this.renderGallery()}
+            {this.gallery}
           </div>
           <SubscribeForm
             product={product}
@@ -320,13 +332,7 @@ class Pdp extends Component {
 
     return (
       <div styleName="container">
-        {this.state.smallOnly ? (
-          this.renderCarousel()
-        ) : (
-          <div styleName="gallery">
-            {this.renderGallery()}
-          </div>
-        )}
+        {this.gallery}
         <div styleName="details">
           <h1 styleName="name">{title}</h1>
           <div styleName="price-container">
