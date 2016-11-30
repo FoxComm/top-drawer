@@ -17,7 +17,7 @@
     background-color: var(--bunker);
     border-color: var(--bunker);
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 15px;
 
     &:before {
       background-color: var(--blackish);
@@ -31,9 +31,6 @@
   }
 
   & article {
-    lost-column: 1/3;
-    margin-bottom: 225px;
-
     & h2,
     & h3 {
       color: var(--bunker);
@@ -59,13 +56,11 @@
 
   & .dc-text {
     font-family: var(--font-main);
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 20px;
     color: #212121;
     line-height: 36px;
     text-align: center;
-    padding-left: 200px;
-    padding-right: 200px;
     text-transform: uppercase;
   }
 }
@@ -77,12 +72,6 @@
   background-repeat: no-repeat;
   color: var(--whitish);
   text-align: center;
-
-  & article {
-    width: 65%;
-    margin-left: 17.5%;
-    margin-right: 17.5%;
-  }
 
   & a {
     color: var(--whitish);
@@ -110,9 +99,6 @@
   color: var(--blackish);
 
   & article {
-    lost-column: 1/2;
-    lost-offset: -1/2;
-
     & h2,
     & h3 {
       color: var(--bunker);
@@ -129,7 +115,6 @@
   }
 }
 
-
 .custom-socks-banner {
   composes: centered-banner;
   background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_Filtered_2x.jpg');
@@ -137,8 +122,67 @@
   background-repeat: no-repeat;
 }
 
-@media (min-width: 1300px) {
+@media (--small-only) {
+  .top-banner {
+    padding-top: 140px;
+    height: 668px;
+    background-position: 30% 0;
+  }
+
+  .subscribe-banner {
+    padding-top: 50px;
+    height: 560px;
+  }
+
+  .bundles-banner {
+    background-size: auto 59%;
+    background-position: 0 111%;
+  }
+
+  .custom-socks-banner {
+    padding-top: 20px;
+    height: 340px;
+  }
+}
+
+@media (--medium) {
+  .top-banner {
+    & article {
+      lost-column: 1/3;
+      margin-bottom: 225px;
+    }
+
+    & a {
+      font-size: 20px;
+    }
+  }
+
+  .bundles-banner {
+    & article {
+      lost-column: 1/2;
+      lost-offset: -1/2;
+    }
+  }
+
+  .centered-banner {
+    & article {
+      width: 65%;
+      margin-left: 17.5%;
+      margin-right: 17.5%;
+    }
+  }
+
+  .descriptive-content {
+    & .dc-text {
+      padding-left: 200px;
+      padding-right: 200px;
+    }
+  }
+}
+
+@media (--large) {
   .top-banner a {
     font-size: 23px;
   }
 }
+
