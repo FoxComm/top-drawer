@@ -122,6 +122,7 @@ const mapDispatchToProps = dispatch => ({
 class Pdp extends Component {
   props: Props;
   productPromise: Promise;
+  _mqSmallOnly: any;
 
   state: State = {
     quantity: 1,
@@ -129,10 +130,6 @@ class Pdp extends Component {
   };
 
   componentWillMount() {
-    const mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
-    mqSmallOnly.addListener(this.mediaQueryChanged);
-    this.setState({mqSmallOnly: mqSmallOnly, smallOnly: mqSmallOnly.matches});
-
     const {product, actions} = this.props;
 
     actions.fetchProducts();
@@ -144,6 +141,10 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
+    this._mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    this._mqSmallOnly.addListener(this.mediaQueryChanged);
+    this.setState({smallOnly: this._mqSmallOnly.matches});
+
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
     });
@@ -211,7 +212,7 @@ class Pdp extends Component {
 
   @autobind
   mediaQueryChanged() {
-    this.setState({smallOnly: this.state.mqSmallOnly.matches});
+    this.setState({smallOnly: this._mqSmallOnly.matches});
   }
 
   @autobind
@@ -278,7 +279,7 @@ class Pdp extends Component {
 
     return !_.isEmpty(images)
       ? (
-        <Carousel className="slider" buttonNav={true}>
+        <Carousel buttonNav={true}>
           {images.map((image, index) => (
             <div styleName="image">
               <img
@@ -312,20 +313,20 @@ class Pdp extends Component {
 
       return (
         <div styleName="container">
-          <div styleName="gallery">
-            {this.gallery}
+          {this.gallery}
+          <div styleName="subscribe-details">
+            <SubscribeForm
+              product={product}
+              countries={countries}
+              selectedCountry={selectedCountry}
+              selectedRegion={selectedRegion}
+              onChangeCountry={this.changeCountry}
+              onChangeRegion={this.changeRegion}
+              addToCart={this.addToCart}
+              attributes={attributes}
+              onAttributeChange={this.setAttributeFromField}
+            />
           </div>
-          <SubscribeForm
-            product={product}
-            countries={countries}
-            selectedCountry={selectedCountry}
-            selectedRegion={selectedRegion}
-            onChangeCountry={this.changeCountry}
-            onChangeRegion={this.changeRegion}
-            addToCart={this.addToCart}
-            attributes={attributes}
-            onAttributeChange={this.setAttributeFromField}
-          />
         </div>
       );
     }
@@ -336,7 +337,7 @@ class Pdp extends Component {
         <div styleName="details">
           <h1 styleName="name">{title}</h1>
           <div styleName="price-container">
-            <Currency value={price} currency={currency} className="price" />
+            <Currency value={price} currency={currency}/>
           </div>
           <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
           <div styleName="counter">

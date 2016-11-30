@@ -1,3 +1,9 @@
+.slider {
+    position: relative;
+    overflow-x: hidden;
+    will-change: transform;
+}
+
 .slider ul li img {
     display: block;
     max-width: 100%;
@@ -5,7 +11,7 @@
     margin: 0 auto;
 }
 
-div[name=button-nav-container] ol {
+.button-nav-container ol {
     position: absolute;
     margin: 0;
     padding: 0;
@@ -15,7 +21,7 @@ div[name=button-nav-container] ol {
     width: 100%;
 }
 
-div[name=button-nav-container] ol li {
+.button-nav-container ol li {
     display: inline-block;
     min-width: 10px;
     min-height: 10px;
@@ -29,12 +35,12 @@ div[name=button-nav-container] ol li {
     transform: translateY(-100%);
 }
 
-div[name=button-nav-container] ol button {
+.button-nav-container ol button {
     opacity: 0;
     cursor: pointer;
 }
 
-div[name=button-nav-container] ol li[class=active] {
+.button-nav-container ol li[class=active] {
     pointer-events: none;
     background-color: black;
 }

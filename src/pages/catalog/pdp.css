@@ -60,7 +60,7 @@
   font-weight: 500;
 }
 
-@media (--small-only), (--medium-only) {
+@media (--small-only) {
   .container {
     padding: 0;
   }
@@ -82,8 +82,7 @@
   }
 }
 
-
-@media (--small-only) {
+@media (--small-only), (--medium-only) {
   .name {
     text-align: left;
   }

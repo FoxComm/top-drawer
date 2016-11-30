@@ -50,7 +50,7 @@ export default class Carousel extends Component {
 
   displayButtonNav(children, slide) {
     return (
-      <div name="button-nav-container">
+      <div styleName="button-nav-container">
         <ol>
           {Children.map(children, (item, index) =>
             <li className={slide == index + 1 ? 'active' : null}>
@@ -112,18 +112,13 @@ export default class Carousel extends Component {
   }
 
   render() {
-    const {children, className, buttonNav} = this.props;
+    const {children, buttonNav} = this.props;
     const {slide, sliding, dragging, offset} = this.state;
     const slides = Children.map(children, (child) => React.cloneElement(child, {key: `${child.key}_clone`}));
     const enabled = Children.count(children) > 1;
 
     return (
-      <div className={[className || ''].join(' ')} style={{
-          position: 'relative',
-          overflowX: 'hidden',
-          willChange: 'transform',
-        }}
-      >
+      <div styleName="slider">
         <ul ref="slider" style={{
             display: 'flex',
             transform: enabled
