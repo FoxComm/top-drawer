@@ -28,7 +28,7 @@
   display: block;
   width: 60px;
   height: 33px;
-  margin: 0 auto 60px auto;
+  margin: 10px auto 75px;
   transform: rotate(-90deg);
   color: #fff;
 }
@@ -56,7 +56,7 @@
 .supporting-text {
   font-family: var(--font-main);
   font-weight: 400;
-  font-size: 20px;
+  font-size: 16px;
   color: #ffffff;
   text-align: center;
   padding-left: 20%;
@@ -145,6 +145,7 @@
 }
 
 .the-details-column {
+  margin-bottom: 60px;
   text-align: center;
 }
 
@@ -156,7 +157,7 @@
 
 .td-header {
   margin-top: 80px;
-  font-size: 47px;
+  font-size: 32px;
   font-weight: 600;
   text-align: center;
   color: white;
@@ -165,7 +166,7 @@
 .td-header-supporting-text {
   font-family: var(--font-main);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 16px;
   color: #ffffff;
   text-align: center;
 }
@@ -198,13 +199,10 @@
 }
 
 .plan-td-header {
-  margin-top: 80px;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 600;
-  white-space: nowrap;
   color: #212121;
   letter-spacing: 1px;
-  margin-left: 39%;
 }
 
 .plan-tdc-header {
@@ -337,9 +335,39 @@
   }
 }
 
+@media (--small-only) {
+  .submit-container {
+    margin-top: 10px;
+  }
+
+  .learn-more {
+    margin-top: 30px;
+  }
+
+  .enjoy-details-height {
+    padding-top: 10px;
+  }
+
+  .plan-td-header {
+    text-align: center;
+  }
+}
+
 @media (--medium) {
   .title {
     font-size: 58px;
+  }
+
+  .supporting-text {
+    font-size: 20px;
+  }
+
+  .td-header {
+    font-size: 47px;
+  }
+
+  .td-header-supporting-text {
+    font-size: 20px;
   }
 
   .the-details {
@@ -382,5 +410,12 @@
     padding-left: 20%;
     padding-right: 20%;
     margin-bottom: 100px;
+  }
+
+  .plan-td-header {
+    margin-top: 80px;
+    font-size: 36px;
+    white-space: nowrap;
+    margin-left: 39%;
   }
 }
