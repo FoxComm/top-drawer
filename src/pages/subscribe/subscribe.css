@@ -17,11 +17,11 @@
 }
 
 .dc-logo {
-  background: url(/images/home/top-icon-logo-white.svg);
-  background-repeat: no-repeat;
+  display: block;
   width: 60px;
   height: 33px;
-  margin: 0 auto 60px auto;
+  margin: 0 auto 60px;
+  color: #fff;
 }
 
 .chevron {
@@ -52,7 +52,7 @@
 
 .title {
   margin: 0;
-  font-size: 58px;
+  font-size: 38px;
   font-weight: 600;
   color: white;
   text-align: center;
@@ -342,6 +342,10 @@
 }
 
 @media (--medium) {
+  .title {
+    font-size: 58px;
+  }
+
   .the-details {
     height: 1000px;
     background-color: #7B8EE3;

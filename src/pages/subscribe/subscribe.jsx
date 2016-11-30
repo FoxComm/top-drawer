@@ -1,17 +1,24 @@
 /* @flow */
 
+//libs
+import _ from 'lodash';
 import React, { Component } from 'react';
-import type { HTMLElement } from 'types';
+import { connect } from 'react-redux';
+
+// components
 import Loader from 'ui/loader';
 import ProductsList from '../../components/products-list/products-list';
-import type { Product } from 'modules/products';
+import Icon from 'ui/icon';
 
-import _ from 'lodash';
-
-import { connect } from 'react-redux';
+// actions
 import * as actions from 'modules/products';
 
+// styles
 import styles from './subscribe.css';
+
+// types
+import type { Product } from 'modules/products';
+import type { HTMLElement } from 'types';
 
 const mapStateToProps = state => {
   const async = state.asyncActions.products;
@@ -32,7 +39,7 @@ class Subscribe extends Component {
   get basicStylish(): HTMLElement {
     return (
       <div styleName="subscribe-basic-stylish-banner">
-        <div styleName="dc-logo"/>
+        <Icon styleName="dc-logo" name="fc-top-icon-logo"/>
         <h1 styleName="title">BASIC + STYLISH.</h1>
         <h1 styleName="title">DELIVERED.</h1>
         <div styleName="supporting-text">
