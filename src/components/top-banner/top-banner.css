@@ -8,7 +8,7 @@
   background: var(--blackish);
   color: var(--whitish);
   height: 66px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 15px;
   line-height: 20px;
   z-index: 10;
@@ -16,6 +16,11 @@
 
   &._hidden {
     display: none;
+  }
+
+  & em {
+    font-style: normal;
+    font-weight: 600;
   }
 }
 
