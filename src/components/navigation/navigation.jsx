@@ -1,5 +1,6 @@
 /* @flow */
 
+// lisbs
 import React, { PropTypes } from 'react';
 import type { HTMLElement } from 'types';
 import _ from 'lodash';
@@ -7,20 +8,24 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { browserHistory } from 'react-router';
-
 import localized from 'lib/i18n';
+import activeComponent from 'react-router-active-component';
 
 import * as actions from 'modules/categories';
 
+// styles
 import styles from './navigation.css';
 
-type Category = {
-  name: string;
-  id: number;
-  description: string;
-};
-
 const getState = state => ({...state.categories});
+
+const staticLinks = [
+  { url: '/subscribe', title: 'Subscribe' },
+  { url: '/custom', title: 'Custom' },
+  { url: '/social', title: '#GetTopDrawer' },
+  { url: '/our-story', title: 'Our Story' },
+];
+
+const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
 
 class Navigation extends React.Component {
 
@@ -40,42 +45,56 @@ class Navigation extends React.Component {
     this.props.fetch();
   }
 
-  @autobind
-  onClick(category : ?string, type : ?string) {
-    this.props.onClick(category);
-    if (category == undefined) {
-      browserHistory.push('/');
-    } else {
-      const dashedName = category.replace(/\s/g, '-');
-      if (type) {
-        browserHistory.push({pathname: `/${dashedName}`, query: {type}});
-      } else {
-        browserHistory.push(`/${dashedName}`);
-      }
-    }
-  }
-
   render(): HTMLElement {
     const { t } = this.props;
 
     const categoryItems = _.map(this.props.list, (item) => {
+      if (!item.display) {
+        return null;
+      }
+
       const dashedName = item.name.replace(/\s/g, '-');
       const key = `category-${dashedName}`;
-      if (item.display == true) {
+      const subItems = item.subItems.map(({ name, navName }, i) => (
+        <NavLink
+          to={`/${name}`}
+          linkProps={{ onClick: this.props.onClick }}
+          styleName="item"
+          activeClassName={styles['item-active']}
+          key={i}
+        >
+          {navName}
+        </NavLink>
+      ));
+
       return (
         <li styleName="item" key={key}>
-          <a styleName="item-link" onClick={() => this.onClick(item.name)}>
-          {t(item.navName.toUpperCase())}
-          </a>
+          <Link
+            to={`/${dashedName}`}
+            onClick={this.props.onClick}
+            styleName="item-link"
+            activeClassName={styles['item-active']}
+          >
+            {t(item.navName.toUpperCase())}
+          </Link>
           <ul>
-            <li><a onClick={() => this.onClick('classic')}>CLASSIC</a></li>
-            <li><a onClick={() => this.onClick('modern')}>MODERN</a></li>
-            <li><a onClick={() => this.onClick('bundles')}>BUNDLES</a></li>
+            {subItems}
           </ul>
         </li>
       );
-      }
     });
+
+    const staticLinksItems = staticLinks.map(({ url, title }, i) => (
+      <NavLink
+        to={url}
+        linkProps={{ onClick: this.props.onClick }}
+        styleName="item"
+        activeClassName={styles['item-active']}
+        key={i}
+      >
+        {title}
+      </NavLink>
+    ));
 
     return (
       <ul styleName="list">
@@ -85,10 +104,7 @@ class Navigation extends React.Component {
           </li>
         )}
         {categoryItems}
-        <li styleName="item" ><Link to="/subscribe" styleName="item-link" onClick={this.props.onClick}>Subscribe</Link></li>
-        <li styleName="item" ><Link to="/custom" styleName="item-link" onClick={this.props.onClick}>Custom</Link></li>
-        <li styleName="item" ><Link to="/social" styleName="item-link" onClick={this.props.onClick}>#GetTopDrawer</Link></li>
-        <li styleName="item" ><Link to="/our-story" styleName="item-link" onClick={this.props.onClick}>Our Story</Link></li>
+        {staticLinksItems}
       </ul>
     );
   }

@@ -66,6 +66,10 @@
       }
     }
   }
+
+  .item-active {
+    border-bottom: 3px solid #3E3436;
+  }
 }
 
 .item-link {
@@ -90,6 +94,8 @@
 
   .item {
     display: block;
+    float: left;
+    clear: left;
 
     & ul {
       display: block;
@@ -100,6 +106,10 @@
         color: var(--whitish);
       }
     }
+  }
+
+  .item-active {
+    box-shadow: 0 2px rgba(255, 255, 255, 0.70);
   }
 
   .item-link {

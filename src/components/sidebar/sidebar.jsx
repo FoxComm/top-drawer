@@ -14,7 +14,7 @@ import { isGuest } from 'paragons/auth';
 import styles from './sidebar.css';
 
 import Icon from 'ui/icon';
-import Categories from '../navigation/navigation';
+import Navigation from '../navigation/navigation';
 import Search from '../search/search';
 
 import * as actions from 'modules/sidebar';
@@ -71,7 +71,7 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
             <Search onSearch={props.toggleSidebar} isActive/>
           </div>
           <div styleName="controls-categories">
-            <Categories onClick={changeCategoryCallback} />
+            <Navigation onClick={changeCategoryCallback} path={this.props.path} />
           </div>
           <div styleName="controls-session">
             {renderSessionLink}
