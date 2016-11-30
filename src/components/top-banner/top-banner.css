@@ -17,10 +17,11 @@
   &._hidden {
     display: none;
   }
-}
 
-.emph {
-  font-weight: 600;
+  & em {
+    font-style: normal;
+    font-weight: 600;
+  }
 }
 
 .content {

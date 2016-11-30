@@ -31,7 +31,7 @@ class HolidayHome extends Component {
       <div styleName="holiday-banner2">
         <div styleName="wrap">
           <article>
-            <h2>Use code <span styleName="emph">SOCKS&SNOW20</span> and get 20% off your entire order!</h2>
+            <h2>Use code <em>SOCKS&SNOW20</em> and get 20% off your entire order!</h2>
             <h3>Be ready for the holiday season with holiday socks!</h3>
               <div styleName="links">
               <Link

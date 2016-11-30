@@ -117,7 +117,8 @@
   }
 }
 
-.emph {
+em {
+  font-style: normal;
   font-weight: 600;
 }
 
