@@ -13,7 +13,7 @@ import Currency from 'ui/currency';
 import { FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import Autocomplete from 'ui/autocomplete';
-import { Form } from 'ui/forms';
+import { Form, Validators } from 'ui/forms';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 // types
@@ -63,7 +63,7 @@ const SubscribeForm = (props: Props) => {
       <div styleName="shipping-to">Shipping To</div>
       <div styleName="address-form-container">
         <Form onSubmit={onSubmit}>
-          <FormField styleName="text-field">
+          <FormField styleName="text-field" required>
             <TextInput
               required
               name="subscription.fullName"
@@ -72,9 +72,8 @@ const SubscribeForm = (props: Props) => {
               placeholder={'FIRST & LAST NAME'}
             />
           </FormField>
-          <FormField styleName="text-field">
+          <FormField styleName="text-field" required>
             <TextInput
-              required
               name="subscription.address1"
               onChange={onAttributeChange}
               value={streetAddress1}
@@ -94,7 +93,7 @@ const SubscribeForm = (props: Props) => {
               <Autocomplete
                 inputProps={{
                   placeholder: 'UNITED STATES',
-                  name: 'subscription.country'
+                  name: 'subscription.country',
                 }}
                 getItemValue={item => item.name}
                 items={countries.list}
@@ -104,7 +103,7 @@ const SubscribeForm = (props: Props) => {
             </FormField>
           </div>
           <div styleName="address-zip">
-            <FormField styleName="text-field" required>
+            <FormField styleName="text-field" validator={Validators.zipCode} required>
               <TextInput
                 name="subscription.zip"
                 onChange={onAttributeChange}
@@ -114,7 +113,7 @@ const SubscribeForm = (props: Props) => {
             </FormField>
           </div>
           <div styleName="address-city">
-            <FormField styleName="text-field">
+            <FormField styleName="text-field" required>
               <TextInput
                 required
                 name="subscription.city"
@@ -138,7 +137,7 @@ const SubscribeForm = (props: Props) => {
               />
             </FormField>
           </div>
-          <FormField styleName="text-field">
+          <FormField styleName="text-field" validator={Validators.phoneNumber} required>
             <TextInput
               required
               name="subscription.phone"
