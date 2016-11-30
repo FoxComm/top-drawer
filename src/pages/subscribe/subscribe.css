@@ -25,17 +25,12 @@
 }
 
 .chevron {
-  background: url(/images/svg/chevron-left-white.svg);
-  background-repeat: no-repeat;
+  display: block;
   width: 60px;
   height: 33px;
   margin: 0 auto 60px auto;
   transform: rotate(-90deg);
-}
-
-.chevron a {
-  padding: 20%;
-  background: transparent;
+  color: #fff;
 }
 
 .boxes-img {
@@ -136,12 +131,13 @@
   font-family: var(--font-main);
   font-weight: 400;
   font-size: 16px;
-  color: #ffffff;
-  line-height: 0px;
   text-align: center;
-  padding-left: 20%;
-  padding-right: 20%;
   margin-top: 80px;
+
+  & a {
+    color: #ffffff;
+    text-decoration: none;
+  }
 }
 
 .the-details {

@@ -54,11 +54,12 @@ class Subscribe extends Component {
         </div>
         <div styleName="learn-more">
           <p>
-            LEARN MORE
+            <a href="#learn">
+              LEARN MORE
+              <Icon styleName="chevron" name="fc-chevron-left"/>
+
+            </a>
           </p>
-        </div>
-        <div styleName="chevron">
-          <a href="#learn" />
         </div>
       </div>
     );
