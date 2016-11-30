@@ -84,7 +84,6 @@
 
   & .text-field {
     width: 100%;
-    display: none;
     padding-bottom: 10px;
 
     & input[type=text] {

@@ -2,14 +2,41 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import { autobind } from 'core-decorators';
 
 import styles from './custom.css';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import Button from 'ui/buttons';
+import { api } from 'lib/api';
 
+type State = {
+  name: string,
+  email: string,
+  message: string,
+}
 
 class Custom extends Component { 
+  state: State = {
+    name: '',
+    email: '',
+    message: '',
+  };
+
+  @autobind
+  sendCustomEmail() {
+    const message = {
+      'html': this.state.message,
+      'from_email': this.state.email,
+      'to': [{
+        email: 'adil@adilwali.com',
+        name: 'Adil Wali'
+      }]
+    };
+
+    api.post('/node/mandrill', { message });
+  }
+
   get topBanner(): HTMLElement {
     return (
       <div styleName="custom-banner">
@@ -39,6 +66,14 @@ class Custom extends Component {
     );
   }
 
+  @autobind
+  handleFormChange(event) {
+    const { target } = event;
+    this.setState({
+      [target.name]: target.value,
+    });
+  }
+
   get reachOut(): HTMLElement {
     return (
       <div styleName="reach-out">
@@ -53,24 +88,24 @@ class Custom extends Component {
           </p>
         </div>
         <div styleName="custom-contact-form-container">
-          <Form styleName="custom-contact-form">
-            <FormField styleName="text-field">
-              <TextInput required
+          <Form styleName="custom-contact-form" onSubmit={this.sendCustomEmail} onChange={this.handleFormChange}>
+            <FormField styleName="text-field" required>
+              <TextInput
                 name="name" placeholder="FIRST & LAST NAME" 
               />
             </FormField>
-            <FormField styleName="text-field">
-              <TextInput required
+            <FormField styleName="text-field" required>
+              <TextInput
                 name="email" placeholder="EMAIL ADDRESS" 
               />
             </FormField>        
-            <FormField styleName="text-field">
-              <textarea required
+            <FormField styleName="text-field" required>
+              <textarea
                 name="message" placeholder="TELL US ABOUT YOUR CUSTOM SOCK NEEDS!" 
               />
             </FormField>
             <div styleName="submit-container">
-              <a styleName="custom-contact-submit" href="mailto:custom@topdrawer.com">REACH OUT</a>
+              <Button styleName="custom-contact-submit" type="submit">REACH OUT</Button>              
             </div>
           </Form>
         </div>
