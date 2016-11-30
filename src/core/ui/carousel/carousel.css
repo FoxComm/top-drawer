@@ -25,6 +25,8 @@ div[name=button-nav-container] ol li {
     margin: 0 .5em;
     border-radius: 50%;
     overflow: hidden;
+    position: relative;
+    transform: translateY(-100%);
 }
 
 div[name=button-nav-container] ol button {
