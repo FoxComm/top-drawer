@@ -155,3 +155,15 @@ em {
     height: 68px;
   }
 }
+
+@media (--small-only) {
+  .subscribe-banner {
+    padding-top: 50px;
+    height: 560px;
+  }
+
+  .custom-socks-banner {
+    padding-top: 20px;
+    height: 340px;
+  }
+}
