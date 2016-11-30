@@ -39,7 +39,7 @@ import styles from './pdp.css';
 
 
 type Params = {
-  productId: string;
+  productSlug: string,
 };
 
 type Actions = {
@@ -159,8 +159,18 @@ class Pdp extends Component {
     return this.getId(this.props);
   }
 
-  getId(props: Props): number {
-    return parseInt(props.params.productId, 10);
+  get isArchived(): boolean {
+    return !!_.get(this.props, ['product', 'archivedAt']);
+  }
+
+  getId(props): string|number {
+    const slug = props.params.productSlug;
+
+    if (/^\d+$/.test(slug)) {
+      return parseInt(slug, 10);
+    }
+
+    return slug;
   }
 
   get firstSku(): Object {
