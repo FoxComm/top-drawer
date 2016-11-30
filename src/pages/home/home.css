@@ -116,9 +116,6 @@
   color: var(--blackish);
 
   & article {
-    lost-column: 1/2;
-    lost-offset: -1/2;
-
     & h2,
     & h3 {
       color: var(--bunker);
@@ -170,6 +167,10 @@
   .bundles-banner {
     background-size: auto 59%;
     background-position: 0 111%;
+
+    & a {
+      border-color: var(--blackish);
+    }
   }
 
   .custom-socks-banner {
