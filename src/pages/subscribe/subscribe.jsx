@@ -153,7 +153,7 @@ class Subscribe extends Component {
 
   get qa(): HTMLElement {
     return (
-      <div styleName="the-details" styleName="qa-background">
+      <div styleName="qa">
         <div styleName="the-details-row">
           <div styleName="the-details-row">
             <h2 id="qas" styleName="qa-td-header">
