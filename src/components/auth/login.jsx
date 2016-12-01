@@ -78,9 +78,7 @@ class Login extends Component {
   }
 
   @autobind
-  authenticate(e: any) {
-    e.preventDefault();
-    e.stopPropagation();
+  authenticate() {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
@@ -160,9 +158,9 @@ class Login extends Component {
             />
           </FormField>
           <Button
+            type="submit"
             styleName="primary-button"
             isLoading={props.isLoading}
-            type="submit"
           >
             {t('LOG IN')}
           </Button>
