@@ -121,7 +121,7 @@ class Login extends Component {
     );
 
     const signupLink = (
-      <Link to={getPath(authBlockTypes.SIGNUP)} onClick={this.props.onSignupClick} styleName="link">
+      <Link to={getPath(authBlockTypes.SIGNUP)} onClick={props.onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
