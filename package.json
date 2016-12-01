@@ -78,7 +78,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "api-js": "git+ssh://git@github.com/FoxComm/api-js.git#v0.9.1",
+    "api-js": "git+ssh://git@github.com/FoxComm/api-js.git#v0.9.2",
     "classnames": "^2.2.3",
     "core-decorators": "^0.11.0",
     "currency-symbol-map": "^2.2.0",
@@ -93,8 +93,8 @@
     "koa-router": "^5.4.0",
     "lodash": "^4.3.0",
     "lodash.flatmap": "^4.2.0",
-    "moment": "^2.15.2",
     "marked": "^0.3.6",
+    "moment": "^2.15.2",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.2.0",
@@ -102,17 +102,18 @@
     "react-input-mask": "anru/react-input-mask#a7b8dc04debe9e8dfe7eee3ad31facb79b7c1826",
     "react-redux": "^4.4.0",
     "react-router": "^2.7.0",
+    "react-router-active-component": "^4.0.0",
     "react-router-redux": "^3.0.0",
     "react-router-scroll": "^0.2.0",
     "recast": "^0.11.4",
     "reduce-reducers": "^0.1.2",
     "redux": "^3.3.1",
-    "redux-act": "^0.3.0",
-    "redux-diff-logger": "0.0.9",
+    "redux-act": "1.1.0",
     "redux-isomorphic-render": "^1.0.0",
+    "redux-logger": "^2.7.4",
     "reselect": "^2.1.0",
     "sprout-data": "^0.2.3",
-    "wings": "git+ssh://git@github.com/FoxComm/wings.git#v1.2.1",
+    "wings": "git+ssh://git@github.com/FoxComm/wings.git#v1.5.0",
     "zipcodes": "^2.0.0"
   }
 }

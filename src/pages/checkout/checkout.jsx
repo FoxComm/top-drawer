@@ -354,14 +354,14 @@ function sanitizeError(error) {
   if (!error) return null;
 
   const err = _.get(error, 'responseJson.errors', [error.toString()]);
-  
+
   if (err[0].startsWith('Not enough onHand units')) {
     return {
       responseJson: {
         errors: ['Unable to checkout - item is out of stock'],
       },
     };
-  } 
+  }
 
   return error;
 }

@@ -37,8 +37,10 @@ type Props = Localized & {
   fetchCart: Function,
   saveLineItems: Function,
   mergeCartState: Function,
-  onGuestCheckout?: Function,
-  displayTitle: boolean,
+  onAuthenticated?: Function,
+  title?: string|Element|null,
+  onSignupClick: Function,
+  mergeGuestCart: boolean,
 };
 
 const mapState = state => ({
@@ -58,7 +60,7 @@ class Login extends Component {
   };
 
   static defaultProps = {
-    displayTitle: true,
+    mergeGuestCart: false,
   };
 
   @autobind
@@ -78,23 +80,18 @@ class Login extends Component {
   }
 
   @autobind
-  authenticate(e: any) {
-    e.preventDefault();
-    e.stopPropagation();
+  authenticate() {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      const merge = this.props.onGuestCheckout == null;
-      this.props.saveLineItems(merge);
+      this.props.saveLineItems(this.props.mergeGuestCart);
       browserHistory.push(this.props.getPath());
     }, () => {
       this.setState({error: 'Email or password is invalid'});
     });
 
-    if (this.props.onGuestCheckout != null) {
-      auth.then(() => {
-        this.props.onGuestCheckout();
-      });
+    if (this.props.onAuthenticated) {
+      auth.then(this.props.onAuthenticated);
     }
   }
 
@@ -106,9 +103,9 @@ class Login extends Component {
   }
 
   get title() {
-    const { t } = this.props;
-    return this.props.displayTitle
-      ? <div styleName="title">{t('SIGN IN')}</div>
+    const { t, title } = this.props;
+    return title !== null
+      ? <div styleName="title">{title || t('SIGN IN')}</div>
       : null;
   }
 
@@ -124,7 +121,7 @@ class Login extends Component {
     );
 
     const signupLink = (
-      <Link to={getPath(authBlockTypes.SIGNUP)} styleName="link">
+      <Link to={getPath(authBlockTypes.SIGNUP)} onClick={props.onSignupClick} styleName="link">
         {t('Sign Up')}
       </Link>
     );
@@ -160,9 +157,9 @@ class Login extends Component {
             />
           </FormField>
           <Button
+            type="submit"
             styleName="primary-button"
             isLoading={props.isLoading}
-            type="submit"
           >
             {t('LOG IN')}
           </Button>

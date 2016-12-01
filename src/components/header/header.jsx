@@ -84,7 +84,7 @@ class Header extends React.Component {
               <img styleName="logo" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
             </Link>
             <div styleName="navigation">
-              <Navigation onClick={this.changeCategoryCallback} />
+              <Navigation onClick={this.changeCategoryCallback} path={this.props.path} />
             </div>
             <div styleName="search">
               <Search onSearch={this.props.toggleSearch} />

@@ -8,13 +8,14 @@ import classNames from 'classnames';
 import { logout } from 'modules/auth';
 import localized from 'lib/i18n';
 import type { Localized } from 'lib/i18n';
+import { fetch as fetchCart } from 'modules/cart';
 
 import { isGuest } from 'paragons/auth';
 
 import styles from './sidebar.css';
 
 import Icon from 'ui/icon';
-import Categories from '../navigation/navigation';
+import Navigation from '../navigation/navigation';
 import Search from '../search/search';
 
 import * as actions from 'modules/sidebar';
@@ -44,7 +45,10 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
     e.stopPropagation();
     e.preventDefault();
     changeCategoryCallback();
-    props.logout();
+    props.toggleSidebar();
+    props.logout().then(() => {
+      props.fetchCart();
+    });
   };
 
   const renderSessionLink = props.user && !isGuest(props.user) ? (
@@ -71,7 +75,7 @@ const Sidebar = (props: SidebarProps): HTMLElement => {
             <Search onSearch={props.toggleSidebar} isActive/>
           </div>
           <div styleName="controls-categories">
-            <Categories onClick={changeCategoryCallback} />
+            <Navigation onClick={changeCategoryCallback} path={props.path} />
           </div>
           <div styleName="controls-session">
             {renderSessionLink}
@@ -91,4 +95,5 @@ export default connect(mapStates, {
   ...actions,
   resetTerm,
   logout,
+  fetchCart,
 })(localized(Sidebar));
