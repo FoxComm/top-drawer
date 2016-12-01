@@ -93,9 +93,9 @@ anymatch@^1.3.0:
     arrify "^1.0.0"
     micromatch "^2.1.5"
 
-"api-js@git+ssh://git@github.com/FoxComm/api-js.git#v0.9.1":
+"api-js@git+ssh://git@github.com/FoxComm/api-js.git#v0.9.0":
   version "1.0.0"
-  resolved "git+ssh://git@github.com/FoxComm/api-js.git#e9756099e9f5389617fc02f1c571db5ac782fe37"
+  resolved "git+ssh://git@github.com/FoxComm/api-js.git#e92c3c49bcbb6c6a38cc3d9a39fd6306051c784e"
   dependencies:
     debug "^2.2.0"
     isomorphic-fetch "^2.2.1"
