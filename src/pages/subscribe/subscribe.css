@@ -266,8 +266,8 @@
 }
 
 .qa-td-header {
-  margin-top: 80px;
-  font-size: 46px;
+  margin-top: 30px;
+  font-size: 36px;
   font-weight: 600;
   text-align: center;
   color: #212121;
@@ -326,6 +326,14 @@
     margin-top: 30px;
   }
 
+  .the-details-row {
+    padding: 0 10%;
+  }
+
+  .qa-article-description {
+    margin-bottom: 40px;
+  }
+
   .enjoy-details-height {
     padding-top: 10px;
   }
@@ -334,8 +342,12 @@
     text-align: center;
   }
 
+  .plan-the-details {
+    padding: 0 20px;
+  }
+
   .qa {
-    padding: 10px 20px 0;
+    padding: 10px 20px 40px;
   }
 }
 
@@ -415,6 +427,11 @@
     height: 300px;
     margin-left: 8%;
     margin-right: 8%;
+  }
+
+  .qa-td-header {
+    margin-top: 80px;
+    font-size: 46px;
   }
 
 }
