@@ -27,6 +27,10 @@ const staticLinks = [
 
 const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
 
+function toDashedName (name = '') {
+  return name.replace(/\s/g, '-');
+}
+
 class Navigation extends React.Component {
 
   static propTypes = {
@@ -53,11 +57,11 @@ class Navigation extends React.Component {
         return null;
       }
 
-      const dashedName = item.name.replace(/\s/g, '-');
+      const dashedName = toDashedName(item.name);
       const key = `category-${dashedName}`;
       const subItems = item.subItems.map(({ name, navName }, i) => (
         <NavLink
-          to={`/${name}`}
+          to={`/${toDashedName(name)}`}
           linkProps={{ onClick: this.props.onClick }}
           styleName="item"
           activeClassName={styles['item-active']}
