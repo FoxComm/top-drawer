@@ -46,12 +46,12 @@ const SubscribeForm = (props: Props) => {
   const regions = (selectedCountry && selectedCountry.id !== undefined)
     ? countries.details[selectedCountry.id].regions : [];
 
-  const fullName = _.get(attributes, 'subscription.fullName', '');
+  const name = _.get(attributes, 'subscription.name', '');
   const streetAddress1 = _.get(attributes, 'subscription.address1', '');
   const streetAddress2 = _.get(attributes, 'subscription.address2', '');
   const zip = _.get(attributes, 'subscription.zip', '');
   const city = _.get(attributes, 'subscription.city', '');
-  const phone = _.get(attributes, 'subscription.phone', '');
+  const phoneNumber = _.get(attributes, 'subscription.phoneNumber', '');
 
   return (
     <div styleName="address-details">
@@ -66,9 +66,9 @@ const SubscribeForm = (props: Props) => {
           <FormField styleName="text-field" required>
             <TextInput
               required
-              name="subscription.fullName"
+              name="subscription.name"
               onChange={onAttributeChange}
-              value={fullName}
+              value={name}
               placeholder={'FIRST & LAST NAME'}
             />
           </FormField>
@@ -88,17 +88,14 @@ const SubscribeForm = (props: Props) => {
               placeholder={'STREET ADDRESS 2 (optional)'}
             />
           </FormField>
-          <div styleName="address-country">
+          <div styleName="address-city">
             <FormField styleName="text-field" required>
-              <Autocomplete
-                inputProps={{
-                  placeholder: 'UNITED STATES',
-                  name: 'subscription.country',
-                }}
-                getItemValue={item => item.name}
-                items={countries.list}
-                onSelect={onChangeCountry}
-                selectedItem={selectedCountry}
+              <TextInput
+                required
+                name="subscription.city"
+                onChange={onAttributeChange}
+                value={city}
+                placeholder={'CITY'}
               />
             </FormField>
           </div>
@@ -112,14 +109,17 @@ const SubscribeForm = (props: Props) => {
               />
             </FormField>
           </div>
-          <div styleName="address-city">
+          <div styleName="address-country">
             <FormField styleName="text-field" required>
-              <TextInput
-                required
-                name="subscription.city"
-                onChange={onAttributeChange}
-                value={city}
-                placeholder={'CITY'}
+              <Autocomplete
+                inputProps={{
+                  placeholder: 'UNITED STATES',
+                  name: 'subscription.country',
+                }}
+                getItemValue={item => item.name}
+                items={countries.list}
+                onSelect={onChangeCountry}
+                selectedItem={selectedCountry}
               />
             </FormField>
           </div>
@@ -140,9 +140,9 @@ const SubscribeForm = (props: Props) => {
           <FormField styleName="text-field" validator={Validators.phoneNumber} validateOnBlur required>
             <TextInput
               required
-              name="subscription.phone"
+              name="subscription.phoneNumber"
               onChange={onAttributeChange}
-              value={phone}
+              value={phoneNumber}
               placeholder={'PHONE'}
             />
           </FormField>

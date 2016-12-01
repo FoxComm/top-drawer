@@ -215,7 +215,9 @@ class Pdp extends Component {
     this.setState({
       selectedRegion: item,
     }, () => {
-      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name));
+      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name), () => {
+        this.setState(assoc(this.state, ["attributes", "subscription", "regionId"], this.state.selectedRegion.id));
+      });
     });
   }
 
