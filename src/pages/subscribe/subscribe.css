@@ -350,6 +350,10 @@
   .qa {
     padding: 10px 20px 40px;
   }
+
+  .enjoy-custom-contact-submit {
+    margin-top: -40px;
+  }
 }
 
 @media (--medium) {
