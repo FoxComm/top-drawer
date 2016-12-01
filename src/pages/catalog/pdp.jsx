@@ -200,25 +200,21 @@ class Pdp extends Component {
 
   @autobind
   changeCountry(item: Country) {
-    this.setState({
-      selectedCountry: item,
-      selectedRegion: {name: "", id: undefined, countryId: undefined},
-    }, () => {
-      this.setState(assoc(this.state, ["attributes", "subscription", "country"], this.state.selectedCountry.name), () => {
-        this.setState(assoc(this.state, ["attributes", "subscription", "state"], ""));
-      });
-    });
+    this.setState(assoc(this.state,
+      'selectedCountry', item,
+      'selectedRegion', {name: "", id: undefined, countryId: undefined},
+      ['attributes', 'subscription', 'country'], item.name,
+      ["attributes", "subscription", "state"], "",
+    ));
   }
 
   @autobind
   changeRegion(item: Region) {
-    this.setState({
-      selectedRegion: item,
-    }, () => {
-      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name), () => {
-        this.setState(assoc(this.state, ["attributes", "subscription", "regionId"], this.state.selectedRegion.id));
-      });
-    });
+    this.setState(assoc(this.state,
+      'selectedRegion', item,
+      ['attributes', 'subscription', 'state'], item.name,
+      ['attributes', 'subscription', 'regionId'], item.id,
+    ));
   }
 
   @autobind

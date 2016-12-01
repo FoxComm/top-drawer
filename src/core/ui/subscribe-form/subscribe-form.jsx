@@ -69,7 +69,7 @@ const SubscribeForm = (props: Props) => {
               name="subscription.name"
               onChange={onAttributeChange}
               value={name}
-              placeholder={'FIRST & LAST NAME'}
+              placeholder="FIRST & LAST NAME"
             />
           </FormField>
           <FormField styleName="text-field" required>
@@ -77,7 +77,7 @@ const SubscribeForm = (props: Props) => {
               name="subscription.address1"
               onChange={onAttributeChange}
               value={streetAddress1}
-              placeholder={'STREET ADDRESS 1'}
+              placeholder="STREET ADDRESS 1"
             />
           </FormField>
           <FormField styleName="text-field">
@@ -85,7 +85,7 @@ const SubscribeForm = (props: Props) => {
               name="subscription.address2"
               onChange={onAttributeChange}
               value={streetAddress2}
-              placeholder={'STREET ADDRESS 2 (optional)'}
+              placeholder="STREET ADDRESS 2 (optional)"
             />
           </FormField>
           <div styleName="address-city">
@@ -95,7 +95,7 @@ const SubscribeForm = (props: Props) => {
                 name="subscription.city"
                 onChange={onAttributeChange}
                 value={city}
-                placeholder={'CITY'}
+                placeholder="CITY"
               />
             </FormField>
           </div>
@@ -105,7 +105,7 @@ const SubscribeForm = (props: Props) => {
                 name="subscription.zip"
                 onChange={onAttributeChange}
                 value={zip}
-                placeholder={'ZIP'}
+                placeholder="ZIP"
               />
             </FormField>
           </div>
@@ -143,7 +143,7 @@ const SubscribeForm = (props: Props) => {
               name="subscription.phoneNumber"
               onChange={onAttributeChange}
               value={phoneNumber}
-              placeholder={'PHONE'}
+              placeholder="PHONE"
             />
           </FormField>
           <ErrorAlerts error={error} />
