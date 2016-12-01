@@ -134,7 +134,8 @@
   }
 
   .reach-out {
-    background-size: 50% auto;
+    min-height: 700px;
+    background-size: auto 40%;
     background-position: 50% -70px;
     padding: 160px 10px 10px;
   }
