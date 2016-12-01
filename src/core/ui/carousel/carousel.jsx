@@ -53,7 +53,7 @@ export default class Carousel extends Component {
       <div styleName="button-nav-container">
         <ol>
           {Children.map(children, (item, index) =>
-            <li className={slide == index + 1 ? 'active' : null}>
+            <li styleName={slide == index + 1 ? 'active' : null}>
               <button onClick={this.changeSlide.bind(this, index + 1)}>{`slide#${index}`}</button>
             </li>
           )}

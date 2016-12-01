@@ -32,7 +32,7 @@
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    transform: translateY(-100%);
+    transform: translateY(100%);
 }
 
 .button-nav-container ol button {
@@ -40,7 +40,7 @@
     cursor: pointer;
 }
 
-.button-nav-container ol li[class=active] {
+.button-nav-container ol li.active {
     pointer-events: none;
     background-color: black;
 }
