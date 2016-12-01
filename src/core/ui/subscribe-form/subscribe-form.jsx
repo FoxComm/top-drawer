@@ -103,7 +103,7 @@ const SubscribeForm = (props: Props) => {
             </FormField>
           </div>
           <div styleName="address-zip">
-            <FormField styleName="text-field" validator={Validators.zipCode} required>
+            <FormField styleName="text-field" validator={Validators.zipCode} validateOnBlur required>
               <TextInput
                 name="subscription.zip"
                 onChange={onAttributeChange}
@@ -137,7 +137,7 @@ const SubscribeForm = (props: Props) => {
               />
             </FormField>
           </div>
-          <FormField styleName="text-field" validator={Validators.phoneNumber} required>
+          <FormField styleName="text-field" validator={Validators.phoneNumber} validateOnBlur required>
             <TextInput
               required
               name="subscription.phone"
