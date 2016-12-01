@@ -1,13 +1,11 @@
 /* @flow */
 
-// lisbs
+// libs
 import React, { PropTypes } from 'react';
 import type { HTMLElement } from 'types';
 import _ from 'lodash';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { autobind } from 'core-decorators';
-import { browserHistory } from 'react-router';
 import localized from 'lib/i18n';
 import activeComponent from 'react-router-active-component';
 
@@ -27,7 +25,7 @@ const staticLinks = [
 
 const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
 
-function toDashedName (name = '') {
+function toDashedName(name = '') {
   return name.replace(/\s/g, '-');
 }
 
@@ -49,6 +47,49 @@ class Navigation extends React.Component {
     this.props.fetch();
   }
 
+  get allLink() {
+    return this.props.all ? (
+      <li styleName="item" key="category-all">
+        <Link
+          to="/"
+          onClick={this.props.onClick}
+          styleName="item-link"
+          activeClassName={styles['item-active']}
+        >
+          ALL
+        </Link>
+      </li>
+    ) : null;
+  }
+
+  get staticLinks() {
+    return staticLinks.map(({ url, title }, i) => (
+      <NavLink
+        to={url}
+        linkProps={{ onClick: this.props.onClick }}
+        styleName="item"
+        activeClassName={styles['item-active']}
+        key={i}
+      >
+        {title}
+      </NavLink>
+    ));
+  }
+
+  renderSubItems(subItems) {
+    return subItems.map(({ name, navName }, i) => (
+      <NavLink
+        to={`/${toDashedName(name)}`}
+        linkProps={{ onClick: this.props.onClick }}
+        styleName="item"
+        activeClassName={styles['item-active']}
+        key={i}
+      >
+        {navName}
+      </NavLink>
+    ));
+  }
+
   render(): HTMLElement {
     const { t } = this.props;
 
@@ -59,17 +100,7 @@ class Navigation extends React.Component {
 
       const dashedName = toDashedName(item.name);
       const key = `category-${dashedName}`;
-      const subItems = item.subItems.map(({ name, navName }, i) => (
-        <NavLink
-          to={`/${toDashedName(name)}`}
-          linkProps={{ onClick: this.props.onClick }}
-          styleName="item"
-          activeClassName={styles['item-active']}
-          key={i}
-        >
-          {navName}
-        </NavLink>
-      ));
+      const subItems = this.renderSubItems(item.subItems);
 
       return (
         <li styleName="item" key={key}>
@@ -88,27 +119,11 @@ class Navigation extends React.Component {
       );
     });
 
-    const staticLinksItems = staticLinks.map(({ url, title }, i) => (
-      <NavLink
-        to={url}
-        linkProps={{ onClick: this.props.onClick }}
-        styleName="item"
-        activeClassName={styles['item-active']}
-        key={i}
-      >
-        {title}
-      </NavLink>
-    ));
-
     return (
       <ul styleName="list">
-        {this.props.all && (
-          <li styleName="item" key="category-all">
-            <a onClick={() => this.onClick()} styleName="item-link">{t('ALL')}</a>
-          </li>
-        )}
+        {this.allLink}
         {categoryItems}
-        {staticLinksItems}
+        {this.staticLinks}
       </ul>
     );
   }
