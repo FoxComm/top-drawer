@@ -262,6 +262,7 @@
 }
 
 .qa {
+  padding-bottom: 40px;
   background-color: #f4f4f4;
 }
 
@@ -401,6 +402,7 @@
     lost-align: center;
     height: 275px;
     width: 280px;
+    margin: 0 auto;
   }
 
 
