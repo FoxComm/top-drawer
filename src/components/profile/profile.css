@@ -11,14 +11,11 @@
 .link-button {
   composes: button from "ui/css/buttons.css";
   border: 1px solid #8D757A;
-  background-color: #FFFFFF;
   font-size: 13px;
   font-weight: 300;
-  color: #212121;
 
   &:hover {
     border: 1px solid #3E3436;
-    color: var(--whitish)
   }
 }
 

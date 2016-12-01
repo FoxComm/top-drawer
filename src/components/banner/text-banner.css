@@ -1,6 +1,7 @@
-
 @import "colors.css";
 @import "variables.css";
+@import "media-queries.css";
+
 
 .banner {
   color: #314664;
@@ -9,10 +10,9 @@
 
 .header {
   margin-bottom: 30px;
-  font-size: 36px;
+  font-size: 30px;
   font-weight: 600;
   letter-spacing: 1px;
-  white-space: nowrap;
   text-transform: uppercase;
 }
 
@@ -20,4 +20,16 @@
   font-size: 17px;
   line-height: 39px;
   font-weight: 400;
+}
+
+@media (--medium) {
+  .header {
+    font-size: 36px;
+  }
+}
+
+@media (--large) {
+  .header {
+    white-space: nowrap;
+  }
 }
