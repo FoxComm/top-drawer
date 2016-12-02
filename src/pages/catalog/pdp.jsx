@@ -191,11 +191,11 @@ class Pdp extends Component {
     return (
       <div styleName="details">
         <h1 styleName="name">{title}</h1>
-        <div styleName="price">
+        <div styleName="price-container">
           <Currency value={price} currency={currency}/>
         </div>
         <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
-        <Form onSubmit={this.addToCart}>
+        <Form onSubmit={this.addToCart} styleName="subcription-form-container">
           <EditAddress
             colorTheme="white-bg-dark-border"
             withCountry
@@ -247,7 +247,7 @@ class Pdp extends Component {
     return (
       <div styleName="details">
         <h1 styleName="name">{title}</h1>
-        <div styleName="price">
+        <div styleName="price-container">
           <Currency value={price} currency={currency} />
         </div>
         <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>

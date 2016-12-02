@@ -60,6 +60,14 @@
   font-weight: 500;
 }
 
+.subcription-form-container {
+  lost-column: 3/3;
+}
+
+.subcription-form-container > button[type="submit"] {
+  lost-column: 3/3;
+}
+
 @media (--small-only) {
   .container {
     padding: 0;
