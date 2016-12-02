@@ -30,7 +30,7 @@ import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
-import { FormField } from 'ui/forms';
+import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import EditAddress from 'ui/address/edit-address';
 
@@ -177,27 +177,59 @@ class Pdp extends Component {
   }
 
   get editSubcriptionAddressInput() {
+    const { t, isCartLoading } = this.props;
+    const { title, description, currency, price } = this.product;
+    const { error } = this.state;
+
     return (
-      <EditAddress
-        colorTheme="white-bg-dark-border"
-        withCountry
-        withDefaultCheckbox={false}
-        withShippingTitle="Shipping To"
-        onUpdate={this.onUpdateAddress}
-      />
-    )
+      <div styleName="details">
+        <h1 styleName="name">{title}</h1>
+        <div styleName="price">
+          <Currency value={price} currency={currency} />
+        </div>
+        <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
+        <Form onSubmit={this.addToCart}>
+          <EditAddress
+            colorTheme="white-bg-dark-border"
+            withCountry
+            withDefaultCheckbox={false}
+            withShippingTitle="Shipping To"
+            onUpdate={this.onUpdateAddress}
+          />
+          <Button type="submit" styleName="add-to-cart" isLoading={isCartLoading}>
+            {t('ADD TO CART')}
+          </Button>
+          <ErrorAlerts error={error} />
+        </Form>
+      </div>
+    );
   }
 
   get counterInput() {
+    const { t, isCartLoading } = this.props;
+    const { title, description, currency, price } = this.product;
+    const { error, quantity } = this.state;
+
     return (
-      <div styleName="counter">
-        <Counter
-          value={this.state.quantity}
-          decreaseAction={() => this.changeQuantity(-1)}
-          increaseAction={() => this.changeQuantity(1)}
-        />
+      <div styleName="details">
+        <h1 styleName="name">{title}</h1>
+        <div styleName="price">
+          <Currency value={price} currency={currency} />
+        </div>
+        <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
+        <div styleName="counter">
+          <Counter
+            value={quantity}
+            decreaseAction={() => this.changeQuantity(-1)}
+            increaseAction={() => this.changeQuantity(1)}
+          />
+        </div>
+        <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
+          {this.props.t('ADD TO CART')}
+        </Button>
+        <ErrorAlerts error={error} />
       </div>
-    )
+    );
   }
 
   changeQuantity(change: number): void {
@@ -269,21 +301,10 @@ class Pdp extends Component {
         <div styleName="gallery">
           {this.renderGallery()}
         </div>
-        <div styleName="details">
-          <h1 styleName="name">{title}</h1>
-          <div styleName="price">
-            <Currency value={price} currency={currency} />
-          </div>
-          <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
-          { this.isSubscription
-            ? this.editSubcriptionAddressInput
-            : this.counterInput
-          }
-          <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
-            {t('ADD TO CART')}
-          </Button>
-          <ErrorAlerts error={this.state.error} />
-        </div>
+        { this.isSubscription
+          ? this.editSubcriptionAddressInput
+          : this.counterInput
+        }
       </div>
     );
   }
