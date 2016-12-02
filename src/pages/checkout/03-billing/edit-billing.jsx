@@ -289,7 +289,7 @@ class EditBilling extends Component {
               <Autocomplete
                 inputProps={{
                   placeholder: t('MONTH'),
-                  type: 'text',
+                  type: 'number',
                 }}
                 compareValues={numbersComparator}
                 getItemValue={item => item}
@@ -302,7 +302,7 @@ class EditBilling extends Component {
               <Autocomplete
                 inputProps={{
                   placeholder: t('YEAR'),
-                  type: 'text',
+                  type: 'number',
                 }}
                 compareValues={numbersComparator}
                 allowCustomValues
