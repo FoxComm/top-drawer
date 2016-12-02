@@ -192,8 +192,8 @@ class Pdp extends Component {
           <EditAddress
             colorTheme="white-bg-dark-border"
             withCountry
-            withDefaultCheckbox={false}
-            withShippingTitle="Shipping To"
+            withoutDefaultCheckbox
+            title="Shipping To"
             onUpdate={this.onUpdateAddress}
           />
           <Button type="submit" styleName="add-to-cart" isLoading={isCartLoading}>

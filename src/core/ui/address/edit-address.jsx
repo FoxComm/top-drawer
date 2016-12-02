@@ -29,8 +29,8 @@ type EditAddressProps = Localized & {
   initAddressData: (address: Address) => Promise,
   colorTheme?: string,
   withCountry?: boolean,
-  withDefaultCheckbox?: boolean,
-  withShippingTitle?: string,
+  withoutDefaultCheckbox?: boolean,
+  title?: string,
 }
 
 function mapStateToProps(state) {
@@ -56,8 +56,8 @@ export default class EditAddress extends Component {
   static defaultProps = {
     colorTheme: 'default',
     withCountry: false,
-    withDefaultCheckbox: true,
-    withShippingTitle: "",
+    withoutDefaultCheckbox: false,
+    title: "",
   };
 
   state: State = {
@@ -121,6 +121,12 @@ export default class EditAddress extends Component {
   }
 
   get defaultCheckboxInput() {
+    const { withoutDefaultCheckbox } = this.props;
+
+    if (withoutDefaultCheckbox) {
+      return null;
+    }
+
     const checked = _.get(this.state.address, 'isDefault', false);
 
     return (
@@ -132,6 +138,14 @@ export default class EditAddress extends Component {
       >
         Make this address my default
       </Checkbox>
+    );
+  }
+
+  get title() {
+    const { title } = this.props;
+
+    return (
+      title && <div styleName="with-shipping-title">{title}</div>
     );
   }
 
@@ -250,14 +264,14 @@ export default class EditAddress extends Component {
     if (!this.isAddressLoaded) return <Loader size="m"/>;
 
     const props: EditAddressProps = this.props;
-    const { t, withCountry, withDefaultCheckbox, withShippingTitle } = props;
+    const { t, withCountry, withoutDefaultCheckbox, title } = props;
     const selectedCountry = this.selectedCountry;
     const data = this.state.address;
 
     return (
       <div styleName={`theme-${props.colorTheme}`}>
-        { withDefaultCheckbox && this.defaultCheckboxInput}
-        { !_.isEmpty(withShippingTitle) && (<div styleName="with-shipping-title">{withShippingTitle}</div>) }
+        { this.title }
+        { this.defaultCheckboxInput }
         <FormField styleName="text-field">
           <TextInput required
             name="name" placeholder={t('FIRST & LAST NAME')} value={data.name} onChange={this.changeFormData}
