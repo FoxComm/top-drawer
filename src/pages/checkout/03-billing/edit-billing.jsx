@@ -55,6 +55,10 @@ type State = {
   cardAdded: boolean,
 };
 
+function numbersComparator(value1, value2) {
+  return Number(value1) === Number(value2);
+}
+
 class EditBilling extends Component {
   props: Props;
 
@@ -231,11 +235,11 @@ class EditBilling extends Component {
     return (
       <div styleName="edit-card-form">
         <Checkbox
-            styleName="checkbox-field"
-            name="isDefault"
-            checked={checkedDefaultCard}
-            onChange={({target}) => this.changeDefault(target.checked)}
-            id="set-default-card"
+          styleName="checkbox-field"
+          name="isDefault"
+          checked={checkedDefaultCard}
+          onChange={({target}) => this.changeDefault(target.checked)}
+          id="set-default-card"
         >
           Make this card my default
         </Checkbox>
@@ -249,7 +253,7 @@ class EditBilling extends Component {
             />
           </FormField>
           <div styleName="union-fields">
-            <FormField styleName="text-field" validator={this.validateCardNumber}>
+            <FormField styleName="card-number-field" validator={this.validateCardNumber}>
               <TextInputWithLabel
                 label={this.paymentIcon}
               >
@@ -268,7 +272,7 @@ class EditBilling extends Component {
                 />
               </TextInputWithLabel>
             </FormField>
-            <FormField styleName="text-field" validator={this.validateCvcNumber}>
+            <FormField styleName="cvc-field" validator={this.validateCvcNumber}>
               <TextInputWithLabel
                 required
                 label={<CvcHelp />}
@@ -287,7 +291,7 @@ class EditBilling extends Component {
                   placeholder: t('MONTH'),
                   type: 'text',
                 }}
-                compareValues={(value1, value2) => Number(value1) == Number(value2)}
+                compareValues={numbersComparator}
                 getItemValue={item => item}
                 items={months}
                 onSelect={this.changeMonth}
@@ -298,8 +302,9 @@ class EditBilling extends Component {
               <Autocomplete
                 inputProps={{
                   placeholder: t('YEAR'),
-                  type: 'number',
+                  type: 'text',
                 }}
+                compareValues={numbersComparator}
                 allowCustomValues
                 getItemValue={item => item}
                 items={years}
