@@ -27,7 +27,7 @@ type Product = {
   id: number,
   index: number,
   productId: number,
-  slug?: string,
+  slug: ?string,
   context: string,
   title: string,
   description: string,
