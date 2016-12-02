@@ -33,9 +33,11 @@ import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
 import EditAddress from 'ui/address/edit-address';
+import Carousel from 'ui/carousel';
 
 // styles
 import styles from './pdp.css';
+import carouselStyles from 'ui/carousel/carousel.css';
 
 import type { Address } from 'types/address';
 
@@ -108,6 +110,7 @@ const mapDispatchToProps = dispatch => ({
 class Pdp extends Component {
   props: Props;
   productPromise: Promise;
+  _mqSmallOnly: any;
 
   state: State = {
     quantity: 1,
@@ -127,6 +130,10 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
+    this._mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    this._mqSmallOnly.addListener(this.mediaQueryChanged);
+    this.setState({smallOnly: this._mqSmallOnly.matches});
+
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
     });
@@ -185,7 +192,7 @@ class Pdp extends Component {
       <div styleName="details">
         <h1 styleName="name">{title}</h1>
         <div styleName="price">
-          <Currency value={price} currency={currency} />
+          <Currency value={price} currency={currency}/>
         </div>
         <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
         <Form onSubmit={this.addToCart}>
@@ -199,10 +206,37 @@ class Pdp extends Component {
           <Button type="submit" styleName="add-to-cart" isLoading={isCartLoading}>
             {t('ADD TO CART')}
           </Button>
-          <ErrorAlerts error={error} />
+          <ErrorAlerts error={error}/>
         </Form>
       </div>
     );
+  }
+
+  get gallery() {
+    if (this.state.smallOnly) {
+      return this.renderCarousel();
+    }
+    return (
+      <div styleName="gallery">
+        {this.renderGallery()}
+      </div>
+    );
+  }
+
+  changeQuantity(change: number): void {
+    const quantity = Math.max(this.state.quantity + change, 1);
+    this.setState({quantity});
+  }
+
+  @autobind
+  mediaQueryChanged() {
+    this.setState({smallOnly: this._mqSmallOnly.matches});
+  }
+
+  @autobind
+  setAttributeFromField({ target: { name, value } }) {
+    const namePath = ['attributes', ...name.split('.')];
+    this.setState(assoc(this.state, namePath, value));
   }
 
   get counterInput() {
@@ -283,6 +317,27 @@ class Pdp extends Component {
       : <ImagePlaceholder />;
   }
 
+
+  renderCarousel() {
+    const { images } = this.product;
+    const imgixAppendix = `?w=975&h=1015&q=60&fit=clip&fm=jpg`;
+
+    return !_.isEmpty(images)
+      ? (
+        <Carousel buttonNav={true}>
+          {images.map((image, index) => (
+            <div styleName="image">
+              <img
+                key={`image-${index}`}
+                src={`${image}${imgixAppendix}`}
+              />
+            </div>
+          ))}
+        </Carousel>
+      )
+      : <ImagePlaceholder />;
+  }
+
   render(): HTMLElement {
     const { t, isLoading, isCartLoading, notFound } = this.props;
 
@@ -298,9 +353,7 @@ class Pdp extends Component {
 
     return (
       <div styleName="container">
-        <div styleName="gallery">
-          {this.renderGallery()}
-        </div>
+        {this.gallery}
         { this.isSubscription
           ? this.editSubcriptionAddressInput
           : this.counterInput

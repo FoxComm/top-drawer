@@ -31,7 +31,7 @@
   letter-spacing: 1px;
 }
 
-.price {
+.price-container {
   margin-top: 20px;
   color: var(--bunker);
   font-size: 20px;
@@ -60,7 +60,7 @@
   font-weight: 500;
 }
 
-@media (--small-only), (--medium-only) {
+@media (--small-only) {
   .container {
     padding: 0;
   }
@@ -68,10 +68,6 @@
   .gallery,
   .details {
     lost-column: 1/1;
-  }
-
-  .details {
-    align-items: center;
   }
 
   .name {
@@ -83,5 +79,34 @@
 
   .description {
     text-align: center;
+  }
+}
+
+@media (--small-only), (--medium-only) {
+  .name {
+    text-align: left;
+  }
+
+  .price-container {
+    margin-right: auto;
+  }
+
+  .description {
+    text-align: left;
+  }
+
+  .counter {
+    margin-right: 0;
+    lost-column: 3/3;
+  }
+
+  .add-to-cart {
+    lost-column: 3/3;
+  }
+
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
   }
 }
