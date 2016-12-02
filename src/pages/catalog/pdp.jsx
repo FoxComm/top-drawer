@@ -32,11 +32,12 @@ import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
-import SubscribeForm from 'ui/subscribe-form';
+import EditAddress from 'ui/address/edit-address';
 
 // styles
 import styles from './pdp.css';
 
+import type { Address } from 'types/address';
 
 type Params = {
   productId: string;
@@ -66,9 +67,8 @@ type Props = Localized & {
 type State = {
   quantity: number;
   error?: any;
-  selectedCountry?: Country;
-  selectedRegion?: Region;
   attributes?: Object;
+  address?: Address;
 };
 
 type Product = {
@@ -78,18 +78,6 @@ type Product = {
   currency: string;
   price: number;
 };
-
-type Country = {
-  alpha3: string;
-  id: number;
-  name: string;
-}
-
-type Region = {
-  countryId: number;
-  id: number;
-  name: string;
-}
 
 const mapStateToProps = state => {
   const product = state.productDetails.product;
@@ -124,6 +112,7 @@ class Pdp extends Component {
   state: State = {
     quantity: 1,
     attributes: {},
+    address: {},
   };
 
   componentWillMount() {
@@ -187,34 +176,33 @@ class Pdp extends Component {
     return _.includes(tags, 'subscription');
   }
 
+  get editSubcriptionAddressInput() {
+    return (
+      <EditAddress
+        colorTheme="white-bg-dark-border"
+        withCountry
+        withDefaultCheckbox={false}
+        withShippingTitle="Shipping To"
+        onUpdate={this.onUpdateAddress}
+      />
+    )
+  }
+
+  get counterInput() {
+    return (
+      <div styleName="counter">
+        <Counter
+          value={this.state.quantity}
+          decreaseAction={() => this.changeQuantity(-1)}
+          increaseAction={() => this.changeQuantity(1)}
+        />
+      </div>
+    )
+  }
+
   changeQuantity(change: number): void {
     const quantity = Math.max(this.state.quantity + change, 1);
     this.setState({quantity});
-  }
-
-  @autobind
-  setAttributeFromField({ target: { name, value } }) {
-    const namePath = ['attributes', ...name.split('.')];
-    this.setState(assoc(this.state, namePath, value));
-  }
-
-  @autobind
-  changeCountry(item: Country) {
-    this.setState(assoc(this.state,
-      'selectedCountry', item,
-      'selectedRegion', {name: "", id: undefined, countryId: undefined},
-      ['attributes', 'subscription', 'country'], item.name,
-      ["attributes", "subscription", "state"], "",
-    ));
-  }
-
-  @autobind
-  changeRegion(item: Region) {
-    this.setState(assoc(this.state,
-      'selectedRegion', item,
-      ['attributes', 'subscription', 'state'], item.name,
-      ['attributes', 'subscription', 'regionId'], item.id,
-    ));
   }
 
   @autobind
@@ -240,21 +228,27 @@ class Pdp extends Component {
       });
   }
 
+  @autobind
+  onUpdateAddress(address) {
+    this.setState(assoc(this.state,
+      'address', address,
+      ['attributes', 'subscription', 'name'], address.name,
+      ['attributes', 'subscription', 'address1'], address.address1,
+      ['attributes', 'subscription', 'address2'], address.address2,
+      ['attributes', 'subscription', 'city'], address.city,
+      ['attributes', 'subscription', 'zip'], address.zip,
+      ['attributes', 'subscription', 'isDefault'], address.isDefault,
+      ['attributes', 'subscription', 'phoneNumber'], address.phoneNumber,
+      ['attributes', 'subscription', 'regionId'], address.state.id,
+    ));
+  }
+
   renderGallery() {
     const { images } = this.product;
 
     return !_.isEmpty(images)
       ? <Gallery images={images} />
       : <ImagePlaceholder />;
-  }
-
-  @autobind
-  submitSubscribeForm(): void {
-    if (!this.isSubscription) {
-      return;
-    }
-
-    this.addToCart();
   }
 
   render(): HTMLElement {
@@ -270,32 +264,6 @@ class Pdp extends Component {
 
     const { title, description, currency, price } = this.product;
 
-    if (this.isSubscription) {
-      const { countries } = this.props;
-      const { selectedCountry, selectedRegion, attributes, error } = this.state;
-      const product = this.product;
-
-      return (
-        <div styleName="container">
-          <div styleName="gallery">
-            {this.renderGallery()}
-          </div>
-          <SubscribeForm
-            product={product}
-            countries={countries}
-            selectedCountry={selectedCountry}
-            selectedRegion={selectedRegion}
-            onChangeCountry={this.changeCountry}
-            onChangeRegion={this.changeRegion}
-            onSubmit={this.submitSubscribeForm}
-            attributes={attributes}
-            onAttributeChange={this.setAttributeFromField}
-            error={error}
-          />
-        </div>
-      );
-    }
-
     return (
       <div styleName="container">
         <div styleName="gallery">
@@ -307,13 +275,10 @@ class Pdp extends Component {
             <Currency value={price} currency={currency} />
           </div>
           <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
-          <div styleName="counter">
-            <Counter
-              value={this.state.quantity}
-              decreaseAction={() => this.changeQuantity(-1)}
-              increaseAction={() => this.changeQuantity(1)}
-            />
-          </div>
+          { this.isSubscription
+            ? this.editSubcriptionAddressInput
+            : this.counterInput
+          }
           <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
             {t('ADD TO CART')}
           </Button>
