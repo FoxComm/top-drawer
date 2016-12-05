@@ -28,6 +28,9 @@ type EditAddressProps = Localized & {
   onUpdate: (address: Address) => void,
   initAddressData: (address: Address) => Promise,
   colorTheme?: string,
+  withCountry?: boolean,
+  withoutDefaultCheckbox?: boolean,
+  title?: string,
 }
 
 function mapStateToProps(state) {
@@ -52,6 +55,9 @@ export default class EditAddress extends Component {
 
   static defaultProps = {
     colorTheme: 'default',
+    withCountry: false,
+    withoutDefaultCheckbox: false,
+    title: "",
   };
 
   state: State = {
@@ -95,6 +101,52 @@ export default class EditAddress extends Component {
   @autobind
   handlePhoneChange(value) {
     this.setAddressData('phoneNumber', value);
+  }
+
+  get countryInput() {
+    const { countries } = this.props;
+
+    return (
+      <Autocomplete
+        inputProps={{
+          placeholder: 'UNITED STATES',
+          name: 'country',
+        }}
+        getItemValue={item => item.name}
+        items={countries.list}
+        onSelect={this.changeCountry}
+        selectedItem={this.selectedCountry}
+      />
+    );
+  }
+
+  get defaultCheckboxInput() {
+    const { withoutDefaultCheckbox } = this.props;
+
+    if (withoutDefaultCheckbox) {
+      return null;
+    }
+
+    const checked = _.get(this.state.address, 'isDefault', false);
+
+    return (
+      <Checkbox
+        name="isDefault"
+        checked={checked}
+        onChange={({target}) => this.changeDefault(target.checked)}
+        id="set-default-address"
+      >
+        Make this address my default
+      </Checkbox>
+    );
+  }
+
+  get title() {
+    const { title } = this.props;
+
+    return (
+      title && <div styleName="with-shipping-title">{title}</div>
+    );
   }
 
   get phoneInput() {
@@ -193,6 +245,11 @@ export default class EditAddress extends Component {
   }
 
   @autobind
+  changeCountry(item) {
+    this.setAddressData('country', item);
+  }
+
+  @autobind
   changeDefault(value) {
     this.setAddressData('isDefault', value);
   }
@@ -207,23 +264,14 @@ export default class EditAddress extends Component {
     if (!this.isAddressLoaded) return <Loader size="m"/>;
 
     const props: EditAddressProps = this.props;
-    const { t } = props;
+    const { t, withCountry, withoutDefaultCheckbox, title } = props;
     const selectedCountry = this.selectedCountry;
     const data = this.state.address;
 
-    const checked = _.get(data, 'isDefault', false);
-
     return (
       <div styleName={`theme-${props.colorTheme}`}>
-        <Checkbox
-          name="isDefault"
-          checked={checked}
-          onChange={({target}) => this.changeDefault(target.checked)}
-          id="set-default-address"
-        >
-          Make this address my default
-        </Checkbox>
-
+        { this.title }
+        { this.defaultCheckboxInput }
         <FormField styleName="text-field">
           <TextInput required
             name="name" placeholder={t('FIRST & LAST NAME')} value={data.name} onChange={this.changeFormData}
@@ -247,6 +295,7 @@ export default class EditAddress extends Component {
         <FormField styleName="text-field">
           <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>
         </FormField>
+        { withCountry && this.countryInput }
         <FormField styleName="text-field">
           <Autocomplete
             inputProps={{

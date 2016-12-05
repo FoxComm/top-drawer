@@ -30,15 +30,16 @@ import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
 import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
-import { FormField } from 'ui/forms';
+import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
-import SubscribeForm from 'ui/subscribe-form';
+import EditAddress from 'ui/address/edit-address';
 import Carousel from 'ui/carousel';
 
 // styles
 import styles from './pdp.css';
 import carouselStyles from 'ui/carousel/carousel.css';
 
+import type { Address } from 'types/address';
 
 type Params = {
   productId: string;
@@ -68,9 +69,8 @@ type Props = Localized & {
 type State = {
   quantity: number;
   error?: any;
-  selectedCountry?: Country;
-  selectedRegion?: Region;
   attributes?: Object;
+  address?: Address;
 };
 
 type Product = {
@@ -80,18 +80,6 @@ type Product = {
   currency: string;
   price: number;
 };
-
-type Country = {
-  alpha3: string;
-  id: number;
-  name: string;
-}
-
-type Region = {
-  countryId: number;
-  id: number;
-  name: string;
-}
 
 const mapStateToProps = state => {
   const product = state.productDetails.product;
@@ -127,6 +115,7 @@ class Pdp extends Component {
   state: State = {
     quantity: 1,
     attributes: {},
+    address: {},
   };
 
   componentWillMount() {
@@ -194,6 +183,35 @@ class Pdp extends Component {
     return _.includes(tags, 'subscription');
   }
 
+  get editSubcriptionAddressInput() {
+    const { t, isCartLoading } = this.props;
+    const { title, description, currency, price } = this.product;
+    const { error } = this.state;
+
+    return (
+      <div styleName="details">
+        <h1 styleName="name">{title}</h1>
+        <div styleName="price-container">
+          <Currency value={price} currency={currency}/>
+        </div>
+        <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
+        <Form onSubmit={this.addToCart} styleName="subcription-form-container">
+          <EditAddress
+            colorTheme="white-bg-dark-border"
+            withCountry
+            withoutDefaultCheckbox
+            title="Shipping To"
+            onUpdate={this.onUpdateAddress}
+          />
+          <Button type="submit" styleName="add-to-cart" isLoading={isCartLoading}>
+            {t('ADD TO CART')}
+          </Button>
+          <ErrorAlerts error={error}/>
+        </Form>
+      </div>
+    );
+  }
+
   get gallery() {
     if (this.state.smallOnly) {
       return this.renderCarousel();
@@ -221,25 +239,36 @@ class Pdp extends Component {
     this.setState(assoc(this.state, namePath, value));
   }
 
-  @autobind
-  changeCountry(item: Country) {
-    this.setState({
-      selectedCountry: item,
-      selectedRegion: {name: "", id: undefined, countryId: undefined},
-    }, () => {
-      this.setState(assoc(this.state, ["attributes", "subscription", "country"], this.state.selectedCountry.name), () => {
-        this.setState(assoc(this.state, ["attributes", "subscription", "state"], ""));
-      });
-    });
+  get counterInput() {
+    const { t, isCartLoading } = this.props;
+    const { title, description, currency, price } = this.product;
+    const { error, quantity } = this.state;
+
+    return (
+      <div styleName="details">
+        <h1 styleName="name">{title}</h1>
+        <div styleName="price-container">
+          <Currency value={price} currency={currency} />
+        </div>
+        <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
+        <div styleName="counter">
+          <Counter
+            value={quantity}
+            decreaseAction={() => this.changeQuantity(-1)}
+            increaseAction={() => this.changeQuantity(1)}
+          />
+        </div>
+        <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
+          {t('ADD TO CART')}
+        </Button>
+        <ErrorAlerts error={error} />
+      </div>
+    );
   }
 
-  @autobind
-  changeRegion(item: Region) {
-    this.setState({
-      selectedRegion: item,
-    }, () => {
-      this.setState(assoc(this.state, ["attributes", "subscription", "state"], this.state.selectedRegion.name));
-    });
+  changeQuantity(change: number): void {
+    const quantity = Math.max(this.state.quantity + change, 1);
+    this.setState({quantity});
   }
 
   @autobind
@@ -265,6 +294,21 @@ class Pdp extends Component {
       });
   }
 
+  @autobind
+  onUpdateAddress(address) {
+    this.setState(assoc(this.state,
+      'address', address,
+      ['attributes', 'subscription', 'name'], address.name,
+      ['attributes', 'subscription', 'address1'], address.address1,
+      ['attributes', 'subscription', 'address2'], address.address2,
+      ['attributes', 'subscription', 'city'], address.city,
+      ['attributes', 'subscription', 'zip'], address.zip,
+      ['attributes', 'subscription', 'isDefault'], address.isDefault,
+      ['attributes', 'subscription', 'phoneNumber'], address.phoneNumber,
+      ['attributes', 'subscription', 'regionId'], address.state.id,
+    ));
+  }
+
   renderGallery() {
     const { images } = this.product;
 
@@ -272,6 +316,7 @@ class Pdp extends Component {
       ? <Gallery images={images} />
       : <ImagePlaceholder />;
   }
+
 
   renderCarousel() {
     const { images } = this.product;
@@ -306,52 +351,13 @@ class Pdp extends Component {
 
     const { title, description, currency, price } = this.product;
 
-    if (this.isSubscription) {
-      const { countries } = this.props;
-      const { selectedCountry, selectedRegion, attributes } = this.state;
-      const product = this.product;
-
-      return (
-        <div styleName="container">
-          {this.gallery}
-          <div styleName="subscribe-details">
-            <SubscribeForm
-              product={product}
-              countries={countries}
-              selectedCountry={selectedCountry}
-              selectedRegion={selectedRegion}
-              onChangeCountry={this.changeCountry}
-              onChangeRegion={this.changeRegion}
-              addToCart={this.addToCart}
-              attributes={attributes}
-              onAttributeChange={this.setAttributeFromField}
-            />
-          </div>
-        </div>
-      );
-    }
-
     return (
       <div styleName="container">
         {this.gallery}
-        <div styleName="details">
-          <h1 styleName="name">{title}</h1>
-          <div styleName="price-container">
-            <Currency value={price} currency={currency}/>
-          </div>
-          <div styleName="description" dangerouslySetInnerHTML={{__html: description}}></div>
-          <div styleName="counter">
-            <Counter
-              value={this.state.quantity}
-              decreaseAction={() => this.changeQuantity(-1)}
-              increaseAction={() => this.changeQuantity(1)}
-            />
-          </div>
-          <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
-            {t('ADD TO CART')}
-          </Button>
-          <ErrorAlerts error={this.state.error} />
-        </div>
+        { this.isSubscription
+          ? this.editSubcriptionAddressInput
+          : this.counterInput
+        }
       </div>
     );
   }
