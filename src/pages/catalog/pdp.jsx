@@ -259,7 +259,7 @@ class Pdp extends Component {
           />
         </div>
         <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
-          {this.props.t('ADD TO CART')}
+          {t('ADD TO CART')}
         </Button>
         <ErrorAlerts error={error} />
       </div>
