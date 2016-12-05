@@ -60,7 +60,7 @@ class Login extends Component {
   };
 
   static defaultProps = {
-    mergeGuestCart: true,
+    mergeGuestCart: false,
   };
 
   @autobind

@@ -122,7 +122,7 @@ export function saveLineItems(merge: boolean = false) {
     return fetchMyCart().then((data) => {
       let newCartItems = [];
 
-      if (merge) {
+      if (merge || _.isEmpty(lineItemsToSubmit)) {
         const savedLineItems = _.get(data, 'lineItems.skus', []);
         const savedPayload = collectItemsToSubmit(savedLineItems);
 

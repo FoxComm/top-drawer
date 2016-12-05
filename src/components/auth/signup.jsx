@@ -62,7 +62,7 @@ class Signup extends Component {
   };
 
   static defaultProps = {
-    mergeGuestCart: true,
+    mergeGuestCart: false,
   };
 
   @autobind
