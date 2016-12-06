@@ -61,6 +61,7 @@ class LineItem extends Component {
             <Autocomplete
               inputProps={{
                 type: 'number',
+                readOnly: 'readOnly',
               }}
               getItemValue={item => item}
               items={QUANTITY_ITEMS}
