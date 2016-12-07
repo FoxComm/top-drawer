@@ -70,7 +70,7 @@ class LineItem extends Component {
 
   get mobileInput() {
     return (
-      <div>
+      <div styleName="line-item-select-container">
         <select value={this.props.quantity} onChange={this.selectQuantity}>
           { QUANTITY_ITEMS.map(qty => {
               return <option key={qty} value={qty}>{qty}</option>;
