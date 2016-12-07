@@ -29,8 +29,23 @@ type Props = {
   updateLineItemQuantity: Function,
 };
 
+type State = {
+  smallOnly: boolean,
+}
+
 class LineItem extends Component {
   props: Props;
+  _mqSmallOnly: any;
+
+  state: State = {
+    smallOnly: false,
+  };
+
+  componentDidMount() {
+    this._mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    this._mqSmallOnly.addListener(this.mediaQueryChanged);
+    this.setState({smallOnly: this._mqSmallOnly.matches});
+  }
 
   @autobind
   changeQuantity(quantity) {
@@ -40,6 +55,48 @@ class LineItem extends Component {
   @autobind
   deleteItem() {
     this.props.deleteLineItem(this.props.sku);
+  }
+
+  @autobind
+  selectQuantity(event) {
+    const selectedQuantity = _.toInteger(event.target.value);
+    this.props.updateLineItemQuantity(this.props.sku, selectedQuantity);
+  }
+
+  @autobind
+  mediaQueryChanged() {
+    this.setState({smallOnly: this._mqSmallOnly.matches});
+  }
+
+  get mobileInput() {
+    return (
+      <div>
+        <select value={this.props.quantity} onChange={this.selectQuantity}>
+          { QUANTITY_ITEMS.map(qty => {
+              return <option key={qty} value={qty}>{qty}</option>;
+            })
+          }
+        </select>
+      </div>
+    );
+  }
+
+  get desktopInput() {
+    return (
+      <div styleName="quantity">
+        <Autocomplete
+          inputProps={{
+            type: 'number',
+            readOnly: 'readOnly',
+          }}
+          getItemValue={item => item}
+          items={QUANTITY_ITEMS}
+          onSelect={this.changeQuantity}
+          selectedItem={this.props.quantity}
+          sortItems={false}
+        />
+      </div>
+    );
   }
 
   render() {
@@ -57,19 +114,10 @@ class LineItem extends Component {
               <Currency value={this.props.totalPrice}/>
             </div>
           </div>
-          <div styleName="quantity">
-            <Autocomplete
-              inputProps={{
-                type: 'number',
-                readOnly: 'readOnly',
-              }}
-              getItemValue={item => item}
-              items={QUANTITY_ITEMS}
-              onSelect={this.changeQuantity}
-              selectedItem={this.props.quantity}
-              sortItems={false}
-            />
-          </div>
+          { this.state.smallOnly
+            ? this.mobileInput
+            : this.desktopInput
+          }
         </div>
         <div styleName="controls">
           <a styleName="delete-button" onClick={this.deleteItem}>
