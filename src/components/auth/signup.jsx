@@ -19,7 +19,7 @@ import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart, saveLineItems } from 'modules/cart';
+import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 import type { SignUpPayload } from 'modules/auth';
@@ -37,7 +37,7 @@ type Props = Localized & {
   getPath: Function,
   isLoading: boolean,
   fetchCart: Function,
-  saveLineItems: Function,
+  saveLineItemsAndCoupons: Function,
   onLoginClick: Function,
   title?: string|Element|null,
   mergeGuestCart: boolean,
@@ -59,10 +59,6 @@ class Signup extends Component {
     usernameError: false,
     emailError: false,
     generalErrors: [],
-  };
-
-  static defaultProps = {
-    mergeGuestCart: false,
   };
 
   @autobind
@@ -97,7 +93,7 @@ class Signup extends Component {
       if (_.isEmpty(lineItems)) {
         this.props.fetchCart();
       } else {
-        this.props.saveLineItems(this.props.mergeGuestCart);
+        this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
       }
       browserHistory.push(this.props.getPath());
     }).catch(err => {
@@ -198,5 +194,5 @@ class Signup extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
-  saveLineItems,
+  saveLineItemsAndCoupons,
 })(localized(Signup));
