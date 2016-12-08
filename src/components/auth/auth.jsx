@@ -9,7 +9,6 @@ import { autobind } from 'core-decorators';
 import styles from './auth.css';
 import type { HTMLElement } from 'types';
 
-import Icon from 'ui/icon';
 import Login from './login';
 import Signup from './signup';
 import ResetPassword from './reset-password.jsx';
@@ -31,7 +30,7 @@ class Auth extends Component {
 
     switch (this.props.authBlockType) {
       case authBlockTypes.LOGIN:
-        return <Login {...authProps} />;
+        return <Login mergeGuestCart {...authProps} />;
       case authBlockTypes.SIGNUP:
         return <Signup {...authProps} />;
       case authBlockTypes.RESET_PASSWORD:
@@ -39,7 +38,7 @@ class Auth extends Component {
       case authBlockTypes.RESTORE_PASSWORD:
         return <RestorePassword {...authProps} />;
       default:
-        return <Login {...authProps} />;
+        return <Login mergeGuestCart {...authProps} />;
     }
   }
 

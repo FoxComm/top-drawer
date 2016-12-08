@@ -11,11 +11,10 @@ import styles from './auth.css';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import { FormField, Form } from 'ui/forms';
 import Button from 'ui/buttons';
-import WrapToLines from 'ui/wrap-to-lines';
 
 import * as actions from 'modules/auth';
 import { authBlockTypes } from 'paragons/auth';
-import { fetch as fetchCart, saveLineItems, mergeCartState } from 'modules/cart';
+import { fetch as fetchCart, saveLineItemsAndCoupons } from 'modules/cart';
 
 import type { HTMLElement } from 'types';
 
@@ -35,8 +34,7 @@ type Props = Localized & {
   isLoading: boolean,
   authenticate: Function,
   fetchCart: Function,
-  saveLineItems: Function,
-  mergeCartState: Function,
+  saveLineItemsAndCoupons: Function,
   onAuthenticated?: Function,
   title?: string|Element|null,
   onSignupClick: Function,
@@ -57,10 +55,6 @@ class Login extends Component {
     emailError: false,
     passwordError: false,
     loginError: false,
-  };
-
-  static defaultProps = {
-    mergeGuestCart: false,
   };
 
   @autobind
@@ -84,7 +78,7 @@ class Login extends Component {
     const { email, password } = this.state;
     const kind = 'merchant';
     const auth = this.props.authenticate({email, password, kind}).then(() => {
-      this.props.saveLineItems(this.props.mergeGuestCart);
+      this.props.saveLineItemsAndCoupons(this.props.mergeGuestCart);
       browserHistory.push(this.props.getPath());
     }, () => {
       this.setState({loginError: 'Email or password is invalid'});
@@ -175,5 +169,5 @@ class Login extends Component {
 export default connect(mapState, {
   ...actions,
   fetchCart,
-  saveLineItems
+  saveLineItemsAndCoupons,
 })(localized(Login));
