@@ -6,10 +6,8 @@
   "scripts": {
     "lint": "eslint --ext .js --ext .jsx .",
     "flow": "flow check",
-    "dev": "PHOENIX_PUBLIC_KEY=./public_key.pem gulp dev",
-    "dev-local": "npm run dev",
-    "dev-stage": "API_URL=https://stage.foxcommerce.com npm run dev",
-    "test": "./node_modules/.bin/mocha"
+    "dev": "gulp dev",
+    "test": "mocha"
   },
   "author": "FoxCommerce",
   "license": "?",
