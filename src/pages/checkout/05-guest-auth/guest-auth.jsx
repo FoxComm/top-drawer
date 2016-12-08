@@ -63,7 +63,7 @@ class GuestAuth extends Component {
         <Login
           mergeGuestCart
           getPath={this.getPath}
-          title="SIGN IN & CHECKOUT"
+          title="LOG IN & CHECKOUT"
           onAuthenticated={this.doCheckoutAfterAuth}
           onSignupClick={this.toggleAuthForm}
         />
