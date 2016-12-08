@@ -87,7 +87,7 @@ class Login extends Component {
       this.props.saveLineItems(this.props.mergeGuestCart);
       browserHistory.push(this.props.getPath());
     }, () => {
-      this.setState({error: 'Email or password is invalid'});
+      this.setState({loginError: 'Email or password is invalid'});
     });
 
     if (this.props.onAuthenticated) {
@@ -105,7 +105,7 @@ class Login extends Component {
   get title() {
     const { t, title } = this.props;
     return title !== null
-      ? <div styleName="title">{title || t('SIGN IN')}</div>
+      ? <div styleName="title">{title || t('LOG IN')}</div>
       : null;
   }
 

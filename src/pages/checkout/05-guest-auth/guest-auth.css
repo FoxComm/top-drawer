@@ -1,6 +1,7 @@
 
 @import "colors.css";
 @import "variables.css";
+@import "media-queries.css";
 
 .guest-auth {
   position: fixed;
@@ -11,15 +12,39 @@
   z-index: 10;
   background: var(--whitish);
   display: flex;
-  justify-content: center;
+  justify-content: start;
   flex-direction: column;
   align-items: center;
+}
+
+.home {
+  text-align: center;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 160px;
+
+  & .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--white-smokish);
+  }
+
+  & .title {
+    line-height: 40px;
+    font-family: var(--font-main);
+    font-weight: 500;
+    font-size: 16px;
+    color: #212121;
+    letter-spacing: 2.7px;
+    margin: 20px 0;
+    text-transform: uppercase;
+  }
 }
 
 .logo {
   width: 250px;
   height: 96px;
-  margin-bottom: 48px;
+  margin-bottom: 0;
 }
 
 .forms {
@@ -47,6 +72,64 @@
 .divider {
   width: 1px;
   height: 255px;
-  background: #3E3436;
+  background: #212121;
   position: absolute;
+}
+
+.mobile-divider-block {
+  visibility: hidden;
+}
+
+@media (--small-only) {
+  .home {
+    margin-bottom: 0;
+
+    & .title {
+      visibility: hidden;
+      height: 0;
+      margin: 0;
+    }
+
+    & .divider {
+      visibility: visible;
+    }
+  }
+
+  .guest-auth {
+    display: block;
+    overflow: auto;
+  }
+
+  .forms {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .auth-block:first-child,
+  .auth-block:last-child {
+    width: 100%;
+  }
+
+  .divider {
+    visibility: hidden;
+  }
+
+  .mobile-divider-block {
+    visibility: visible;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    & p {
+      margin: 0 15px;
+    }
+  }
+
+  .mobile-divider {
+    height: 1px;
+    position: relative;
+    background: #212121;
+    flex-grow: 1;
+  }
 }

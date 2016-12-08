@@ -63,7 +63,7 @@ class GuestAuth extends Component {
         <Login
           mergeGuestCart
           getPath={this.getPath}
-          title="SIGN IN & CHECKOUT"
+          title="LOG IN & CHECKOUT"
           onAuthenticated={this.doCheckoutAfterAuth}
           onSignupClick={this.toggleAuthForm}
         />
@@ -91,12 +91,20 @@ class GuestAuth extends Component {
           <Link to="/">
             <img styleName="logo" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
           </Link>
+          <div styleName="divider" />
+          <p styleName="title">Checkout</p>
+          <div styleName="divider" />
         </div>
         <div styleName="forms">
           <div styleName="auth-block">
             {this.authForm}
           </div>
           <div styleName="divider" />
+          <div styleName="mobile-divider-block">
+            <div styleName="mobile-divider" />
+            <p>or</p>
+            <div styleName="mobile-divider" />
+          </div>
           <div styleName="auth-block">
             <Guest onGuestCheckout={this.onGuestCheckout}/>
         </div>
