@@ -175,8 +175,10 @@ export default class EditAddress extends Component {
         />
       );
     } else {
-      const onChange = value => this.handlePhoneChange(value);
-      input = <TextInput {...inputAttributes} onChange={onChange} maxLength="15"/>;
+      const onChange = ({ target: { value }}) => this.handlePhoneChange(value);
+      input = (
+        <TextInput {...inputAttributes} onChange={onChange} maxLength="15"/>
+      );
     }
 
     return input;
