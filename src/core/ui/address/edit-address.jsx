@@ -13,6 +13,7 @@ import type { Localized } from 'lib/i18n';
 import InputMask from 'react-input-mask';
 import { TextInput } from '../inputs';
 import { FormField } from 'ui/forms';
+import Select from 'ui/select/select';
 import Autocomplete from 'ui/autocomplete';
 import Checkbox from '../checkbox/checkbox';
 import Loader from '../loader';
@@ -174,8 +175,10 @@ export default class EditAddress extends Component {
         />
       );
     } else {
-      const onChange = value => this.handlePhoneChange(value);
-      input = <TextInput {...inputAttributes} onChange={onChange} maxLength="15"/>;
+      const onChange = ({ target: { value }}) => this.handlePhoneChange(value);
+      input = (
+        <TextInput {...inputAttributes} onChange={onChange} maxLength="15"/>
+      );
     }
 
     return input;
@@ -297,7 +300,7 @@ export default class EditAddress extends Component {
         </FormField>
         { withCountry && this.countryInput }
         <FormField styleName="text-field">
-          <Autocomplete
+          <Select
             inputProps={{
               placeholder: t('STATE'),
             }}
