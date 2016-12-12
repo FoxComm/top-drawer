@@ -94,7 +94,10 @@ class OrderPlaced extends Component {
           <Button styleName="to-home" onClick={this.toHome}>{t('Take me home')}</Button>
         </div>
         {this.orderSummary}
-        <TrackingPixel srcUrl="//insight.adsrvr.org/track/conv/?adv=3ol6l39&ct=0:lf4mc5a&fmt=3" />
+        <TrackingPixel
+          prodUrl="//insight.adsrvr.org/track/conv"
+          queryParams={{adv: '3ol6l39', ct: '0:lf4mc5a', fmt: 3}}
+        />
       </div>
     );
   }

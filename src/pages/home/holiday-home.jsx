@@ -5,7 +5,7 @@ import type { HTMLElement } from 'types';
 import { Link } from 'react-router';
 
 import Banner from '../../components/banner/banner';
-import Tracking from '../../components/tracking-pixel/tracking-pixel';
+import TrackingPixel from '../../components/tracking-pixel/tracking-pixel';
 
 import styles from './holiday-home.css';
 
@@ -89,7 +89,10 @@ class HolidayHome extends Component {
         {this.holidayBanner2}
         {this.subscribeBanner}
         {this.customSocksBanner}
-        <Tracking srcUrl="//insight.adsrvr.org/track/evnt/?adv=3ol6l39&ct=0:vnnygcw&fmt=3" />
+        <TrackingPixel
+          prodUrl="//insight.adsrvr.org/track/evnt"
+          queryParams={{adv: '3ol6l39', ct: '0:vnnygcw', fmt: 3}}
+        />
       </div>
     );
   }
