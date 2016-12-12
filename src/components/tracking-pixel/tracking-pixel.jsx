@@ -9,9 +9,9 @@ import querystring from 'querystring';
 import styles from './tracking-pixel.css';
 
 type Props = {
-  prodUrl: string;
-  queryParams: Object;
-  devUrl?: string;
+  prodUrl?: string,
+  queryParams: Object,
+  devUrl?: string,
 }
 
 const TrackingPixel = (props: Props): HTMLElement => {
