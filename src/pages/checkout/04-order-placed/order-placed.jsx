@@ -12,6 +12,7 @@ import localized from 'lib/i18n';
 import Button from 'ui/buttons';
 import Loader from 'ui/loader';
 import OrderSummary from '../../../components/order-summary/order-summary';
+import TrackingPixel from '../../../components/tracking-pixel/tracking-pixel';
 
 // styles
 import styles from './order-placed.css';
@@ -93,6 +94,7 @@ class OrderPlaced extends Component {
           <Button styleName="to-home" onClick={this.toHome}>{t('Take me home')}</Button>
         </div>
         {this.orderSummary}
+        <TrackingPixel srcUrl="//insight.adsrvr.org/track/conv/?adv=3ol6l39&ct=0:lf4mc5a&fmt=3" />
       </div>
     );
   }
