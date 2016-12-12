@@ -44,7 +44,7 @@ export default class CvcHelp extends Component {
         </p>
         <div styleName="cvc-images">
           <Icon name="fc-cvc-visa" />
-          <Icon name="fc-cvc-amex" />
+          <Icon name="fc-cvc-american-express" />
         </div>
       </div>
     );

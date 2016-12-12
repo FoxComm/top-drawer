@@ -27,19 +27,23 @@ Top Drawer's very own storefront powered by FoxCommerce. It's a spiffy isomorphi
 1. Set Stripe.js publishable key.
 In order to checkout to work you should set Stripe key by exporting `STRIPE_PUBLISHABLE_KEY` variable, or setting it in your `.env` file if you're using foreman, or run dev command with it:
 
-  `export STRIPE_PUBLISHABLE_KEY=pk_test_r6t0niqmG9OOZhhaSkacUUU1`
+  `export STRIPE_PUBLISHABLE_KEY=pk_test_JvTXpI3DrkV6QwdcmZarmlfk`
 
-  `STRIPE_PUBLISHABLE_KEY=pk_test_r6t0niqmG9OOZhhaSkacUUU1 npm run dev`
+  `STRIPE_PUBLISHABLE_KEY=pk_test_JvTXpI3DrkV6QwdcmZarmlfk npm run dev`
 
 1. Set DEV_SKIP_JWT_VERIFY, or configure PHOENIX_PUBLIC_KEY variable for verifying jwt token.
 
   `export DEV_SKIP_JWT_VERIFY=1`
 
-  `DEV_SKIP_JWT_VERIFY=1 STRIPE_PUBLISHABLE_KEY=pk_test_r6t0niqmG9OOZhhaSkacUUU1 npm run dev`
+  `DEV_SKIP_JWT_VERIFY=1 STRIPE_PUBLISHABLE_KEY=pk_test_JvTXpI3DrkV6QwdcmZarmlfk npm run dev`
 
 1. Select your API backend. There are convenience tasks to run the common backend development methods, hitting backend API at remote stage:
 
   `npm run dev` — backend API at `API_URL` env variable
+
+1. Develop it at http://localhost:4045/ (it is blocked in Chrome, use another port)
+
+1. Use `--browser-sync` flag to enable CSS hot reloading:
 
 1. Develop it at http://localhost:4040/
 
