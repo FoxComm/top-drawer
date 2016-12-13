@@ -167,6 +167,8 @@ class Cart extends Component {
                 saveCode={this.props.saveCouponCode}
                 removeCode={this.props.removeCouponCode}
                 disabled={checkoutDisabled}
+                placeholder="Coupon Code"
+                theme="dark"
               />
             </div>
 

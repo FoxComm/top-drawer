@@ -5,16 +5,22 @@ import formatCurrency from 'lib/format-currency';
 import type { HTMLElement } from 'types';
 
 type CurrencyProps = {
-  value: any;
-  fractionBase: number;
-  currency: string;
-  bigNumber: bool;
-  className?: string;
-}
+  value: any,
+  fractionBase: number,
+  currency: string,
+  bigNumber: bool,
+  prefix: string,
+  className?: string,
+};
 
 const Currency = (props: CurrencyProps): HTMLElement => {
-  const {value, className, ...rest} = props;
-  return <span className={className}>{formatCurrency(value, {...rest})}</span>;
+  const { value, className, prefix, ...rest} = props;
+
+  return (
+    <span className={className}>
+      {`${prefix}${formatCurrency(value, {...rest})}`}
+    </span>
+  );
 };
 
 Currency.propTypes = {
@@ -28,6 +34,7 @@ Currency.defaultProps = {
   fractionBase: 2,
   currency: 'USD',
   bigNumber: false,
+  prefix: '',
 };
 
 export default Currency;

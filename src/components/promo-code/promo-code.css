@@ -2,9 +2,13 @@
 @import 'colors.css';
 @import "variables.css";
 
+.root {
+}
+
 .fieldset {
   display: flex;
   flex-wrap: wrap;
+  margin: 8px 0;
 
   & :global(.fc-errors) {
     width: 100%;
@@ -25,6 +29,22 @@
   composes: text-input from "ui/css/input.css";
   width: 100%;
   border-right: none;
+  background-color: white;
+  border-color: white;
+
+  &::placeholder {
+    text-transform: uppercase;
+  }
+}
+
+.root.light .code {
+  background-color: white;
+  border-color: white;
+}
+
+.root.dark .code {
+  background-color: #F4F2F2;
+  border-color: #F4F2F2;
 }
 
 .submit {
@@ -46,14 +66,17 @@
   }
 }
 
-.promo-title {
+.promo-code {
   text-transform: uppercase;
+  flex-grow: 1;
 }
 
 .promo-description {
   display: flex;
   align-items: center;
   color: #212121;
+  padding: 10px 0;
+  border-top: 1px solid var(--border-color);
 }
 
 .promo-description-wrapper {
@@ -62,10 +85,14 @@
   font-weight: 300;
 }
 
+.gift-title {
+  text-transform: uppercase;
+}
+
 .delete-promo-btn {
   composes: delete-button from '../../components/cart/line-item.css';
   line-height: 15px;
-  padding-left: 10px;
+  margin-left: 10px;
 }
 
 .delete-promo-icon {
@@ -92,4 +119,8 @@
     font-size: 14px;
     height: 46px;
   }
+}
+
+.error {
+  margin: 8px 0;
 }
