@@ -28,7 +28,7 @@ import Counter from 'ui/forms/counter';
 import Currency from 'ui/currency';
 import Gallery from 'ui/gallery/gallery';
 import Loader from 'ui/loader';
-import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
+import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 import ImagePlaceholder from '../../components/product-image/image-placeholder';
 import { Form, FormField } from 'ui/forms';
 import { TextInput } from 'ui/inputs';
