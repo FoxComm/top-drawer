@@ -12,7 +12,6 @@ src
 
 [libs]
 interfaces/
-node_modules/wings/src/interfaces
 
 [options]
 esproposal.decorators=ignore
