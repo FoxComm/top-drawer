@@ -11,3 +11,12 @@ export function phoneNumber(value) {
     ? null
     : this.t('Please enter a valid phone number');
 }
+
+export function email(address) {
+  const strLocal = '^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))';
+  const strDomain = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+
+  return new RegExp(strLocal + strDomain).test(address)
+    ? null
+    : 'Invalid email';
+}

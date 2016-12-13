@@ -13,7 +13,7 @@
     color: var(--whitish);
 
     &:hover {
-      color: #aaf3f8;
+       color: rgba(255, 255, 255, .9);
     }
   }
 }
@@ -75,6 +75,10 @@
   stroke: none;
   position: relative;
   fill: var(--whitish);
+
+  &:hover svg {
+    fill: rgba(255, 255, 255, .9);
+  }
 }
 
 .copyright {

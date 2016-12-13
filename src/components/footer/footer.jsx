@@ -2,6 +2,7 @@
 
 import React from 'react';
 import type { HTMLElement } from 'types';
+import NewsletterForm from '../newsletter/newsletter-form';
 
 import styles from './footer.css';
 
@@ -11,13 +12,14 @@ const Footer = () : HTMLElement => {
   return (
     <div styleName="footer">
       <div styleName="wrap">
+        <NewsletterForm />
         <div styleName="social">
           <div styleName="social-links">
-            <a target="_blank" href="https://www.instagram.com/gettopdrawer/">
-              <Icon name="fc-instagram" styleName="social-icon" />
-            </a>
             <a target="_blank" href="https://www.facebook.com/GetTopDrawer/">
               <Icon name="fc-facebook" styleName="social-icon" />
+            </a>
+            <a target="_blank" href="https://www.instagram.com/gettopdrawer/">
+              <Icon name="fc-instagram" styleName="social-icon" />
             </a>
             <a target="_blank" href="https://www.pinterest.com/gettopdrawer/">
               <Icon name="fc-pinterest" styleName="social-icon" />
