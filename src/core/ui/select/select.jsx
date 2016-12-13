@@ -8,7 +8,7 @@ import { autobind } from 'core-decorators';
 /* eslint react/sort-comp: 0 */
 
 type Props = {
-  name: ?string,
+  name?: ?string,
   items: Array<any>,
   selectedItem: any,
   onSelect: Function,
@@ -28,7 +28,7 @@ class Select extends Component {
 
   @autobind
   renderItem(item) {
-    return (<option key={item} styleName="option" value={item}>{item}</option>);
+    return (<option styleName="option" value={item} key={item}>{item}</option>);
   }
 
   @autobind

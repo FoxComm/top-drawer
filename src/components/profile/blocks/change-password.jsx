@@ -12,7 +12,7 @@ import Button from 'ui/buttons';
 import { TextInput } from 'ui/inputs';
 import ShowHidePassword from 'ui/forms/show-hide-password';
 import { Form, FormField } from 'ui/forms';
-import ErrorAlerts from 'wings/lib/ui/alerts/error-alerts';
+import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
 
 import * as actions from 'modules/profile';
 
