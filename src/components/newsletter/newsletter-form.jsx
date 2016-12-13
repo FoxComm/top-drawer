@@ -3,6 +3,8 @@
 // libs
 import React, { Component } from 'react';
 import { autobind } from 'core-decorators';
+import _ from 'lodash';
+import { email as validateEmail } from 'ui/forms/validators';
 
 // components
 import Button from 'ui/buttons';
@@ -18,7 +20,8 @@ import styles from './newsletter-form.css';
 type State = {
   name: string,
   email: string,
-  error: ?string,
+  nameError: ?string,
+  emailError: ?string,
 }
 
 export default class NewsletterForm extends Component {
@@ -26,21 +29,44 @@ export default class NewsletterForm extends Component {
   state: State = {
     name: '',
     email: '',
-    error: null,
+    nameError: null,
+    emailError: null,
   };
 
   @autobind
   onEmailChange(value: string) {
-    this.setState({email: value, error: null});
+    this.setState({email: value, emailError: null});
   }
 
   @autobind
   onNameChange(value: string) {
-    this.setState({name: value, error: null});
+    this.setState({name: value, nameError: null});
+  }
+
+  @autobind
+  validateAndSubmit(e: Object) {
+    const { name, email } = this.state;
+
+    if (_.isEmpty(name)) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setState({ nameError: 'Name is required.' });
+    } else {
+      this.setState({ nameError: null });
+    }
+
+    const validationResult = validateEmail(email);
+    if (_.isString(validationResult) && !_.isEmpty(validationResult)) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setState({ emailError: 'Email address is invalid.' });
+    } else {
+      setTimeout(() => this.setState({ emailError: null, nameError: null }), 1000);
+    }
   }
 
   render(): HTMLElement {
-    const { name, email, error } = this.state;
+    const { name, email, emailError, nameError } = this.state;
 
     return (
       <form
@@ -51,7 +77,7 @@ export default class NewsletterForm extends Component {
         name="mc-embedded-newsletter-form"
         target="_blank"
       >
-        <FormField key="name" styleName="form-field" error={error} required>
+        <FormField key="name" styleName="form-field" error={nameError}>
           <TextInput
             placeholder="FIRST & LAST NAME"
             name="name"
@@ -59,7 +85,7 @@ export default class NewsletterForm extends Component {
             onChange={({target}) => this.onNameChange(target.value)}
           />
         </FormField>
-        <FormField key="email" styleName="form-field" error={error} required>
+        <FormField key="email" styleName="form-field" error={emailError}>
           <TextInput
             placeholder="EMAIL ADDRESS"
             name="email"
