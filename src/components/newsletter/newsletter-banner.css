@@ -1,0 +1,37 @@
+@import "media-queries.css";
+
+.newsletter-banner-container {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+  flex-direction: column;
+}
+
+.newsletter-banner-title {
+  margin-top: 0;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.dc-logo {
+  background: url(/images/home/top-icon-logo-white.svg);
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 33px;
+  margin: 0 auto 30px;
+}
+
+@media (--medium-only) {
+  .newsletter-banner-container {
+    width: 100%;
+    font-size: 90%;
+  }
+}
+
+@media (--small-only) {
+  .newsletter-banner-container {
+    width: 100%;
+    font-size: 80%;
+  }
+}

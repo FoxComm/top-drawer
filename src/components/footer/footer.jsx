@@ -1,9 +1,16 @@
 /* @flow */
 
+// libs
 import React from 'react';
-import type { HTMLElement } from 'types';
-import NewsletterForm from '../newsletter/newsletter-form';
 
+// components
+import NewsletterForm from '../newsletter/newsletter-form';
+import NewsletterBanner from '../newsletter/newsletter-banner';
+
+// types
+import type { HTMLElement } from 'types';
+
+// styles
 import styles from './footer.css';
 
 import Icon from 'ui/icon';
@@ -12,6 +19,7 @@ const Footer = () : HTMLElement => {
   return (
     <div styleName="footer">
       <div styleName="wrap">
+        <NewsletterBanner />
         <NewsletterForm />
         <div styleName="social">
           <div styleName="social-links">
