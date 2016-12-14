@@ -71,24 +71,24 @@ export default class NewsletterForm extends Component {
     return (
       <form
         styleName="newsletter-form"
-        action=""
+        action="//topdrawer.us12.list-manage.com/subscribe/post?u=4b104916423f8b58c35887897&id=2e072ac63b"
         method="post"
         id="mc-embedded-newsletter-form"
         name="mc-embedded-newsletter-form"
         target="_blank"
       >
-        <FormField key="name" styleName="form-field" error={nameError}>
+        <FormField key="FNAME" styleName="form-field" error={nameError}>
           <TextInput
             placeholder="FIRST & LAST NAME"
-            name="name"
+            name="FNAME"
             value={name}
             onChange={({target}) => this.onNameChange(target.value)}
           />
         </FormField>
-        <FormField key="email" styleName="form-field" error={emailError}>
+        <FormField key="EMAIL" styleName="form-field" error={emailError}>
           <TextInput
             placeholder="EMAIL ADDRESS"
-            name="email"
+            name="EMAIL"
             value={email}
             onChange={({target}) => this.onEmailChange(target.value)}
           />
