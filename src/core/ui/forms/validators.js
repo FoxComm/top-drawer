@@ -13,10 +13,7 @@ export function phoneNumber(value) {
 }
 
 export function email(address) {
-  const strLocal = '^(([^<>()\\[\\]\\\\.,;:\\s@\"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@\"]+)*)|(\".+\"))';
-  const strDomain = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
-
-  return new RegExp(strLocal + strDomain).test(address)
+  return new RegExp('.+@.+').test(address)
     ? null
     : 'Invalid email';
 }

@@ -59,7 +59,7 @@ export default class NewsletterForm extends Component {
     if (_.isString(validationResult) && !_.isEmpty(validationResult)) {
       e.preventDefault();
       e.stopPropagation();
-      this.setState({ emailError: 'Email address is invalid.' });
+      this.setState({ emailError: validationResult });
     } else {
       setTimeout(() => this.setState({ emailError: null, nameError: null }), 1000);
     }
