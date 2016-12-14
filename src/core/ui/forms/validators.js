@@ -11,3 +11,9 @@ export function phoneNumber(value) {
     ? null
     : this.t('Please enter a valid phone number');
 }
+
+export function email(address) {
+  return new RegExp('.+@.+').test(address)
+    ? null
+    : 'Invalid email';
+}
