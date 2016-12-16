@@ -13,8 +13,6 @@ node {
     stage('Test'){
       sh 'make test'
     }
-
-    sh "${env.USER}"
   } catch (e) {
     currentBuild.result = "FAILED"
     throw e
