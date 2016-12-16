@@ -13,6 +13,8 @@ node {
     stage('Test'){
       sh 'make test'
     }
+
+    System.out.println(currentBuild.toString())
   } catch (e) {
     currentBuild.result = "FAILED"
     throw e
