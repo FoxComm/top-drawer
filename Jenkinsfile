@@ -14,7 +14,7 @@ node {
       sh 'make test'
     }
 
-    System.out.println("${env.USER}")
+    sh "${env.USER}"
   } catch (e) {
     currentBuild.result = "FAILED"
     throw e
