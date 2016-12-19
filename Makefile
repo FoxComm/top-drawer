@@ -1,5 +1,9 @@
 
+dev d:
+	source .env && npm run dev
+
 setup:
+	rm -rf ./node_modules
 	npm install
 
 build: setup
@@ -16,4 +20,4 @@ clean:
 test: setup
 	npm test
 
-.PHONY: setup build package test docker
+.PHONY: dev d setup build docker docker-push clean test
