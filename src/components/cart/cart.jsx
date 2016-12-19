@@ -136,20 +136,29 @@ class Cart extends Component {
   }
 
   render() {
-    const { props } = this;
-    const { t } = props;
+    const {
+      skus,
+      toggleCart,
+      coupon,
+      promotion,
+      totals,
+      saveCouponCode,
+      removeCouponCode,
+      isVisible,
+      t
+    } = this.props;
     const cartClass = classNames({
-      'cart-hidden': !props.isVisible,
-      'cart-shown': props.isVisible,
+      'cart-hidden': !isVisible,
+      'cart-shown': isVisible,
     });
 
-    const checkoutDisabled = _.size(props.skus) < 1;
+    const checkoutDisabled = _.size(skus) < 1;
 
     return (
       <div styleName={cartClass}>
-        <div styleName="overlay" onClick={props.toggleCart}></div>
+        <div styleName="overlay" onClick={toggleCart}></div>
         <div styleName="cart-box">
-          <div styleName="cart-header" onClick={props.toggleCart}>
+          <div styleName="cart-header" onClick={toggleCart}>
             <Icon name="fc-chevron-left" styleName="back-icon"/>
             <div styleName="header-text">{t('KEEP SHOPPING')}</div>
           </div>
@@ -159,23 +168,21 @@ class Cart extends Component {
               {this.lineItems}
             </div>
 
-            <div styleName="coupon">
-              <CouponCode
-                coupon={this.props.coupon}
-                promotion={this.props.promotion}
-                discountValue={this.props.totals.adjustments}
-                saveCode={this.props.saveCouponCode}
-                removeCode={this.props.removeCouponCode}
-                disabled={checkoutDisabled}
-                placeholder="Coupon Code"
-                theme="dark"
-              />
-            </div>
+            <CouponCode
+              coupon={coupon}
+              promotion={promotion}
+              discountValue={totals.adjustments}
+              saveCode={saveCouponCode}
+              removeCode={removeCouponCode}
+              disabled={checkoutDisabled}
+              placeholder="Coupon Code"
+              theme="dark"
+            />
 
             <div styleName="cart-subtotal">
               <div styleName="subtotal-title">{t('SUBTOTAL')}</div>
               <div styleName="subtotal-price">
-                <Currency value={props.totals.total} />
+                <Currency value={totals.total} />
               </div>
             </div>
 
