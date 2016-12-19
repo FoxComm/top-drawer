@@ -238,7 +238,7 @@ class EditBilling extends Component {
     const currentYear = new Date().getFullYear();
     const years = _.range(currentYear, currentYear + 10, 1).map(x => x.toString());
     const checkedDefaultCard = _.get(data, 'isDefault', false);
-    const editingSavedCard = data.id;
+    const editingSavedCard = !!data.id;
     const cardNumberPlaceholder = editingSavedCard ?
       (_.repeat('**** ', 3) + data.lastFour) : t('CARD NUMBER');
     const cvcPlaceholder = editingSavedCard ? '***' : 'CVC';
