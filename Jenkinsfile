@@ -3,7 +3,7 @@ node {
     notifyBuild()
 
     stage('Checkout') {
-      git 'git@github.com:FoxComm/top-drawer.git'
+      checkout scm
     }
 
     stage('Build') {
