@@ -14,14 +14,11 @@ import * as actions from 'modules/categories';
 // styles
 import styles from './navigation.css';
 
-const getState = state => ({...state.categories});
+const getState = state => ({...state.categories, auth: state.auth});
 
-const staticLinks = [
-  { url: '/subscribe', title: 'Subscribe' },
-  { url: '/custom', title: 'Custom' },
-  { url: '/social', title: '#GetTopDrawer' },
-  { url: '/our-story', title: 'Our Story' },
-];
+type State = {
+  links: array,
+}
 
 const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
 
@@ -43,8 +40,26 @@ class Navigation extends React.Component {
     all: false,
   };
 
+  state: State = {
+    links: [],
+  };
+
   componentWillMount() {
     this.props.fetch();
+
+    this.setState({links: [
+      { url: '/subscribe', title: 'Subscribe', condition: () => { return true; } },
+      { url: '/custom', title: 'Custom', condition: () => { return true; } },
+      { url: '/social', title: '#GetTopDrawer', condition: () => { return true; } },
+      { url: '/our-story', title: 'Our Story', condition: () => { return true; } },
+      { url: '/profile', title: 'My Account',
+        condition: () => {
+          const user = _.get(this.props, ['auth', 'jwt'], null);
+          return !_.isNull(user);
+        },
+      },
+    ],
+    });
   }
 
   get allLink() {
@@ -63,17 +78,19 @@ class Navigation extends React.Component {
   }
 
   get staticLinks() {
-    return staticLinks.map(({ url, title }, i) => (
-      <NavLink
-        to={url}
-        linkProps={{ onClick: this.props.onClick }}
-        styleName="item"
-        activeClassName={styles['item-active']}
-        key={i}
-      >
-        {title}
-      </NavLink>
-    ));
+    return this.state.links.map(({ url, title, condition }, i) => {
+      return condition() ?
+        <NavLink
+          to={url}
+          linkProps={{ onClick: this.props.onClick }}
+          styleName="item"
+          activeClassName={styles['item-active']}
+          key={i}
+        >
+          {title}
+        </NavLink>
+      : null;
+    });
   }
 
   renderSubItems(subItems) {

@@ -48,7 +48,7 @@ class UserMenu extends Component {
           <a 
             styleName="menu-link"
             href="/profile"
-            >{t('My Orders')}</a>
+            >{t('My Account')}</a>
         </li>
         <li>
           <a
