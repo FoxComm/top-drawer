@@ -14,6 +14,7 @@
   line-height: 18px;
   letter-spacing: 1px;
   color: var(--bunker);
+  font-weight: 400;
 
   & ul {
     display: none;
@@ -66,10 +67,6 @@
       }
     }
   }
-
-  .item-active {
-    border-bottom: 3px solid #3E3436;
-  }
 }
 
 .item-link {
@@ -81,9 +78,10 @@
   line-height: 30px;
   letter-spacing: 1px;
   color: var(--bunker);
+  font-weight: 400;
 
   &:hover {
-    opacity: 1;
+    opacity: .7;
   }
 }
 
@@ -104,12 +102,12 @@
       & a {
         line-height: 40px;
         color: var(--whitish);
+
+        &:hover {
+          opacity: .7;
+        }
       }
     }
-  }
-
-  .item-active {
-    box-shadow: 0 2px rgba(255, 255, 255, 0.70);
   }
 
   .item-link {
@@ -117,5 +115,9 @@
     color: var(--whitish);
     text-decoration: none;
     margin: 0;
+
+    &:hover {
+      opacity: .7;
+    }
   }
 }
