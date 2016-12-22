@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import { browserHistory } from 'react-router';
 import * as tracking from 'lib/analytics';
+import { emailIsSet } from 'paragons/auth';
 
 // components
 import Shipping from './01-shipping/shipping';
@@ -25,6 +26,7 @@ import styles from './checkout.css';
 import type { Promise as PromiseType } from 'types/promise';
 import type { CheckoutState, EditStage } from 'modules/checkout';
 import type { CheckoutActions } from './types';
+import type { AsyncStatus } from 'types/async-actions';
 
 // actions
 import * as actions from 'modules/checkout';
@@ -32,9 +34,6 @@ import { EditStages } from 'modules/checkout';
 import { fetch as fetchCart, hideCart } from 'modules/cart';
 import { fetchUser } from 'modules/auth';
 
-
-// paragons
-import { emailIsSet } from 'paragons/auth';
 
 type Props = CheckoutState & CheckoutActions & {
   setEditStage: (stage: EditStage) => Object,
@@ -44,19 +43,12 @@ type Props = CheckoutState & CheckoutActions & {
   shippingMethods: Object,
   cart: Object,
   location: Object,
-  fetchCartState: Object,
+  fetchCartState: AsyncStatus,
+  checkoutState: AsyncStatus,
 };
 
 type State = {
-  isPerformingCheckout: boolean,
-  deliveryInProgress: boolean,
-  billingInProgress: boolean,
-  isProceedingCard: boolean,
-  guestAuthInProgress: boolean,
   isScrolled: boolean,
-  errors: {
-    [stageName: string]: boolean,
-  },
   cart: Object,
 }
 
@@ -64,13 +56,7 @@ class Checkout extends Component {
   props: Props;
 
   state: State = {
-    isPerformingCheckout: false,
-    deliveryInProgress: false,
-    billingInProgress: false,
-    isProceedingCard: false,
-    guestAuthInProgress: false,
     isScrolled: false,
-    errors: {},
     cart: this.props.cart,
   };
 
@@ -117,29 +103,12 @@ class Checkout extends Component {
   };
 
   @autobind
-  performStageTransition(name: string, perform: () => PromiseType): PromiseType {
-    return new Promise(resolve => {
-      this.setState({
-        errors: {},
-        [name]: true,
-      }, () => {
-        perform().then(
-          () => {
-            this.setState({
-              [name]: false,
-            }, resolve);
-          },
-          err => {
-            this.setState({
-              [name]: false,
-              errors: {
-                [name]: err,
-              },
-            }, resolve);
-          }
-        );
-      });
-    });
+  sanitizeError(error) {
+    if (error && error.startsWith('Not enough onHand units')) {
+      return 'Unable to checkout — item is out of stock';
+    }
+
+    return error;
   }
 
   @autobind
@@ -153,25 +122,8 @@ class Checkout extends Component {
   }
 
   @autobind
-  saveShippingAddress(id) {
-    this.performStageTransition('shippingInProgress', () => {
-      return this.props.saveShippingAddress(id).then(() => {
-        this.setDeliveryStage();
-      });
-    });
-  }
-
-  saveShippingMethod() {
-    return this.props.saveShippingMethod(this.state.cart.shippingMethod);
-  }
-
-  @autobind
-  setBillingState() {
-    this.performStageTransition('deliveryInProgress', () => {
-      return this.saveShippingMethod().then(() => {
-        this.props.setEditStage(EditStages.BILLING);
-      });
-    });
+  setBillingStage() {
+    return this.props.setEditStage(EditStages.BILLING);
   }
 
   @autobind
@@ -196,25 +148,11 @@ class Checkout extends Component {
 
   @autobind
   checkout() {
-    this.performStageTransition('isPerformingCheckout', () => {
-      return this.props.checkout()
-        .then(() => {
-          this.props.setEditStage(EditStages.FINISHED);
-          browserHistory.push('/checkout/done');
-        });
-    });
-  }
-
-  @autobind
-  proceedCreditCard(billingAddressIsSame, id) {
-    return this.performStageTransition('isProceedingCard', () => {
-      return id
-        ? this.props.updateCreditCard(id, billingAddressIsSame)
-        : this.props.addCreditCard(billingAddressIsSame)
-        .then(() => {
-          this.props.setEditStage(EditStages.BILLING);
-        });
-    });
+    return this.props.checkout()
+      .then(() => {
+        this.props.setEditStage(EditStages.FINISHED);
+        browserHistory.push('/checkout/done');
+      });
   }
 
   @autobind
@@ -226,17 +164,6 @@ class Checkout extends Component {
   isEmailSetForCheckout() {
     const user = _.get(this.props, ['auth', 'user'], null);
     return emailIsSet(user);
-  }
-
-  @autobind
-  checkoutAfterSignIn() {
-    this.props.updateAddress().then(() => {
-      return this.saveShippingAddress();
-    }).then(() => {
-      return this.saveShippingMethod();
-    }).then(() => {
-      return this.placeOrder();
-    });
   }
 
   @autobind
@@ -264,7 +191,6 @@ class Checkout extends Component {
             collapsed={props.editStage < EditStages.SHIPPING}
             editAction={this.setShippingStage}
             onComplete={this.setDeliveryStage}
-            error={_.get(this.state.errors, 'shippingInProgress')}
             addresses={this.props.addresses}
             fetchAddresses={this.props.fetchAddresses}
             shippingAddress={_.get(this.props.cart, 'shippingAddress', {})}
@@ -275,34 +201,26 @@ class Checkout extends Component {
             editAllowed={props.editStage >= EditStages.DELIVERY}
             collapsed={!props.isDeliveryDirty && props.editStage < EditStages.DELIVERY}
             editAction={this.setDeliveryStage}
+            onComplete={this.setBillingStage}
             shippingMethods={props.shippingMethods}
             cart={this.state.cart}
             onUpdateCart={this.handleUpdateCart}
             fetchShippingMethods={props.fetchShippingMethods}
-            inProgress={this.state.deliveryInProgress}
-            continueAction={this.setBillingState}
-            error={_.get(this.state.errors, 'deliveryInProgress')}
           />
           <Billing
+            auth={this.props.auth}
             isEditing={props.editStage == EditStages.BILLING}
             editAllowed={props.editStage >= EditStages.BILLING}
             collapsed={!props.isBillingDirty && props.editStage < EditStages.BILLING}
-            editAction={this.setBillingState}
-            inProgress={this.state.isPerformingCheckout}
+            editAction={this.setBillingStage}
             continueAction={this.placeOrder}
-            error={_.get(this.state.errors, 'isProceedingCard')}
             paymentMethods={_.get(props.cart, 'paymentMethods', [])}
-            proceedCreditCard={this.proceedCreditCard}
-            performStageTransition={this.performStageTransition}
           />
         </div>
 
         <GuestAuth
           isEditing={!this.isEmailSetForCheckout()}
-          inProgress={this.state.guestAuthInProgress}
-          error={_.get(this.state.errors, 'guestAuthInProgress')}
           continueAction={this.startShipping}
-          checkoutAfterSignIn={this.startShipping}
           location={this.props.location}
         />
       </div>
@@ -315,7 +233,7 @@ class Checkout extends Component {
     const setStates = {
       setShippingStage: this.setShippingStage,
       setDeliveryStage: this.setDeliveryStage,
-      setBillingState: this.setBillingState,
+      setBillingStage: this.setBillingStage,
     };
 
     const body = props.fetchCartState.finished ? this.content : <Loader />;
@@ -330,7 +248,10 @@ class Checkout extends Component {
         />
 
         <div styleName="content">
-          <ErrorAlerts error={sanitizeError(_.get(this.state.errors, 'isPerformingCheckout'))} />
+          <ErrorAlerts
+            sanitizeError={this.sanitizeError}
+            error={props.checkoutState.err}
+          />
           {body}
         </div>
       </section>
@@ -346,22 +267,6 @@ function isBillingDirty(state) {
   return !_.isEmpty(state.checkout.billingData) || !_.isEmpty(state.checkout.billingAddress);
 }
 
-function sanitizeError(error) {
-  if (!error) return null;
-
-  const err = _.get(error, 'responseJson.errors', [error.toString()]);
-
-  if (err[0].startsWith('Not enough onHand units')) {
-    return {
-      responseJson: {
-        errors: ['Unable to checkout - item is out of stock'],
-      },
-    };
-  }
-
-  return error;
-}
-
 function mapStateToProps(state) {
   return {
     ...state.checkout,
@@ -370,6 +275,7 @@ function mapStateToProps(state) {
     isBillingDirty: isBillingDirty(state),
     isDeliveryDirty: isDeliveryDirty(state),
     fetchCartState: _.get(state.asyncActions, 'cart', {}),
+    checkoutState: _.get(state.asyncActions, 'checkout', {}),
   };
 }
 

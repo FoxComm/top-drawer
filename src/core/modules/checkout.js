@@ -127,16 +127,20 @@ const _updateShippingAddress = createAsyncActions(
 
 export const updateShippingAddress = _updateShippingAddress.perform;
 
-export function saveShippingMethod(shippingMethod): Function {
-  return (dispatch, getState, api) => {
+const _saveShippingMethod = createAsyncActions(
+  'saveShippingMethod',
+  function(shippingMethod) {
+    const { dispatch, api } = this;
     const methodId = shippingMethod.id;
 
     return api.cart.chooseShippingMethod(methodId)
       .then(res => {
         dispatch(updateCart(res.result));
       });
-  };
-}
+  }
+);
+
+export const saveShippingMethod = _saveShippingMethod.perform;
 
 export function saveGiftCard(code: string): Function {
   return (dispatch) => {
@@ -222,8 +226,11 @@ function getUpdatedBillingAddress(getState, billingAddressIsSame) {
     : getState().checkout.billingAddress;
 }
 
-export function addCreditCard(billingAddressIsSame: boolean): Function {
-  return (dispatch, getState) => {
+const _addCreditCard = createAsyncActions(
+  'addCreditCard',
+  function(billingAddressIsSame: boolean) {
+    const { dispatch, getState } = this;
+
     const billingData = getState().checkout.billingData;
 
     const cardData = _.pick(billingData, ['holderName', 'number', 'cvc', 'expMonth', 'expYear', 'isDefault']);
@@ -231,12 +238,15 @@ export function addCreditCard(billingAddressIsSame: boolean): Function {
     const address = addressToPayload(billingAddress);
 
     return foxApi.creditCards.create(cardData, address, !billingAddressIsSame).then((newCard) => {
-      if (cardData.isDefault === true) { 
-        dispatch(setDefaultCard(newCard.id, cardData.isDefault)) 
+      if (cardData.isDefault) {
+        dispatch(setDefaultCard(newCard.id, cardData.isDefault));
       }
+      return newCard;
     });
-  };
-}
+  }
+);
+
+export const addCreditCard = _addCreditCard.perform;
 
 export function chooseCreditCard(): Function {
   return (dispatch, getState) => {
@@ -249,8 +259,11 @@ export function chooseCreditCard(): Function {
   };
 }
 
-export function updateCreditCard(id, billingAddressIsSame: boolean): Function {
-  return (dispatch, getState) => {
+const _updateCreditCard = createAsyncActions(
+  'updateCreditCard',
+  function(id, billingAddressIsSame: boolean) {
+    const { dispatch, getState } = this;
+
     const creditCard = getState().checkout.billingData;
     const billingAddress = getUpdatedBillingAddress(getState, billingAddressIsSame);
     const address = addressToPayload(billingAddress);
@@ -259,12 +272,15 @@ export function updateCreditCard(id, billingAddressIsSame: boolean): Function {
     updatedCard.expYear = parseInt(updatedCard.expYear);
 
     return foxApi.creditCards.update(id, updatedCard).then((newCard) => {
-      if (creditCard.isDefault === true) {
-        dispatch(setDefaultCard(newCard.id, creditCard.isDefault))
+      if (creditCard.isDefault) {
+        dispatch(setDefaultCard(newCard.id, creditCard.isDefault));
       }
+      return newCard;
     });
-  };
-}
+  }
+);
+
+export const updateCreditCard = _updateCreditCard.perform;
 
 export function deleteCreditCard(id): Function {
   return (dispatch, getState) => {
@@ -278,23 +294,25 @@ export function deleteCreditCard(id): Function {
 }
 
 // Place order from cart.
-export function checkout(): Function {
-  return (dispatch, getState) => {
+const _checkout = createAsyncActions(
+  'checkout',
+  function() {
+    const { dispatch, getState } = this;
     const cartState = getState().cart;
+
     return foxApi.cart.checkout().then(res => {
       tracking.purchase({
         ...cartState,
         referenceNumber: res.referenceNumber,
       });
       dispatch(orderPlaced(res));
-      return dispatch(updateCart({
-        ...res,
-        coupon: null,
-        promotion: null,
-      }));
+      dispatch(resetCart());
+      return res;
     });
-  };
-}
+  }
+);
+
+export const checkout = _checkout.perform;
 
 function setEmptyCard() {
   return {
