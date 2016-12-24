@@ -53,7 +53,14 @@
 }
 
 .billing-address {
+  composes: address-details from 'ui/address/address.css';
+
   & li:first-child {
     font-weight: bold;
   }
+}
+
+.default-card {
+  font-weight: bold;
+  color: var(--greenish);
 }
