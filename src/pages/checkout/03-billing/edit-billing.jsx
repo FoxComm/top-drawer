@@ -53,6 +53,8 @@ type Props = CheckoutActions & {
   checkoutState: AsyncStatus,
   giftCards: Array<Object>,
   isGuestMode: boolean,
+  clearAddCreditCardErrors: () => void,
+  clearUpdateCreditCardErrors: () => void,
 };
 
 type State = {
@@ -205,6 +207,8 @@ class EditBilling extends Component {
 
   @autobind
   cancelEditing() {
+    this.props.clearAddCreditCardErrors();
+    this.props.clearUpdateCreditCardErrors();
     this.setState({
       addingNew: false,
       cardAdded: false,
@@ -431,10 +435,13 @@ class EditBilling extends Component {
         title: 'Cancel',
       };
 
+      const { data } = props;
+      const title = !!data.id ? t('Edit Card') : t('Add Card');
+
       return (
         <CheckoutForm
           submit={this.updateCreditCard}
-          title={t('Add Card')}
+          title={title}
           error={props.updateCreditCardError}
           buttonLabel="SAVE & CONTINUE"
           action={action}
@@ -468,4 +475,7 @@ class EditBilling extends Component {
   }
 }
 
-export default connect(mapStateToProps, { ...checkoutActions, ...cartActions })(localized(EditBilling));
+export default _.flowRight(
+  localized,
+  connect(mapStateToProps, { ...checkoutActions, ...cartActions })
+)(EditBilling);
