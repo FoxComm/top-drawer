@@ -56,7 +56,7 @@ class ListItem extends React.Component {
     } = props;
 
     const previewImage = _.get(albums, [0, 'images', 0, 'src']);
-    const productSlug = slug != null ? slug : productId;
+    const productSlug = slug ? slug : productId;
 
     const click = () => {
       tracking.clickPdp(props, props.index);
