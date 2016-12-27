@@ -62,7 +62,7 @@ export default function makeRoutes(store) {
         <Route path="/terms" component={TermsOfService} name="terms"/>
         <Route path="/shipping-and-returns" component={ShippingAndReturns} name="shipping-and-returns"/>
         <Route path=":categoryName" name="category" component={Products} />
-        <Route path="/products/:productId" name="product" component={Pdp} />
+        <Route path="/products/:productSlug" name="product" component={Pdp} />
         <Route path="/search/:term" name="search" component={Search} />
         <Route path="/checkout/done" component={OrderPlaced} />
       </Route>

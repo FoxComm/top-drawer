@@ -20,7 +20,7 @@ import { addLineItem, toggleCart } from 'modules/cart';
 
 // types
 import type { HTMLElement } from 'types';
-import type { ProductResponse } from 'modules/product-details';
+import type { ProductResponse, ProductSlug } from 'modules/product-details';
 
 // components
 import Button from 'ui/buttons';
@@ -42,7 +42,7 @@ import carouselStyles from 'ui/carousel/carousel.css';
 import type { Address } from 'types/address';
 
 type Params = {
-  productId: string;
+  productSlug: string,
 };
 
 type Actions = {
@@ -151,12 +151,22 @@ class Pdp extends Component {
     }
   }
 
-  get productId(): number {
+  get productId(): ProductSlug {
     return this.getId(this.props);
   }
 
-  getId(props: Props): number {
-    return parseInt(props.params.productId, 10);
+  get isArchived(): boolean {
+    return !!_.get(this.props, ['product', 'archivedAt']);
+  }
+
+  getId(props): ProductSlug {
+    const slug = props.params.productSlug;
+
+    if (/^\d+$/.test(slug)) {
+      return parseInt(slug, 10);
+    }
+
+    return slug;
   }
 
   get firstSku(): Object {

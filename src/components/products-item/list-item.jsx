@@ -27,6 +27,7 @@ type Product = {
   id: number,
   index: number,
   productId: number,
+  slug: ?string,
   context: string,
   title: string,
   description: string,
@@ -45,11 +46,21 @@ class ListItem extends React.Component {
 
   render(): HTMLElement {
     const { props } = this;
-    const {productId, title, albums, salePrice, currency} = props;
+    const {
+      productId,
+      slug,
+      title,
+      albums,
+      salePrice,
+      currency
+    } = props;
+
     const previewImage = _.get(albums, [0, 'images', 0, 'src']);
+    const productSlug = slug ? slug : productId;
+
     const click = () => {
       tracking.clickPdp(props, props.index);
-      browserHistory.push(`/products/${productId}`)
+      browserHistory.push(`/products/${productSlug}`)
     };
 
     return (
