@@ -58,7 +58,7 @@ export default class EditAddress extends Component {
     colorTheme: 'default',
     withCountry: false,
     withoutDefaultCheckbox: false,
-    title: "",
+    title: '',
   };
 
   state: State = {
@@ -146,7 +146,7 @@ export default class EditAddress extends Component {
     const { title } = this.props;
 
     return (
-      title && <div styleName="with-shipping-title">{title}</div>
+      title && <div styleName="address-title">{title}</div>
     );
   }
 
@@ -267,7 +267,7 @@ export default class EditAddress extends Component {
     if (!this.isAddressLoaded) return <Loader size="m"/>;
 
     const props: EditAddressProps = this.props;
-    const { t, withCountry, withoutDefaultCheckbox, title } = props;
+    const { t, withCountry } = props;
     const selectedCountry = this.selectedCountry;
     const data = this.state.address;
 
@@ -276,8 +276,12 @@ export default class EditAddress extends Component {
         { this.title }
         { this.defaultCheckboxInput }
         <FormField styleName="text-field">
-          <TextInput required
-            name="name" placeholder={t('FIRST & LAST NAME')} value={data.name} onChange={this.changeFormData}
+          <TextInput
+            required
+            name="name"
+            placeholder={t('FIRST & LAST NAME')}
+            value={data.name}
+            onChange={this.changeFormData}
           />
         </FormField>
         <FormField styleName="text-field">
