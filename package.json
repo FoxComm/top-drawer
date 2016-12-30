@@ -76,7 +76,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "@foxcomm/api-js": "^1.0.0",
+    "api-js": "git+ssh://git@github.com/FoxComm/api-js.git#feature/ic-develop",
     "@foxcomm/wings": "^1.8.0",
     "classnames": "^2.2.3",
     "core-decorators": "^0.11.0",
