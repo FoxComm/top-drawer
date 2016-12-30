@@ -5,9 +5,8 @@ import { createAsyncActions } from '@foxcomm/wings';
 
 function apiCall(): Promise {
   const result = [
-    {id: 3, name: 'classic', description: 'Classic year-round looks.', display: false},
-    {id: 4, name: 'modern', description: 'Modern looks for the modern man.', display: false},
-    {id: 6, name: 'bundles', description: 'Buy looks that are better together.', display: false},
+    {id: 3, name: 'sunglasses', description: 'Classic year-round looks.', display: false},
+    {id: 4, name: 'eyeglasses', description: 'Modern looks for the modern man.', display: false},
     {
       id: 5,
       name: 'all',
@@ -15,9 +14,8 @@ function apiCall(): Promise {
       display: true,
       navName: 'Shop',
       subItems: [
-        { name: 'classic', navName: 'Classic' },
-        { name: 'modern', navName: 'Modern' },
-        { name: 'bundles', navName: 'Bundles' },
+        { name: 'sunglasses', navName: 'Sunglasses' },
+        { name: 'eyeglasses', navName: 'Eyeglasses' },
       ],
     },
   ];
