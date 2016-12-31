@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { autobind } from 'core-decorators';
 import * as tracking from 'lib/analytics';
 import { assoc } from 'sprout-data';
+import { api as foxApi } from 'lib/api';
 
 // i18n
 import localized from 'lib/i18n';
@@ -136,6 +137,13 @@ class Pdp extends Component {
 
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
+      foxApi.analytics.trackEvent({
+        channel: 1,
+        subject: 1,
+        verb: 'pdp',
+        obj: 'product',
+        objId: this.productId,
+      });
     });
   }
 
