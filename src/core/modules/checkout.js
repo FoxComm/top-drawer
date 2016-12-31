@@ -307,6 +307,13 @@ const _checkout = createAsyncActions(
         ...cartState,
         referenceNumber: res.referenceNumber,
       });
+      foxApi.analytics.trackEvent({
+        channel: 1,
+        subject: 1,
+        verb: 'purchase',
+        obj: 'order',
+        objId: res.referenceNumber,
+      });
       dispatch(orderPlaced(res));
       dispatch(resetCart());
       return res;

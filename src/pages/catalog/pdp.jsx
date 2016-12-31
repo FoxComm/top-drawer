@@ -304,6 +304,13 @@ class Pdp extends Component {
           attributes: {},
           currentSku: null,
         });
+        foxApi.analytics.trackEvent({
+          channel: 1,
+          subject: 1,
+          verb: 'cart',
+          obj: 'product',
+          objId: this.productId,
+        });
       })
       .catch(ex => {
         this.setState({

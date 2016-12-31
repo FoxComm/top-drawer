@@ -7,6 +7,7 @@ import styles from './list-item.css';
 import { browserHistory } from 'react-router';
 import _ from 'lodash';
 import * as tracking from 'lib/analytics';
+import { api as foxApi } from 'lib/api';
 
 import ProductImage from '../product-image/image';
 
@@ -39,6 +40,16 @@ type Product = {
 
 class ListItem extends React.Component {
   props: Product;
+
+  componentDidMount() {
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'list',
+      obj: 'product',
+      objId: this.props.productId,
+    });
+  }
 
   getImageNode() {
     return findDOMNode(this.refs.image);

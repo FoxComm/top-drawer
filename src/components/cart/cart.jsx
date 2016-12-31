@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { autobind } from 'core-decorators';
 import * as tracking from 'lib/analytics';
+import { api as foxApi } from 'lib/api';
 
 // localization
 import localized from 'lib/i18n';
@@ -133,6 +134,13 @@ class Cart extends Component {
 
   @autobind
   onCheckout() {
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'checkout',
+      obj: 'cart',
+      objId: this.props.referenceNumber,
+    });
     browserHistory.push('/checkout');
   }
 
