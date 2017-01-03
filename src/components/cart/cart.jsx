@@ -141,6 +141,17 @@ class Cart extends Component {
       obj: 'cart',
       objId: this.props.referenceNumber,
     });
+    // MVP: Just track all the products currently in the cart
+    _.map(this.props.skus, sku => {
+      const productId = _.get(sku, 'productFormId', null);
+      foxApi.analytics.trackEvent({
+        channel: 1,
+        subject: 1,
+        verb: 'checkout',
+        obj: 'product',
+        objId: productId,
+      });
+    });
     browserHistory.push('/checkout');
   }
 

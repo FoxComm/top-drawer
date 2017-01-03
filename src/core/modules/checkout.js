@@ -314,6 +314,17 @@ const _checkout = createAsyncActions(
         obj: 'order',
         objId: res.referenceNumber,
       });
+      // MVP: Just track all the products currently in the cart
+      _.map(cartState.skus, sku => {
+        const productId = _.get(sku, 'productFormId', null);
+        foxApi.analytics.trackEvent({
+          channel: 1,
+          subject: 1,
+          verb: 'purchase',
+          obj: 'product',
+          objId: productId,
+        });
+      });
       dispatch(orderPlaced(res));
       dispatch(resetCart());
       return res;
