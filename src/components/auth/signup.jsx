@@ -152,6 +152,7 @@ class Signup extends Component {
               placeholder={t('FIRST & LAST NAME')}
               name="username"
               value={username}
+              id="signup-username"
               onChange={this.onChangeUsername}
             />
           </FormField>
@@ -162,6 +163,7 @@ class Signup extends Component {
               name="email"
               value={email}
               type="email"
+              id="signup-email"
               onChange={this.onChangeEmail}
             />
           </FormField>
@@ -171,6 +173,7 @@ class Signup extends Component {
               placeholder={t('CREATE PASSWORD')}
               name="password"
               value={password}
+              id="signup-password"
               onChange={this.onChangePassword}
             />
           </FormField>
@@ -179,6 +182,7 @@ class Signup extends Component {
             styleName="primary-button"
             isLoading={isLoading}
             type="submit"
+            id="signup-submit"
           >
             {t('SIGN UP')}
           </Button>

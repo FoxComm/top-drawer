@@ -173,7 +173,7 @@ class Cart extends Component {
           </div>
 
           <div styleName="cart-content">
-            <div styleName="line-items">
+            <div styleName="line-items" id="line-items">
               {this.lineItems}
             </div>
 
@@ -199,7 +199,11 @@ class Cart extends Component {
           </div>
 
           <div styleName="cart-footer">
-            <Button onClick={this.onCheckout} disabled={checkoutDisabled} styleName="checkout-button">
+            <Button
+              onClick={this.onCheckout}
+              disabled={checkoutDisabled}
+              styleName="checkout-button"
+              id="cart-checkout">
               {t('CHECKOUT')}
             </Button>
           </div>
