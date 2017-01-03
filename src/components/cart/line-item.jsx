@@ -78,7 +78,7 @@ class LineItem extends Component {
           </div>
         </div>
         <div styleName="controls">
-          <a styleName="delete-button" onClick={this.deleteItem}>
+          <a styleName="delete-button" onClick={this.deleteItem} id="line-item-delete">
             <Icon name="fc-close" styleName="delete-icon" />
           </a>
         </div>

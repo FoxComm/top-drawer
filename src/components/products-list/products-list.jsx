@@ -95,7 +95,7 @@ class ProductsList extends Component {
     let className = `header-${categoryName}`;
     let title = "";
     switch(categoryName) {
-      case "classic": 
+      case "classic":
         title = "Classic Collection";
         break;
       case "modern":
@@ -198,7 +198,7 @@ class ProductsList extends Component {
     return (
       <section styleName="catalog">
         {this.renderHeader()}
-        <div styleName="list" ref={this.handleListRendered}>
+        <div styleName="list" ref={this.handleListRendered} id="products-list">
           {items}
         </div>
       </section>

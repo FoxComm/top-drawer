@@ -11,6 +11,7 @@ type ButtonProps = {
   icon?: string;
   isLoading?: boolean;
   className?: string;
+  id?: string;
 }
 
 const Button = (props: ButtonProps) => {

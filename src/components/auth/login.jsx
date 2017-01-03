@@ -136,6 +136,7 @@ class Login extends Component {
               placeholder={t('EMAIL')}
               value={email}
               type="email"
+              id="login-email"
               onChange={this.onChangeEmail}
             />
           </FormField>
@@ -146,12 +147,14 @@ class Login extends Component {
               placeholder="PASSWORD"
               label={!password && restoreLink}
               value={password}
-              onChange={this.onChangePassword}
               type="password"
+              id="login-password"
+              onChange={this.onChangePassword}
             />
           </FormField>
           <Button
             type="submit"
+            id="login-submit"
             styleName="primary-button"
             isLoading={props.isLoading}
           >

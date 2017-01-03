@@ -276,7 +276,12 @@ class Pdp extends Component {
             increaseAction={() => this.changeQuantity(1)}
           />
         </div>
-        <Button styleName="add-to-cart" isLoading={isCartLoading} onClick={this.addToCart}>
+        <Button
+          styleName="add-to-cart"
+          isLoading={isCartLoading}
+          onClick={this.addToCart}
+          id="add-to-cart"
+        >
           {t('ADD TO CART')}
         </Button>
         <ErrorAlerts error={error} />

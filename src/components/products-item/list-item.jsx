@@ -75,7 +75,7 @@ class ListItem extends React.Component {
     };
 
     return (
-      <div styleName="list-item" onClick={click}>
+      <div styleName="list-item" onClick={click} id="product">
         <div styleName="preview">
           <ProductImage ref="image" src={previewImage}/>
         </div>
