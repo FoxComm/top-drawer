@@ -22,6 +22,7 @@ docker-push:
 
 clean:
 	rm -rf ./node_modules
+	rm yarn.lock
 
 test: setup
 	npm test
