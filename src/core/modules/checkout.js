@@ -302,28 +302,29 @@ const _checkout = createAsyncActions(
     const { dispatch, getState } = this;
     const cartState = getState().cart;
 
-    return foxApi.cart.checkout().then(res => {
-      tracking.purchase({
-        ...cartState,
-        referenceNumber: res.referenceNumber,
-      });
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'purchase',
+      obj: 'order',
+      objId: cartState.referenceNumber,
+    });
+    // MVP: Just track all the products currently in the cart
+    _.map(cartState.skus, sku => {
+      const productId = _.get(sku, 'productFormId', null);
       foxApi.analytics.trackEvent({
         channel: 1,
         subject: 1,
         verb: 'purchase',
-        obj: 'order',
-        objId: res.referenceNumber,
+        obj: 'product',
+        objId: productId,
       });
-      // MVP: Just track all the products currently in the cart
-      _.map(cartState.skus, sku => {
-        const productId = _.get(sku, 'productFormId', null);
-        foxApi.analytics.trackEvent({
-          channel: 1,
-          subject: 1,
-          verb: 'purchase',
-          obj: 'product',
-          objId: productId,
-        });
+    });
+
+    return foxApi.cart.checkout().then(res => {
+      tracking.purchase({
+        ...cartState,
+        referenceNumber: res.referenceNumber,
       });
       dispatch(orderPlaced(res));
       dispatch(resetCart());
