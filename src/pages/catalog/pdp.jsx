@@ -17,6 +17,7 @@ import type { Localized } from 'lib/i18n';
 import { fetch as fetchProducts } from 'modules/products';
 import { fetch, getNextId, getPreviousId, resetProduct } from 'modules/product-details';
 import { addLineItem, toggleCart } from 'modules/cart';
+import { stripPhoneNumber } from 'modules/checkout';
 
 // types
 import type { HTMLElement } from 'types';
@@ -314,7 +315,7 @@ class Pdp extends Component {
       ['attributes', 'subscription', 'city'], address.city,
       ['attributes', 'subscription', 'zip'], address.zip,
       ['attributes', 'subscription', 'isDefault'], address.isDefault,
-      ['attributes', 'subscription', 'phoneNumber'], address.phoneNumber,
+      ['attributes', 'subscription', 'phoneNumber'], stripPhoneNumber(address.phoneNumber),
       ['attributes', 'subscription', 'regionId'], address.state.id,
     ));
   }
