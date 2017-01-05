@@ -314,7 +314,7 @@ export default class EditAddress extends Component {
             selectedItem={this.addressState}
           />
         </FormField>
-        <FormField label={t('Phone Number')} styleName="text-field" validator="phoneNumber">
+        <FormField label={t('Phone Number')} styleName="text-field">
           {this.phoneInput}
         </FormField>
       </div>
