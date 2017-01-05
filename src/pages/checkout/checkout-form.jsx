@@ -7,6 +7,7 @@ import React, { Component } from 'react';
 import { Form } from 'ui/forms';
 import Button from 'ui/buttons';
 import ErrorAlerts from '@foxcomm/wings/lib/ui/alerts/error-alerts';
+import { kebabCase } from 'lodash';
 
 // styles
 import styles from './checkout-form.css';
@@ -38,6 +39,14 @@ class CheckoutForm extends Component {
     return this.props.buttonLabel || 'Continue';
   }
 
+  get id(): string {
+    if (this.props.title) {
+      return `${kebabCase(this.props.title)}-submit`;
+    }
+
+    return 'submit';
+  }
+
   get header() {
     const { props } = this;
 
@@ -59,7 +68,7 @@ class CheckoutForm extends Component {
         {props.children}
         <ErrorAlerts error={props.error} />
         <div styleName="button-wrap">
-          <Button styleName="checkout-submit" type="submit" isLoading={props.inProgress}>{this.buttonLabel}</Button>
+          <Button styleName="checkout-submit" type="submit" id={this.id} isLoading={props.inProgress}>{this.buttonLabel}</Button>
         </div>
       </Form>
     );
