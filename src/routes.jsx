@@ -3,7 +3,6 @@ import { Route, IndexRoute } from 'react-router';
 import Site from './components/layout/site';
 import StoreFront from './components/layout/storefront';
 import Home from './pages/home/home';
-import HolidayHome from './pages/home/holiday-home';
 import Products from './pages/catalog/products';
 import Locations from './pages/locations/locations';
 import OurStory from './pages/our-story/our-story';
@@ -43,7 +42,7 @@ export default function makeRoutes(store) {
     <Route path="/" component={Site}>
       <Route path="/checkout" component={Checkout} />
       <Route component={StoreFront}>
-        <IndexRoute component={HolidayHome} />
+        <IndexRoute component={Home} />
         <Route path="/profile" component={ProfilePage} onEnter={handleProfileEnter}>
           <IndexRoute component={Profile} />
           <Route component={ProfileUnit}>

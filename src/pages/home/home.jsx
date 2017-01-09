@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
 
 import Banner from '../../components/banner/banner';
+import TrackingPixel from '../../components/tracking-pixel/tracking-pixel';
 import styles from './home.css';
 
 
@@ -96,6 +97,10 @@ class Home extends Component {
         {this.subscribeBanner}
         {this.bundlesBanner}
         {this.customSocksBanner}
+        <TrackingPixel
+           prodUrl="//insight.adsrvr.org/track/evnt"
+           queryParams={{adv: '3ol6l39', ct: '0:vnnygcw', fmt: 3}}
+         />
       </div>
     );
   }
