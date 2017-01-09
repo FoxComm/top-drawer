@@ -67,7 +67,7 @@ const Header = (props: Props) => {
     <header styleName={headerStyle}>
       <div styleName="logo">
         <Link to="/">
-          <Icon styleName="logo-icon" name="fc-top-icon-logo"/>
+          <img styleName="logo-icon" src="https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/logo.svg" />
         </Link>
       </div>
       <h1 styleName="title">Checkout</h1>
