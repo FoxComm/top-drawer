@@ -1,6 +1,15 @@
+@import "colors.css";
 
 .root {
   padding: 20px 0;
+
+  & select {
+    border-color: transparent;
+
+    &:hover {
+      border-color: var(--light-blackish);;
+    }
+  }
 }
 
 .form-header {
