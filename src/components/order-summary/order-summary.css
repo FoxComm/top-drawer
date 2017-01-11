@@ -51,6 +51,8 @@
 .grand-total {
   composes: term-value-line from "ui/css/term-value-line.css";
   padding: 1.3em 0;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 @media (--small-only) {
