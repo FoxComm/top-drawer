@@ -33,7 +33,7 @@ class Home extends Component {
         <div styleName="dc-logo"/>
         <div styleName="dc-text">
           <p>
-            Whether you’re getting ready for work or for a
+            Whether you’re getting ready for work or for a 
             night out, stand out and be you with socks from your Top Drawer.
           </p>
         </div>
