@@ -43,4 +43,11 @@
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0;
+
+  & :global(.icon--fc-icon_lock) {
+    margin-right: 10px;
+    vertical-align: middle;
+    stroke: none;
+    transition: none;
+  }
 }

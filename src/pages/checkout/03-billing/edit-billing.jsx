@@ -406,12 +406,13 @@ class EditBilling extends Component {
 
   renderGuestView() {
     const { props } = this;
+    const button = <span><Icon name="fc-icon_lock" /> Place Order</span>;
 
     return (
       <CheckoutForm
         submit={this.submitCardAndContinue}
         error={props.updateCreditCardError}
-        buttonLabel="Place Order"
+        buttonLabel={button}
         inProgress={props.updateCreditCardInProgress || props.checkoutState.inProgress}
       >
         <div className={subtitle}>PAYMENT METHOD</div>
