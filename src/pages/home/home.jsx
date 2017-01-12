@@ -33,7 +33,7 @@ class Home extends Component {
         <div styleName="dc-logo"/>
         <div styleName="dc-text">
           <p>
-            Whether you’re getting ready for work or for a 
+            Whether you’re getting ready for work or for a
             night out, stand out and be you with socks from your Top Drawer.
           </p>
         </div>
@@ -50,22 +50,6 @@ class Home extends Component {
             description="Monthly. Quarterly. Cancel anytime."
             links={[
               {to: '/subscribe', text: 'Learn More'},
-            ]}
-          />
-        </div>
-      </div>
-    );
-  }
-
-  get bundlesBanner(): HTMLElement {
-    return (
-      <div styleName="bundles-banner">
-        <div styleName="wrap">
-          <Banner
-            header="Start your top drawer fresh with our 6-pair promo!"
-            description="Pick any 2 bundles, get 20% off!"
-            links={[
-              {to: '/bundles', text: 'Shop Bundles'},
             ]}
           />
         </div>
@@ -95,7 +79,6 @@ class Home extends Component {
         {this.topBanner}
         {this.descriptiveContent}
         {this.subscribeBanner}
-        {this.bundlesBanner}
         {this.customSocksBanner}
         <TrackingPixel
            prodUrl="//insight.adsrvr.org/track/evnt"
