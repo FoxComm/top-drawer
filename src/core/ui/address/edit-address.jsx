@@ -297,7 +297,7 @@ export default class EditAddress extends Component {
           />
         </FormField>
         <FormField styleName="text-field" validator="zipCode">
-          <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} value={data.zip} />
+          <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} type="number" value={data.zip} />
         </FormField>
         <FormField styleName="text-field">
           <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>

@@ -302,7 +302,8 @@ class EditBilling extends Component {
                 styleName="payment-input"
                 className={textStyles['text-input']}
                 maskChar=" "
-                type="text"
+                type="tel"
+                inputmode="numeric"
                 mask={this.cardMask}
                 name="number"
                 placeholder={cardNumberPlaceholder}
