@@ -73,10 +73,11 @@
   }
 
   & a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    display: inline-block;
+    width: 100%;
+    padding: 19px 0;
+    white-space: nowrap;
+    vertical-align: middle;
     color: var(--whitish);
     text-decoration: none;
     font-weight: 500;
@@ -125,6 +126,12 @@
     height: 90px;
     letter-spacing: 2px;
     font-size: 15px;
+  }
+
+  .nav-item {
+    & a {
+      padding: 35px 0;
+    }
   }
 
   .header-scrolled {

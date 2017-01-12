@@ -72,7 +72,7 @@
 
 @media (--small-only), (--medium-only) {
   .content {
-    margin-top: 150px;
+    margin-top: 146px;
   }
 
   .summary-content {
