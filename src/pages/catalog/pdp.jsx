@@ -88,7 +88,8 @@ const mapStateToProps = state => {
   return {
     product,
     auth: state.auth,
-    notFound: !product && _.get(state.asyncActions, ['pdp', 'err', 'status']) == 404,
+    fetchError: _.get(state.asyncActions, 'pdp.err', null),
+    notFound: !product && _.get(state.asyncActions, 'pdp.err.response.status') == 404,
     isLoading: _.get(state.asyncActions, ['pdp', 'inProgress'], true),
     isCartLoading: _.get(state.asyncActions, ['cartChange', 'inProgress'], false),
     countries: state.countries,
@@ -124,7 +125,7 @@ class Pdp extends Component {
 
     actions.fetchProducts();
     if (_.isEmpty(product)) {
-      this.productPromise = actions.fetch(this.productId);
+      this.productPromise = this.safeFetch(this.productId);
     } else {
       this.productPromise = Promise.resolve();
     }
@@ -148,8 +149,12 @@ class Pdp extends Component {
     const id = this.getId(nextProps);
     if (this.productId !== id) {
       this.props.actions.resetProduct();
-      this.props.actions.fetch(id);
+      this.safeFetch(id);
     }
+  }
+
+  safeFetch(id) {
+    return this.props.actions.fetch(id).catch(_.noop);
   }
 
   get productId(): ProductSlug {
@@ -350,7 +355,7 @@ class Pdp extends Component {
   }
 
   render(): HTMLElement {
-    const { t, isLoading, isCartLoading, notFound } = this.props;
+    const { t, isLoading, notFound, fetchError } = this.props;
 
     if (isLoading) {
       return <Loader/>;
@@ -360,7 +365,9 @@ class Pdp extends Component {
       return <p styleName="not-found">{t('Product not found')}</p>;
     }
 
-    const { title, description, currency, price } = this.product;
+    if (fetchError) {
+      return <ErrorAlerts error={fetchError} />;
+    }
 
     return (
       <div styleName="container">
