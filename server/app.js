@@ -9,6 +9,8 @@ import verifyJwt from './verify-jwt';
 import onerror from 'koa-onerror';
 import moment from 'moment';
 import chalk from 'chalk';
+import log4js from 'koa-log4';
+import path from 'path';
 
 function timestamp() {
   return moment().format('D MMM H:mm:ss');
@@ -20,7 +22,10 @@ export default class App extends KoaApp {
     super(...args);
     onerror(this);
 
+    log4js.configure(path.join(`${__dirname}`, '../log4js.json'));
+
     this.use(serve('public'))
+      .use(log4js.koaLogger(log4js.getLogger('http'), { level: 'auto' }))
       .use(makeApiProxy())
       .use(makeElasticProxy())
       .use(zipcodes.routes())
@@ -31,7 +36,7 @@ export default class App extends KoaApp {
   }
 
   start() {
-    this.listenPort = process.env.PORT ? Number(process.env.PORT) : 4045;
+    this.listenPort = process.env.PORT ? Number(process.env.PORT) : 4050;
 
     this.listen(this.listenPort);
     this.logInfo();
