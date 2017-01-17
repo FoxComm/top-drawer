@@ -27,9 +27,13 @@
 }
 
 .action-link {
-  color: #8D757A;
+  color: #212121;
   text-transform: uppercase;
   cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .button-wrap {
