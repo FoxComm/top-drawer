@@ -14,7 +14,7 @@ import { api as foxApi } from 'lib/api';
 import { FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import Checkbox from 'ui/checkbox/checkbox';
-import Autocomplete from 'ui/autocomplete';
+import Select from 'ui/select/select';
 import InputMask from 'react-input-mask';
 import EditAddress from 'ui/address/edit-address';
 import CreditCards from './credit-cards';
@@ -302,7 +302,8 @@ class EditBilling extends Component {
                 styleName="payment-input"
                 className={textStyles['text-input']}
                 maskChar=" "
-                type="text"
+                type="tel"
+                inputmode="numeric"
                 mask={this.cardMask}
                 name="number"
                 placeholder={cardNumberPlaceholder}
@@ -327,12 +328,11 @@ class EditBilling extends Component {
         </div>
         <div styleName="union-fields">
           <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expMonth}>
-            <Autocomplete
+            <Select
               inputProps={{
                 placeholder: t('MONTH'),
-                type: 'text',
+                type: 'number',
               }}
-              compareValues={numbersComparator}
               getItemValue={item => item}
               items={months}
               onSelect={this.changeMonth}
@@ -340,13 +340,11 @@ class EditBilling extends Component {
             />
           </FormField>
           <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expYear}>
-            <Autocomplete
+            <Select
               inputProps={{
                 placeholder: t('YEAR'),
                 type: 'text',
               }}
-              compareValues={numbersComparator}
-              allowCustomValues
               getItemValue={item => item}
               items={years}
               onSelect={this.changeYear}
@@ -406,12 +404,13 @@ class EditBilling extends Component {
 
   renderGuestView() {
     const { props } = this;
+    const button = <span><Icon name="fc-icon_lock" /> Place Order</span>;
 
     return (
       <CheckoutForm
         submit={this.submitCardAndContinue}
         error={props.updateCreditCardError}
-        buttonLabel="Place Order"
+        buttonLabel={button}
         inProgress={props.updateCreditCardInProgress || props.checkoutState.inProgress}
       >
         <div className={subtitle}>PAYMENT METHOD</div>
