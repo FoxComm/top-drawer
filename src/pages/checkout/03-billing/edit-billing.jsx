@@ -331,7 +331,7 @@ class EditBilling extends Component {
             <Select
               inputProps={{
                 placeholder: t('MONTH'),
-                type: 'numbet',
+                type: 'number',
               }}
               getItemValue={item => item}
               items={months}
