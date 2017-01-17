@@ -87,15 +87,10 @@ class ProductsList extends Component {
 
     if (!categoryName) return;
 
-    const categoryInfo = _.find(props.categories, {name: categoryName});
-    const description = (categoryInfo && categoryInfo.description)
-      ? <p styleName="description">{categoryInfo.description}</p>
-      : '';
-
     let className = `header-${categoryName}`;
     let title = "";
     switch(categoryName) {
-      case "classic": 
+      case "classic":
         title = "Classic Collection";
         break;
       case "modern":
@@ -116,10 +111,7 @@ class ProductsList extends Component {
 
     return (
       <header styleName={className}>
-        <div styleName="header-wrap">
-          <h1 styleName="title">{title}</h1>
-          {description}
-        </div>
+        <h1 styleName="title">{title}</h1>
       </header>
     );
   }
