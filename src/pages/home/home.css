@@ -83,6 +83,7 @@
   background-repeat: no-repeat;
   color: var(--whitish);
   text-align: center;
+  margin-bottom: 60px;
 
   & a {
     color: var(--blackish);
@@ -105,36 +106,6 @@
   background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Subscribe_Filtered_2x.jpg') 50% 0;
   background-size: cover;
   background-repeat: no-repeat;
-}
-
-.bundles-banner {
-  height: 720px;
-  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Bundle_New_2x.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: left center;
-  color: var(--blackish);
-
-  & article {
-    & h2,
-    & h3 {
-      color: var(--bunker);
-    }
-  }
-
-  & a {
-    height: 68px;
-    font-weight: 500;
-    text-transform: uppercase;
-    font-size: 16px;
-    border-color: var(--whitish);
-    background-color: var(--whitish);
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.9);
-      border-color: rgba(255, 255, 255, 0.9);
-    }
-  }
 }
 
 .custom-socks-banner {
@@ -171,15 +142,6 @@
     height: 560px;
   }
 
-  .bundles-banner {
-    background-size: auto 59%;
-    background-position: 0 111%;
-
-    & a {
-      border-color: var(--blackish);
-    }
-  }
-
   .custom-socks-banner {
     padding-top: 20px;
     height: 340px;
@@ -195,13 +157,6 @@
 
     & a {
       font-size: 20px;
-    }
-  }
-
-  .bundles-banner {
-    & article {
-      lost-column: 1/2;
-      lost-offset: -1/2;
     }
   }
 

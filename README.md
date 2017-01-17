@@ -41,7 +41,7 @@ In order to checkout to work you should set Stripe key by exporting `STRIPE_PUBL
 
   `npm run dev` — backend API at `API_URL` env variable
 
-1. Develop it at http://localhost:4045/ (it is blocked in Chrome, use another port)
+1. Develop it at http://localhost:4050/
 
 1. Use `--browser-sync` flag to enable CSS hot reloading:
 
