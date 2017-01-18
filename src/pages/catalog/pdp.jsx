@@ -132,7 +132,7 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
-    this._mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    this._mqSmallOnly = window.matchMedia(`(max-width: 79.9375em)`);
     this._mqSmallOnly.addListener(this.mediaQueryChanged);
     this.setState({smallOnly: this._mqSmallOnly.matches});
 
