@@ -340,7 +340,7 @@ class Pdp extends Component {
 
     return !_.isEmpty(images)
       ? (
-        <Carousel buttonNav={true}>
+        <Carousel buttonNav={true} styleName="carousel">
           {images.map((image, index) => (
             <div styleName="image">
               <img

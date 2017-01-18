@@ -1,46 +1,52 @@
 .slider {
-    position: relative;
-    overflow-x: hidden;
-    will-change: transform;
+  position: relative;
+  overflow-x: hidden;
+  will-change: transform;
 }
 
 .slider ul li img {
-    display: block;
-    max-width: 100%;
-    object-fit: cover;
-    margin: 0 auto;
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+  margin: 0 auto;
+}
+
+.button-nav-container {
+  margin-top: 20px;
+  height: 10px;
 }
 
 .button-nav-container ol {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    bottom: .5em;
-    text-align: center;
-    width: 100%;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  bottom: .5em;
+  text-align: center;
+  width: 100%;
 }
 
 .button-nav-container ol li {
-    display: inline-block;
-    min-width: 10px;
-    min-height: 10px;
-    width: .6em;
-    height: .6em;
-    background-color: #BEC0BC;
-    margin: 0 .5em;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    transform: translateY(100%);
+  display: inline-block;
+  min-width: 10px;
+  min-height: 10px;
+  width: .6em;
+  height: .6em;
+  background-color: #BEC0BC;
+  margin: 0 .36em;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  transform: translateY(100%);
 }
 
 .button-nav-container ol button {
-    opacity: 0;
-    cursor: pointer;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .button-nav-container ol li.active {
-    pointer-events: none;
-    background-color: black;
+  pointer-events: none;
+  background-color: black;
 }
+
