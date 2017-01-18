@@ -35,7 +35,7 @@ export default class Gallery extends Component {
   }
 
   get hasPreviews(): boolean {
-    return this.props.images.length > 1;
+    return this.props.images.length > 0;
   }
 
   get previews(): HTMLElement {
