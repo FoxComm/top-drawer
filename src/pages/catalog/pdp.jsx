@@ -214,7 +214,6 @@ class Pdp extends Component {
         <Form onSubmit={this.addToCart} styleName="subcription-form-container">
           <EditAddress
             colorTheme="white-bg-dark-border"
-            withCountry
             withoutDefaultCheckbox
             title="Shipping To"
             onUpdate={this.onUpdateAddress}

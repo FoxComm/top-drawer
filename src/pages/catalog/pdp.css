@@ -35,6 +35,10 @@
   color: var(--bunker);
   font-size: 15px;
   line-height: 22px;
+
+  & p {
+    margin-bottom: 20px;
+  }
 }
 
 .add-to-cart {
@@ -47,12 +51,9 @@
   font-weight: 500;
 }
 
-.subcription-form-container {
-  lost-column: 3/3;
-}
-
 .subcription-form-container > button[type="submit"] {
-  lost-column: 3/3;
+  width: 100%;
+  margin-top: 0;
 }
 
 @media (--small-only) {
