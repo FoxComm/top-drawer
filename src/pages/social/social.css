@@ -1,24 +1,19 @@
 @import 'variables.css';
 @import 'colors.css';
 
-.banner {
-  width: 100%;
-  background-size: cover;
-  background-position: 100% 0;
-}
-
 .social-banner {
-  composes: banner;
-  height: 400px;
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/%23GETTOPDRAWER/gettopdrawer_Hero_2x.jpg');
-  padding-top: 150px;
+  width: 100%;
+  height: 160px;
+  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .title {
-    margin: 0;
-    font-size: 47px;
-    color: white;
-    text-align: center;
+  margin: 0;
+  font-size: 28px;
+  text-align: center;
 }
 
 .social-hub {
