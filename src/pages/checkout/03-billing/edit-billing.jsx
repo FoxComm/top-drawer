@@ -267,6 +267,15 @@ class EditBilling extends Component {
       (_.repeat('**** ', 3) + data.lastFour) : t('CARD NUMBER');
     const cvcPlaceholder = editingSavedCard ? '***' : 'CVC';
 
+    if (_.isEmpty(data.expMonth)) {
+      const currentMonth = new Date().getMonth();
+      data.expMonth = months[currentMonth];
+    }
+
+    if (_.isEmpty(data.expYear)) {
+      data.expYear = currentYear.toString();
+    }
+
     const defaultCheckbox = withoutDefaultCheckbox ? null : (
         <Checkbox
           styleName="checkbox-field"
