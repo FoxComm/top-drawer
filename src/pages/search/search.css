@@ -1,20 +1,44 @@
+@import "media-queries";
+
 .search {
-  margin-top: 7em;
-
-
-  & .search-title__uppercase {
-    text-transform: uppercase;
-  }
-
-  & .result-list { 
-    margin-top: -2em;
-  }
+  margin-top: 80px;
 }
 
-.search-title {
-    composes: inner-wrap from 'ui/css/layout.css';
-    margin: 20px 0 0;
-    font-size: 1.5em;
-    line-height: 2em;
-    padding-left: 1.9%;
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 213px;
+  text-transform: uppercase;
+  background: #f4f4f4;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.term {
+  margin: 20px 0 0;
+  font-size: 14px;
+}
+
+@media (--large) {
+  .header {
+    height: 320px;
+    background-position: 50% 100%;
   }
+
+  .title {
+    font-size: 27px;
+    letter-spacing: 2.5px;
+    font-weight: 600px;
+  }
+
+  .term {
+    margin-top: 30px;
+    font-weight: 500px;
+    font-size: 16px;
+  }
+}
