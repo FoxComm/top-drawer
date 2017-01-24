@@ -42,6 +42,7 @@
   top: 30px;
   right: 0;
   min-width: 134px;
+  text-transform: uppercase;
   background: var(--whitish);
   border: 1px solid #484848;
 
