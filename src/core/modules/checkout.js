@@ -325,6 +325,14 @@ const _checkout = createAsyncActions(
         verb: 'purchase-quantity',
         obj: 'product',
         count: sku.quantity,
+        objId: productId
+      });
+      foxApi.analytics.trackEvent({
+        channel: 1,
+        subject: 1,
+        verb: 'revenue',
+        obj: 'product',
+        count: sku.price,
         objId: productId,
       });
     });
