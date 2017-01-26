@@ -4,6 +4,7 @@
 .search,
 .search-expanded {
   position: relative;
+  height: 45px;
 }
 
 .search-input {
