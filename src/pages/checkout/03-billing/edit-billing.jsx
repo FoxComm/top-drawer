@@ -9,13 +9,14 @@ import { connect } from 'react-redux';
 import { cardMask } from '@foxcomm/wings/lib/payment-cards';
 import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
+import { createNumberMask } from 'lib/i18n/field-masks';
 
 // components
 import { FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import Checkbox from 'ui/checkbox/checkbox';
 import Select from 'ui/select/select';
-import InputMask from 'react-input-mask';
+import MaskedInput from 'react-text-mask';
 import EditAddress from 'ui/address/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
@@ -78,6 +79,7 @@ function mapStateToProps(state) {
     checkoutState: _.get(state.asyncActions, 'checkout', {}),
   };
 }
+
 
 class EditBilling extends Component {
   props: Props;
@@ -159,8 +161,9 @@ class EditBilling extends Component {
     return foxApi.creditCards.cardType(number);
   }
 
-  get cardMask() {
-    return cardMask(this.cardType);
+  @autobind
+  cardMask() {
+    return createNumberMask(cardMask(this.cardType));
   }
 
   get paymentIcon() {
@@ -305,18 +308,16 @@ class EditBilling extends Component {
             <TextInputWithLabel
               label={this.paymentIcon}
             >
-              <InputMask
+              <MaskedInput
                 required
                 disabled={editingSavedCard}
                 styleName="payment-input"
                 className={textStyles['text-input']}
-                maskChar=" "
                 type="tel"
-                inputmode="numeric"
                 mask={this.cardMask}
+                placeholderChar={'\u2000'}
                 name="number"
                 placeholder={cardNumberPlaceholder}
-                size="20"
                 value={data.number}
                 onChange={this.changeCardNumber}
               />
