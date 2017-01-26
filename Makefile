@@ -10,7 +10,7 @@ dev d:
 setup:
 	yarn install
 
-build: setup
+build:
 	test -f .env && export eval `cat .env` || true && NODE_ENV=production ./node_modules/.bin/gulp build
 
 docker:
@@ -22,7 +22,6 @@ docker-push:
 
 clean:
 	rm -rf ./node_modules
-	rm ./yarn.lock
 
 test: setup
 	npm test

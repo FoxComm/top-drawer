@@ -125,7 +125,7 @@ anymatch@^1.3.0:
 
 "api-js@git+ssh://git@github.com/FoxComm/api-js.git#feature/ic-develop":
   version "1.1.0"
-  resolved "git+ssh://git@github.com/FoxComm/api-js.git#8e7556bfcc8967fb33a680d6dd925937030f9f1a"
+  resolved "git+ssh://git@github.com/FoxComm/api-js.git#78ab79f27117f9526776a9c8186c75e4fbfa913b"
   dependencies:
     debug "^2.2.0"
     jwt-decode "^2.0.1"
