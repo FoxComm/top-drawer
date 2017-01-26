@@ -156,7 +156,7 @@ export default class EditAddress extends Component {
 
     const inputAttributes = {
       type: 'tel',
-      name: 'phoneNumber',
+      name: 'phone-number',
       placeholder: t('PHONE'),
       value: address.phoneNumber,
       required: true,
@@ -297,7 +297,7 @@ export default class EditAddress extends Component {
           />
         </FormField>
         <FormField styleName="text-field" validator="zipCode">
-          <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} value={data.zip} />
+          <TextInput name="zip" required placeholder={t('ZIP')} onChange={this.handleZipChange} value={data.zip} />
         </FormField>
         <FormField styleName="text-field">
           <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>
@@ -305,6 +305,7 @@ export default class EditAddress extends Component {
         { withCountry && this.countryInput }
         <FormField styleName="text-field">
           <Select
+            name="state"
             inputProps={{
               placeholder: t('STATE'),
             }}

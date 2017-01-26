@@ -285,7 +285,7 @@ class EditBilling extends Component {
         <FormField styleName="text-field">
           <TextInput
             required
-            name="holderName"
+            name="billing-name"
             placeholder={t('NAME ON CARD')}
             value={data.holderName}
             onChange={this.changeFormData}
@@ -304,7 +304,7 @@ class EditBilling extends Component {
                 maskChar=" "
                 type="text"
                 mask={this.cardMask}
-                name="number"
+                name="billing-card-number"
                 placeholder={cardNumberPlaceholder}
                 size="20"
                 value={data.number}
@@ -318,6 +318,7 @@ class EditBilling extends Component {
               disabled={editingSavedCard}
               label={<CvcHelp />}
               type="number"
+              name="billing-cvc"
               maxLength="4"
               placeholder={cvcPlaceholder}
               onChange={this.changeCVC}
@@ -331,6 +332,7 @@ class EditBilling extends Component {
               inputProps={{
                 placeholder: t('MONTH'),
                 type: 'text',
+                name: 'billing-month',
               }}
               compareValues={numbersComparator}
               getItemValue={item => item}
@@ -344,6 +346,7 @@ class EditBilling extends Component {
               inputProps={{
                 placeholder: t('YEAR'),
                 type: 'text',
+                name: 'billing-year',
               }}
               compareValues={numbersComparator}
               allowCustomValues
