@@ -285,7 +285,7 @@ class EditBilling extends Component {
         <FormField styleName="text-field">
           <TextInput
             required
-            name="billing-name"
+            name="holderName"
             placeholder={t('NAME ON CARD')}
             value={data.holderName}
             onChange={this.changeFormData}
