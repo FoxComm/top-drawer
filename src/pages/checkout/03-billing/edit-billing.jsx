@@ -470,7 +470,7 @@ class EditBilling extends Component {
             deleteCard={this.deleteCreditCard}
             cardAdded={this.state.cardAdded}
           />
-          <button onClick={this.addNew} type="button" styleName="add-card-button">Add Card</button>
+          <button onClick={this.addNew} id="billing-add-card" type="button" styleName="add-card-button">Add Card</button>
         </fieldset>
         { this.renderPaymentFeatures() }
       </CheckoutForm>
