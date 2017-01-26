@@ -50,7 +50,7 @@ class OrderSummary extends Component {
     isCollapsed: true,
     isScrolled: false,
     embedded: false,
-    totalTitle: 'GRAND TOTAL',
+    totalTitle: 'ORDER TOTAL',
   };
 
   state: State = {
