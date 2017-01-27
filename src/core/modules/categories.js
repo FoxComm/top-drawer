@@ -7,7 +7,6 @@ function apiCall(): Promise {
   const result = [
     {id: 3, name: 'classic', description: 'Classic year-round looks.', display: false},
     {id: 4, name: 'modern', description: 'Modern looks for the modern man.', display: false},
-    {id: 6, name: 'bundles', description: 'Buy looks that are better together.', display: false},
     {
       id: 5,
       name: 'all',
@@ -17,7 +16,6 @@ function apiCall(): Promise {
       subItems: [
         { name: 'classic', navName: 'Classic' },
         { name: 'modern', navName: 'Modern' },
-        { name: 'bundles', navName: 'Bundles' },
       ],
     },
   ];
