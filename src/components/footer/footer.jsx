@@ -42,7 +42,7 @@ const Footer = () : HTMLElement => {
           </ul>
         </div>
         <div styleName="copyright">
-          <p>&copy; 2016 Top Drawer.  Powered by <a target="_blank" href="http://foxcommerce.com">FoxCommerce</a>.</p>
+          <p>&copy; {new Date().getFullYear()} Top Drawer.  Powered by <a target="_blank" href="http://foxcommerce.com">FoxCommerce</a>.</p>
         </div>
       </div>
     </div>
