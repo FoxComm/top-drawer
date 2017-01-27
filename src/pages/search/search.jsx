@@ -55,14 +55,15 @@ class Search extends Component {
     const result = _.isEmpty(results.result) ? [] : results.result;
 
     return (
-      <div styleName="search">
-        <p styleName="search-title">
-          <span styleName="search-title__uppercase">{t('Search results for')}</span> "{term}"
-        </p>
+      <section styleName="search">
+        <header styleName="header">
+          <h2 styleName="title">{t('Search results')}</h2>
+          <p styleName="term">{result.length} results for "{term}"</p>
+        </header>
         <div styleName="result-list">
           <ProductsList list={result}/>
         </div>
-      </div>
+      </section>
     );
   }
 }
