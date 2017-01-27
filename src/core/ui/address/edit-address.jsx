@@ -275,18 +275,16 @@ export default class EditAddress extends Component {
       <div styleName={`theme-${props.colorTheme}`}>
         { this.title }
         { this.defaultCheckboxInput }
-        <FormField styleName="text-field">
+        <FormField styleName="text-field" required>
           <TextInput
-            required
             name="name"
             placeholder={t('FIRST & LAST NAME')}
             value={data.name}
             onChange={this.changeFormData}
           />
         </FormField>
-        <FormField styleName="text-field">
+        <FormField styleName="text-field" required>
           <TextInput
-            required
             name="address1" placeholder={t('STREET ADDRESS 1')} value={data.address1} onChange={this.changeFormData}
           />
         </FormField>
@@ -299,21 +297,23 @@ export default class EditAddress extends Component {
         <FormField styleName="text-field" validator="zipCode">
           <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} type="number" value={data.zip} />
         </FormField>
-        <FormField styleName="text-field">
-          <TextInput required name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>
-        </FormField>
-        { withCountry && this.countryInput }
-        <FormField styleName="text-field">
-          <Select
-            inputProps={{
-              placeholder: t('STATE'),
-            }}
-            getItemValue={item => item.name}
-            items={selectedCountry.regions}
-            onSelect={this.changeState}
-            selectedItem={this.addressState}
-          />
-        </FormField>
+        <div styleName="region-fields">
+          <FormField styleName="text-field" required>
+            <TextInput name="city" placeholder={t('CITY')} onChange={this.changeFormData} value={data.city}/>
+          </FormField>
+          { withCountry && this.countryInput }
+          <FormField styleName="text-field">
+            <Select
+              inputProps={{
+                placeholder: t('STATE'),
+              }}
+              getItemValue={item => item.name}
+              items={selectedCountry.regions}
+              onSelect={this.changeState}
+              selectedItem={this.addressState}
+            />
+          </FormField>
+        </div>
         <FormField label={t('Phone Number')} styleName="text-field">
           {this.phoneInput}
         </FormField>
