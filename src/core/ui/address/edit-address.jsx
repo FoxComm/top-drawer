@@ -159,7 +159,6 @@ export default class EditAddress extends Component {
       name: 'phoneNumber',
       placeholder: t('PHONE'),
       value: address.phoneNumber,
-      required: true,
     };
 
     let input;
@@ -294,8 +293,8 @@ export default class EditAddress extends Component {
             onChange={this.changeFormData}
           />
         </FormField>
-        <FormField styleName="text-field" validator="zipCode">
-          <TextInput required placeholder={t('ZIP')} onChange={this.handleZipChange} type="number" value={data.zip} />
+        <FormField styleName="text-field" validator="zipCode" required>
+          <TextInput placeholder={t('ZIP')} onChange={this.handleZipChange} type="number" value={data.zip} />
         </FormField>
         <div styleName="region-fields">
           <FormField styleName="text-field" required>
@@ -314,7 +313,7 @@ export default class EditAddress extends Component {
             />
           </FormField>
         </div>
-        <FormField label={t('Phone Number')} styleName="text-field">
+        <FormField label={t('Phone Number')} styleName="text-field" required>
           {this.phoneInput}
         </FormField>
       </div>
