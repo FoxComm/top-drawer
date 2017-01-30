@@ -132,7 +132,7 @@ class Pdp extends Component {
   }
 
   componentDidMount() {
-    this._mqSmallOnly = window.matchMedia(`(max-width: 47.9375em)`);
+    this._mqSmallOnly = window.matchMedia(`(max-width: 79.9375em)`);
     this._mqSmallOnly.addListener(this.mediaQueryChanged);
     this.setState({smallOnly: this._mqSmallOnly.matches});
 
@@ -214,7 +214,6 @@ class Pdp extends Component {
         <Form onSubmit={this.addToCart} styleName="subcription-form-container">
           <EditAddress
             colorTheme="white-bg-dark-border"
-            withCountry
             withoutDefaultCheckbox
             title="Shipping To"
             onUpdate={this.onUpdateAddress}
@@ -340,7 +339,7 @@ class Pdp extends Component {
 
     return !_.isEmpty(images)
       ? (
-        <Carousel buttonNav={true}>
+        <Carousel buttonNav={true} styleName="carousel">
           {images.map((image, index) => (
             <div styleName="image">
               <img
