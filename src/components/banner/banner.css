@@ -28,10 +28,15 @@
 
 .links {
   composes: links from 'ui/css/links.css';
+  flex-direction: column;
 }
 
 .link {
   composes: link from 'ui/css/links.css';
+
+  &.link:not(:last-child) {
+    margin-right: 0; /* reset margin-right */
+  }
 }
 
 @media (--medium) {
@@ -45,5 +50,8 @@
 
   .description {
     font-size: 20px;
+  }
+  .links {
+    flex-direction: row;
   }
 }
