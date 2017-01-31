@@ -77,7 +77,7 @@ class Home extends Component {
     return (
       <div>
         {this.topBanner}
-        {this.descriptiveContent}
+        {/*this.descriptiveContent*/}
         {this.subscribeBanner}
         {this.customSocksBanner}
         <TrackingPixel
