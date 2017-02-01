@@ -6,36 +6,28 @@
   composes: wrap from "ui/css/layout.css";
   composes: inner-wrap from "ui/css/layout.css";
   margin: 80px 0;
-  padding-top: 16px;
   align-items: stretch;
 }
 
-.gallery {
-  lost-column: 2/3;
-}
-
-.details {
-  display: flex;
-  lost-column: 1/3;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
 .name {
-  margin: 0;
-  color: var(--bunker);
-  font-size: 50px;
-  line-height: 1;
+  margin: 40px 0 0;
   font-weight: 600;
-  letter-spacing: 1px;
+  font-size: 22px;
+  letter-spacing: 0.7px;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .price-container {
-  margin-top: 20px;
+  margin-top: 40px;
   color: var(--bunker);
   font-size: 20px;
   line-height: 1;
+}
+
+.counter {
+  width: 100%;
+  margin-top: 40px;
 }
 
 .description {
@@ -43,78 +35,75 @@
   color: var(--bunker);
   font-size: 15px;
   line-height: 22px;
-}
 
-.counter {
-  lost-column: 2/3;
-  margin-top: 20px;
+  & p {
+    margin-bottom: 20px;
+  }
 }
 
 .add-to-cart {
   composes: button-primary from "ui/css/buttons.css";
+  width: 100%;
   background-color: var(--bunker);
   color: #FFFFFF;
-  lost-column: 2/3;
   margin-top: 30px;
   font-size: 14px;
   font-weight: 500;
 }
 
-.subcription-form-container {
-  lost-column: 3/3;
-}
-
 .subcription-form-container > button[type="submit"] {
-  lost-column: 3/3;
+  width: 100%;
+  margin-top: 0;
 }
 
 @media (--small-only) {
   .container {
-    padding: 0;
-  }
-
-  .gallery,
-  .details {
-    lost-column: 1/1;
-  }
-
-  .name {
-    margin: 20px 0;
-    font-size: 30px;
-    font-weight: 400;
-    text-align: center;
-  }
-
-  .description {
-    text-align: center;
+    padding: 0 10px;
   }
 }
 
-@media (--small-only), (--medium-only) {
+@media (--medium-only) {
+  .container {
+    display: block;
+    lost-column: 10/12;
+    lost-offset: -1/12;
+    padding: 0;
+    margin-bottom: 120px;
+  }
+}
+
+@media (--large) {
+  .container {
+    margin-bottom: 120px;
+    padding-top: 50px;
+  }
+
   .name {
-    text-align: left;
+    margin-top: 0;
   }
 
   .price-container {
-    margin-right: auto;
-  }
-
-  .description {
-    text-align: left;
+    margin-top: 30px;
   }
 
   .counter {
-    margin-right: 0;
-    lost-column: 3/3;
+    lost-column: 2/3;
   }
 
   .add-to-cart {
-    lost-column: 3/3;
+    lost-column: 2/3;
   }
 
-  .container {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+  .gallery {
+    lost-column: 2/3;
   }
+
+  .details {
+    display: flex;
+    lost-column: 1/3;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
 }
