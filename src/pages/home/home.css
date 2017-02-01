@@ -20,6 +20,10 @@
   color: var(--whitish);
   margin-bottom: 30px;
 
+  & article {
+    margin-top: 75px;
+  }
+
   & a {
     /* height: 68px; */
     /* font-weight: 500; */
@@ -149,10 +153,12 @@
   .top-banner {
     /* position: relative; */
     /* padding-top: 140px; */
-    padding-top: 60px;
+    /* padding-top: 60px; */
     /* height: 668px; */
     /* color: var(--blackish); */
     background-position: 60% 0;
+
+
   }
     
   .top-banner,
@@ -184,6 +190,12 @@
   .custom-socks-banner {
     padding-top: 20px;
     /* height: 340px; */
+  }
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -242,7 +254,7 @@
 
     & a + a {
       margin-top: 0;
-      margin-left: 10px;
+      margin-left: 20px;
     }
   }
 
@@ -282,6 +294,12 @@
 .top-banner,
 .subscribe-banner,
 .custom-socks-banner {
+  padding-top: 0;
+
+  & article {
+    /* margin-top: 50px; */
+  }
+
   & h2 {
     font-size: 16px;
     font-weight: 600;
