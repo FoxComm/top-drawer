@@ -21,7 +21,7 @@
   margin-bottom: 30px;
 
   & a {
-    height: 68px;
+    /* height: 68px; */
     /* font-weight: 500; */
     /* text-transform: uppercase; */
     /* font-size: 16px; */
@@ -136,7 +136,7 @@
     /* text-transform: uppercase; */
     font-size: 16px;
     /* font-weight: 500; */
-    height: 68px;
+    /* height: 68px; */
 
     &:hover {
       background: rgba(255, 255, 255, 0.9);
@@ -147,7 +147,7 @@
 
 @media (--small-only) {
   .top-banner {
-    position: relative;
+    /* position: relative; */
     /* padding-top: 140px; */
     padding-top: 60px;
     /* height: 668px; */
@@ -295,6 +295,8 @@
   }
 
   & a {
+    width: 139px;
+    height: 48px;
     font-size: 12px;
     font-weight: 500;
     letter-spacing: 0;
@@ -318,7 +320,21 @@
     }
 
     & a {
+      height: 60px;
       font-size: 14px;
     }      
+  }
+
+  .top-banner {
+    & a {
+      width: 166px;
+    }
+  }
+
+  .subscribe-banner,
+  .custom-socks-banner {
+    & a {
+      width: 152px;
+    }
   }
 }
