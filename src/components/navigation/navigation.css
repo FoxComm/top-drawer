@@ -66,6 +66,9 @@
         }
       }
     }
+    &:last-child {
+      display: none;
+    }
   }
 }
 

@@ -9,13 +9,14 @@ import { connect } from 'react-redux';
 import { cardMask } from '@foxcomm/wings/lib/payment-cards';
 import localized from 'lib/i18n';
 import { api as foxApi } from 'lib/api';
+import { createNumberMask } from 'lib/i18n/field-masks';
 
 // components
 import { FormField } from 'ui/forms';
 import { TextInput, TextInputWithLabel } from 'ui/inputs';
 import Checkbox from 'ui/checkbox/checkbox';
-import Autocomplete from 'ui/autocomplete';
-import InputMask from 'react-input-mask';
+import Select from 'ui/select/select';
+import MaskedInput from 'react-text-mask';
 import EditAddress from 'ui/address/edit-address';
 import CreditCards from './credit-cards';
 import Icon from 'ui/icon';
@@ -83,6 +84,7 @@ function mapStateToProps(state) {
     creditCards: state.checkout.creditCards,
   };
 }
+
 
 class EditBilling extends Component {
   props: Props;
@@ -168,8 +170,9 @@ class EditBilling extends Component {
     return foxApi.creditCards.cardType(number);
   }
 
-  get cardMask() {
-    return cardMask(this.cardType);
+  @autobind
+  cardMask() {
+    return createNumberMask(cardMask(this.cardType));
   }
 
   get paymentIcon() {
@@ -278,6 +281,15 @@ class EditBilling extends Component {
       (_.repeat('**** ', 3) + data.lastFour) : t('CARD NUMBER');
     const cvcPlaceholder = editingSavedCard ? '***' : 'CVC';
 
+    if (_.isEmpty(data.expMonth)) {
+      const currentMonth = new Date().getMonth();
+      data.expMonth = months[currentMonth];
+    }
+
+    if (_.isEmpty(data.expYear)) {
+      data.expYear = currentYear.toString();
+    }
+
     const defaultCheckbox = withoutDefaultCheckbox ? null : (
         <Checkbox
           styleName="checkbox-field"
@@ -307,17 +319,16 @@ class EditBilling extends Component {
             <TextInputWithLabel
               label={this.paymentIcon}
             >
-              <InputMask
+              <MaskedInput
                 required
                 disabled={editingSavedCard}
                 styleName="payment-input"
                 className={textStyles['text-input']}
-                maskChar=" "
-                type="text"
+                type="tel"
                 mask={this.cardMask}
+                placeholderChar={'\u2000'}
                 name="number"
                 placeholder={cardNumberPlaceholder}
-                size="20"
                 value={data.number}
                 onChange={this.changeCardNumber}
               />
@@ -338,12 +349,11 @@ class EditBilling extends Component {
         </div>
         <div styleName="union-fields">
           <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expMonth}>
-            <Autocomplete
+            <Select
               inputProps={{
                 placeholder: t('MONTH'),
-                type: 'text',
+                type: 'number',
               }}
-              compareValues={numbersComparator}
               getItemValue={item => item}
               items={months}
               onSelect={this.changeMonth}
@@ -351,13 +361,11 @@ class EditBilling extends Component {
             />
           </FormField>
           <FormField required styleName="text-field" validator={this.validateExpiry} getTargetValue={() => data.expYear}>
-            <Autocomplete
+            <Select
               inputProps={{
                 placeholder: t('YEAR'),
                 type: 'text',
               }}
-              compareValues={numbersComparator}
-              allowCustomValues
               getItemValue={item => item}
               items={years}
               onSelect={this.changeYear}
@@ -417,12 +425,13 @@ class EditBilling extends Component {
 
   renderGuestView() {
     const { props } = this;
+    const button = <span><Icon name="fc-icon_lock" /> Place Order</span>;
 
     return (
       <CheckoutForm
         submit={this.submitCardAndContinue}
         error={props.updateCreditCardError}
-        buttonLabel="Place Order"
+        buttonLabel={button}
         inProgress={props.updateCreditCardInProgress || props.checkoutState.inProgress}
       >
         <div className={subtitle}>PAYMENT METHOD</div>

@@ -4,8 +4,8 @@
 @import "media-queries";
 
 .list-item {
-  width: calc(33% - var(--grid-margin));
-  margin-bottom: 40px;
+  width: calc(50% - (var(--grid-margin) / 2));
+  margin-bottom: 60px;
   padding-bottom: 20px;
   text-align: center;
   line-height: 19px;
@@ -28,24 +28,36 @@
 .name {
   margin-top: 20px;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
   color: var(--bunker);
 }
 
 .price {
-  margin-top: 10px;
+  margin-top: 5px;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--bunker);
 }
 
-@media (--small-only), (--medium-only) {
+@media (--medium) {
   .list-item {
-    width: calc(50% - (var(--grid-margin) / 2));
-    margin-bottom: 20px;
+    width: calc(33% - var(--grid-margin));
+    margin-bottom: 40px;
   }
 
   .name {
-    margin-top: 10px;
+    margin-top: 20px;
+  }
+}
+
+@media (--large) {
+  .name,
+  .price {
+    font-size: 16px;
+  }
+
+  .price {
+    margin-top: 15px;
   }
 }

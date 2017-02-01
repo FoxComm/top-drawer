@@ -55,7 +55,7 @@ class UserMenu extends Component {
             styleName="menu-link"
             href="/logout"
             onClick={this.handleLogout}
-          >{t('LOG OUT')}</a>
+          >{t('Log Out')}</a>
         </li>
       </ul>
     );
