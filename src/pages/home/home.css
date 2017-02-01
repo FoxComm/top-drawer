@@ -47,6 +47,7 @@
 
 .wrap {
   composes: wrap from 'ui/css/layout.css';
+  position: relative;
 }
 
 .descriptive-content {
@@ -109,6 +110,7 @@
 }
 
 .custom-socks-banner {
+  position: relative;
   composes: centered-banner;
   background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_Filtered_2x.jpg');
   background-size: cover;
@@ -116,6 +118,17 @@
   margin-left: 0;
   margin-right: 0;
   margin-bottom: 30px;
+
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.18);
+  }  
 
   & a {
     background-color: var(--whitish);
@@ -134,11 +147,33 @@
 
 @media (--small-only) {
   .top-banner {
+    position: relative;
     /* padding-top: 140px; */
     padding-top: 60px;
     /* height: 668px; */
     /* color: var(--blackish); */
-    background-position: 30% 0;
+    background-position: 60% 0;
+  }
+    
+  .top-banner,
+  .subscribe-banner {
+    position: relative;
+
+    &:before {
+      display: block;
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0, 0, 0, 0.18);
+    }
+  }
+
+  .subscribe-banner,
+  .custom-socks-banner {
+    background-position: center center;   
   }
 
   .subscribe-banner {
@@ -227,6 +262,7 @@
     & article {
       lost-column: 1/11*5;
       lost-offset: -1/11;
+      text-align: left;
       /* margin-bottom: 225px; */
       margin-left: 0;
       margin-right: 0;      
