@@ -14,7 +14,7 @@
 .top-banner {
   width: 100%;
   height: 349px;
-  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Scotch_Filtered_2x.jpg') 50% 0;
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Home_February/Scotch_Filtered.jpg') 50% 0;
   background-size: cover;
   color: var(--blackish);
   color: var(--whitish);
@@ -102,7 +102,7 @@
 
 .subscribe-banner {
   composes: centered-banner;
-  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Subscribe_Filtered_2x.jpg') 50% 0;
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Home_February/Holiday+Gift+Box.jpg') 50% 0;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -110,7 +110,7 @@
 .custom-socks-banner {
   position: relative;
   composes: centered-banner;
-  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Yarn_Filtered_2x.jpg');
+  background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Home_February/Spools.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   margin-left: 0;
@@ -126,7 +126,7 @@
     bottom: 0;
     left: 0;
     background: rgba(0, 0, 0, 0.18);
-  }  
+  }
 
   & a {
     background-color: var(--whitish);
@@ -148,7 +148,7 @@
       max-width: 280px;
     }
   }
-    
+
   .top-banner,
   .subscribe-banner {
     position: relative;
@@ -167,11 +167,11 @@
 
   .subscribe-banner,
   .custom-socks-banner {
-    background-position: center center; 
+    background-position: center center;
 
     & article {
       max-width: 280px;
-    }  
+    }
   }
 
   .subscribe-banner {
@@ -198,13 +198,13 @@
       justify-content: flex-start;
     }
   }
-  
+
   .top-banner {
     & h2,
     & h3 {
       color: var(--bunker);
     }
-    
+
     & a {
       color: var(--whitish);
       background-color: var(--bunker);
@@ -233,29 +233,29 @@
       lost-offset: 1/11;
     }
   }
-  
+
   .top-banner {
     & article {
       lost-column: 1/11*5;
       lost-offset: -1/11;
-    }    
+    }
 
     & a + a {
       margin-top: 0;
       margin-left: 20px;
     }
   }
-  
+
   .subscribe-banner {
     & article {
       lost-column: 1/11*5;
       lost-offset: -1/11;
       text-align: left;
       margin-left: 0;
-      margin-right: 0;      
+      margin-right: 0;
     }
   }
-  
+
   .descriptive-content {
     & .dc-text {
       padding-left: 200px;
@@ -315,7 +315,7 @@
     & a {
       height: 60px;
       font-size: 14px;
-    }      
+    }
   }
 
   .top-banner {
