@@ -24,6 +24,7 @@ import CvcHelp from './cvc-help';
 import PromoCode from '../../../components/promo-code/promo-code';
 import CheckoutForm from '../checkout-form';
 import Accordion from '../../../components/accordion/accordion';
+import Loader from 'ui/loader';
 
 // styles
 import styles from './billing.css';
@@ -56,6 +57,8 @@ type Props = CheckoutActions & {
   isGuestMode: boolean,
   clearAddCreditCardErrors: () => void,
   clearUpdateCreditCardErrors: () => void,
+  creditCards: Array<CreditCardType>,
+  creditCardsLoading: boolean,
 };
 
 type State = {
@@ -77,6 +80,8 @@ function mapStateToProps(state) {
     updateCreditCardInProgress: _.get(state.asyncActions, 'addCreditCard.inProgress', false)
     || _.get(state.asyncActions, 'updateCreditCard.inProgress', false),
     checkoutState: _.get(state.asyncActions, 'checkout', {}),
+    creditCardsLoading: _.get(state.asyncActions, ['creditCards', 'inProgress'], true),
+    creditCards: state.checkout.creditCards,
   };
 }
 
@@ -91,6 +96,10 @@ class EditBilling extends Component {
   };
 
   componentWillMount() {
+    if (!this.props.isGuestMode) {
+      this.props.fetchCreditCards();
+    }
+
     if (this.props.data.address) {
       this.setState({
         billingAddressIsSame: false,
@@ -234,6 +243,8 @@ class EditBilling extends Component {
       : this.props.addCreditCard(billingAddressIsSame);
 
     return operation.then(card => {
+      this.props.fetchCreditCards();
+      this.props.resetBillingData();
       this.setState({ addingNew: false, cardAdded: (id === undefined) });
       return card;
     });
@@ -370,7 +381,7 @@ class EditBilling extends Component {
         >
           {t('Billing address is same as shipping')}
         </Checkbox>
-        {this.renderBillingAddress(withoutDefaultCheckbox)}
+        {this.renderBillingAddress(true)}
       </div>
     );
   }
@@ -432,13 +443,18 @@ class EditBilling extends Component {
 
   render() {
     const { props } = this;
-    const { t } = props;
+    const { t, creditCardsLoading, creditCards } = props;
 
     if (props.isGuestMode) {
       return this.renderGuestView();
     }
 
-    if (this.state.addingNew) {
+    if (creditCardsLoading) {
+      return <Loader size="m" />;
+    }
+
+    // Explicitly show card form if user doesn't have any cards
+    if (this.state.addingNew || _.isEmpty(creditCards)) {
       const action = {
         action: this.cancelEditing,
         title: 'Cancel',
@@ -452,7 +468,7 @@ class EditBilling extends Component {
           submit={this.updateCreditCard}
           title={title}
           error={props.updateCreditCardError}
-          buttonLabel="SAVE & CONTINUE"
+          buttonLabel="Save Card"
           action={action}
           inProgress={props.updateCreditCardInProgress}
         >
@@ -471,6 +487,7 @@ class EditBilling extends Component {
       >
         <fieldset styleName="fieldset-cards">
           <CreditCards
+            creditCards={creditCards}
             selectCreditCard={this.selectCreditCard}
             editCard={this.editCard}
             deleteCard={this.deleteCreditCard}

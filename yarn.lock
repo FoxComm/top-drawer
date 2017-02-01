@@ -3309,7 +3309,7 @@ form-data@^2.1.1, form-data@~2.1.1:
     combined-stream "^1.0.5"
     mime-types "^2.1.12"
 
-formidable@1.0.x:
+formidable@1.0.x, formidable@^1.0.17:
   version "1.0.17"
   resolved "https://registry.yarnpkg.com/formidable/-/formidable-1.0.17.tgz#ef5491490f9433b705faa77249c99029ae348559"
 
@@ -6343,6 +6343,10 @@ postinstall-build@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/postinstall-build/-/postinstall-build-0.2.1.tgz#132e95029ba6ee5229a8802b90a7adbf3f46875d"
 
+postinstall-build@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/postinstall-build/-/postinstall-build-0.2.1.tgz#132e95029ba6ee5229a8802b90a7adbf3f46875d"
+
 prelude-ls@~1.1.0, prelude-ls@~1.1.1, prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -6441,7 +6445,7 @@ qs@6.2.1, qs@^6.1.0:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-"qs@>= 0.4.0", qs@~6.3.0:
+"qs@>= 0.4.0", qs@^6.1.0, qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
