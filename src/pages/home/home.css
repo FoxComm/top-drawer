@@ -13,39 +13,34 @@
 
 .top-banner {
   width: 100%;
-  height: 846px;
+  height: 349px;
   background: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/home/Scotch_Filtered_2x.jpg') 50% 0;
   background-size: cover;
   color: var(--blackish);
-  margin-bottom: 60px;
+  color: var(--whitish);
+  margin-bottom: 30px;
 
   & a {
     height: 68px;
     font-weight: 500;
-    color: var(--whitish);
-    background-color: var(--bunker);
-    border-color: var(--bunker);
     text-transform: uppercase;
     font-size: 16px;
 
-    & + a {
-      margin-top: 10px;
-    }
+    color: var(--blackish);
+    border-color: var(--whitish);
+    background-color: var(--whitish);
 
     &:before {
-      background-color: var(--blackish);
+      background-color: var(--whitish);
     }
 
     &:hover {
-      background: rgba(32, 32, 32, 0.9);
-      border-color: rgba(32, 32, 32, 0.9);
+      background: rgba(255, 255, 255, 0.9);
+      border-color: rgba(255, 255, 255, 0.9);
     }
-  }
 
-  & article {
-    & h2,
-    & h3 {
-      color: var(--bunker);
+    & + a {
+      margin-top: 10px;
     }
   }
 }
@@ -82,12 +77,13 @@
 
 .centered-banner {
   width: 100%;
-  height: 720px;
+  /* height: 650px; */
+  height: 349px;
   background-size: cover;
   background-repeat: no-repeat;
   color: var(--whitish);
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 
   & a {
     color: var(--blackish);
@@ -119,7 +115,7 @@
   background-repeat: no-repeat;
   margin-left: 0;
   margin-right: 0;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 
   & a {
     background-color: var(--whitish);
@@ -138,19 +134,21 @@
 
 @media (--small-only) {
   .top-banner {
-    padding-top: 140px;
-    height: 668px;
+    /* padding-top: 140px; */
+    padding-top: 60px;
+    /* height: 668px; */
+    /* color: var(--blackish); */
     background-position: 30% 0;
   }
 
   .subscribe-banner {
     padding-top: 50px;
-    height: 560px;
+    /* height: 560px; */
   }
 
   .custom-socks-banner {
     padding-top: 20px;
-    height: 340px;
+    /* height: 340px; */
   }
 }
 
@@ -163,7 +161,28 @@
       justify-content: flex-start;
     }
   }
+  
+  .top-banner {
+    & h2,
+    & h3 {
+      color: var(--bunker);
+    }
+    
+    & a {
+      color: var(--whitish);
+      background-color: var(--bunker);
+      border-color: var(--bunker);
 
+      &:before {
+        background-color: var(--blackish);
+      }
+
+      &:hover {
+        background: rgba(32, 32, 32, 0.9);
+        border-color: rgba(32, 32, 32, 0.9);
+      }
+    }
+  }
   .custom-socks-banner {
     & h2,
     & h3,
@@ -175,7 +194,7 @@
     & article {
       lost-column: 1/11*5;
       lost-offset: 1/11;
-      margin-bottom: 225px;  
+      /* margin-bottom: 225px;   */
     }
   }
   
@@ -183,7 +202,7 @@
     & article {
       lost-column: 1/11*5;
       lost-offset: -1/11;
-      margin-bottom: 225px;  
+      /* margin-bottom: 225px;   */
     }    
 
     & a {
@@ -208,7 +227,7 @@
     & article {
       lost-column: 1/11*5;
       lost-offset: -1/11;
-      margin-bottom: 225px;
+      /* margin-bottom: 225px; */
       margin-left: 0;
       margin-right: 0;      
     }
@@ -229,7 +248,15 @@
 }
 
 @media (--large) {
-  .top-banner a {
-    font-size: 23px;
+  .top-banner,
+  .subscribe-banner,
+  .custom-socks-banner {
+    height: 650px;    
+  }
+
+  .top-banner {
+    & a {
+      font-size: 23px;
+    }
   }
 }
