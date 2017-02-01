@@ -54,8 +54,7 @@
 
 .header-classic,
 .header-modern,
-.header-all,
-.header-bundles {
+.header-all {
   composes: header;
 }
 
@@ -71,10 +70,6 @@
   background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/All_Collections_Hero_New_2x.jpg');
 }
 
-.header-bundles {
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Bundles_Hero_2x.jpg');
-  background-position: 44% 100%;
-}
 
 .not-found {
   text-transform: uppercase;
