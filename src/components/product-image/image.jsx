@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import Imgix from 'react-imgix';
 import styles from './image.css';
 
 import ImagePlaceholder from './image-placeholder';
@@ -19,7 +20,7 @@ class ProductImage extends Component {
     const { src } = this.props;
     if (src) {
       const url = `${src}${imgixAppendix}`;
-      return <img src={url} styleName="preview-image" />;
+      return <Imgix src={url} styleName="preview-image" />;
     }
 
     return <ImagePlaceholder/>;
