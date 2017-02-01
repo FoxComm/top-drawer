@@ -48,7 +48,6 @@
 .search {
   font-size: 15px;
   letter-spacing: 1px;
-  flex: 1;
 }
 
 .search {
@@ -58,7 +57,6 @@
 }
 
 .tools {
-  flex: 1;
   display: flex;
   justify-content: flex-end;
 }
@@ -121,6 +119,13 @@
   }
 
   .tools {
-    flex: 0;
+    flex-grow: 0;
+  }
+}
+
+@media (--large) {
+  .tools,
+  .search {
+    flex-grow: 1;
   }
 }

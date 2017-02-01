@@ -10,7 +10,6 @@ html, body {
 
 @media (--small-only) {
   html, body {
-    width: 100vw;
     max-width: 100vw;
     font-size: 14px;
   }
