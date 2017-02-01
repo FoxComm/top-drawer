@@ -1,6 +1,7 @@
 
 import _ from 'lodash';
 import { isGiftCard } from 'paragons/sku';
+import { api as foxApi } from './api';
 
 export function trackPageView(page, fieldsObject) {
   ga('send', 'pageview', page, fieldsObject);
@@ -47,6 +48,14 @@ export function addProduct(product, extraFields = {}) {
 }
 
 export function addImpression(product, position, list = 'Product List') {
+  foxApi.analytics.trackEvent({
+    channel: 1,
+    subject: 1,
+    verb: 'list',
+    obj: 'product',
+    objId: product.id,
+  });
+
   ga('ec:addImpression', {
     ...baseProductData(product),
     position,
@@ -59,12 +68,28 @@ export function sendImpressions(list = 'Product List') {
 }
 
 export function viewDetails(product) {
+  foxApi.analytics.trackEvent({
+    channel: 1,
+    subject: 1,
+    verb: 'pdp',
+    obj: 'product',
+    objId: product.id,
+  });
+
   addProduct(product);
   ga('ec:setAction', 'detail');
   ga('send', 'event', 'UX', 'detail_view', 'Product');
 }
 
 export function addToCart(product, quantity) {
+  foxApi.analytics.trackEvent({
+    channel: 1,
+    subject: 1,
+    verb: 'cart',
+    obj: 'product',
+    objId: _.get(product, 'id') || _.get(product, 'productFormId')
+  });
+
   addProduct(product, {
     price: _.get(product, 'price', product.salePrice),
     quantity,
@@ -96,8 +121,26 @@ export function addLineItems(lineItems) {
   });
 }
 
-export function checkoutStart(lineItems) {
-  addLineItems(lineItems);
+export function checkoutStart(cart) {
+  foxApi.analytics.trackEvent({
+    channel: 1,
+    subject: 1,
+    verb: 'checkout',
+    obj: 'cart',
+    objId: cart.referenceNumber,
+  });
+  _.map(cart.skus, sku => {
+    const productId = _.get(sku, 'productFormId', null);
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'checkout',
+      obj: 'product',
+      objId: productId,
+    });
+  });
+
+  addLineItems(cart.lineItems);
   ga('ec:setAction', 'checkout', {
     step: 1,
   });
@@ -126,6 +169,41 @@ function moneyToString(value) {
 }
 
 export function purchase(cart) {
+  foxApi.analytics.trackEvent({
+    channel: 1,
+    subject: 1,
+    verb: 'purchase',
+    obj: 'order',
+    objId: cart.referenceNumber,
+  });
+
+  _.map(cart.skus, sku => {
+    const productId = _.get(sku, 'productFormId', null);
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'purchase',
+      obj: 'product',
+      objId: productId,
+    });
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'purchase-quantity',
+      obj: 'product',
+      count: sku.quantity,
+      objId: productId
+    });
+    foxApi.analytics.trackEvent({
+      channel: 1,
+      subject: 1,
+      verb: 'revenue',
+      obj: 'product',
+      count: sku.price,
+      objId: productId,
+    });
+  });
+
   addLineItems(cart.lineItems);
   const giftCardAmount = _.get(_.find(cart.paymentMethods, {type: 'giftCard'}), 'amount', 0);
   const grandTotal = cart.totals.total - giftCardAmount;

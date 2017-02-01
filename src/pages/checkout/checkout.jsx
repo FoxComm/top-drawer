@@ -63,7 +63,7 @@ class Checkout extends Component {
   componentDidMount() {
     this.props.fetchCart().then(() => {
       const { cart } = this.props;
-      tracking.checkoutStart(cart.lineItems);
+      tracking.checkoutStart(cart);
 
       let editStage = EditStages.SHIPPING;
       if (!_.isEmpty(cart.shippingAddress)) {

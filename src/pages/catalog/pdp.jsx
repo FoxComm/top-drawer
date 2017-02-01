@@ -137,13 +137,6 @@ class Pdp extends Component {
 
     this.productPromise.then(() => {
       tracking.viewDetails(this.product);
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: 1,
-        verb: 'pdp',
-        obj: 'product',
-        objId: this.productId,
-      });
     });
   }
 
@@ -182,12 +175,16 @@ class Pdp extends Component {
   }
 
   get product(): Product {
-    const attributes = _.get(this.props.product, 'attributes', {});
+    const { product } = this.props;
+
+    const attributes = _.get(product, 'attributes', {});
     const price = _.get(this.firstSku, 'attributes.salePrice.v', {});
-    const images = _.get(this.props.product, ['albums', 0, 'images'], []);
+    const images = _.get(product, ['albums', 0, 'images'], []);
     const imageUrls = images.map(image => image.src);
+    const id = _.get(product, 'id', null);
 
     return {
+      id: id,
       title: _.get(attributes, 'title.v', ''),
       description: _.get(attributes, 'description.v', ''),
       images: imageUrls,
@@ -308,13 +305,6 @@ class Pdp extends Component {
           quantity: 1,
           attributes: {},
           currentSku: null,
-        });
-        foxApi.analytics.trackEvent({
-          channel: 1,
-          subject: 1,
-          verb: 'cart',
-          obj: 'product',
-          objId: this.productId,
         });
       })
       .catch(ex => {

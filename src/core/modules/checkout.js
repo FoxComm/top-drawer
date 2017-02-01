@@ -302,41 +302,6 @@ const _checkout = createAsyncActions(
     const { dispatch, getState } = this;
     const cartState = getState().cart;
 
-    foxApi.analytics.trackEvent({
-      channel: 1,
-      subject: 1,
-      verb: 'purchase',
-      obj: 'order',
-      objId: cartState.referenceNumber,
-    });
-    // MVP: Just track all the products currently in the cart
-    _.map(cartState.skus, sku => {
-      const productId = _.get(sku, 'productFormId', null);
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: 1,
-        verb: 'purchase',
-        obj: 'product',
-        objId: productId,
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: 1,
-        verb: 'purchase-quantity',
-        obj: 'product',
-        count: sku.quantity,
-        objId: productId
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: 1,
-        verb: 'revenue',
-        obj: 'product',
-        count: sku.price,
-        objId: productId,
-      });
-    });
-
     return foxApi.cart.checkout().then(res => {
       tracking.purchase({
         ...cartState,
