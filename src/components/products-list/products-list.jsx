@@ -6,7 +6,6 @@ import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import type { Product } from 'modules/products';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
 import { autobind, debounce } from 'core-decorators';
 import { isElementInViewport } from 'lib/dom-utils';
 import * as tracking from 'lib/analytics';
@@ -14,7 +13,6 @@ import * as tracking from 'lib/analytics';
 import styles from './products-list.css';
 
 import ListItem from '../products-item/list-item';
-import BannerWithImage from '../banner/bannerWithImage';
 
 type Category = {
   name: string;
@@ -23,17 +21,17 @@ type Category = {
 };
 
 type ProductsListParams = {
-  list: ?Array<Product>;
-  categories: ?Array<Category>;
-  category: ?string;
-  categoryType: ?string;
-  hasBanners: boolean;
-}
+  list: ?Array<Product>,
+  categories: ?Array<Category>,
+  category: ?string,
+  categoryType: ?string,
+  isLoading: ?boolean,
+};
 
 type State = {
   shownProducts: {[productId: string]: number},
-  viewedItems: number;
-}
+  viewedItems: number,
+};
 
 const mapStateToProps = state => ({categories: state.categories.list});
 
@@ -44,10 +42,6 @@ class ProductsList extends Component {
     viewedItems: 0,
   };
   _willUnmount: boolean = false;
-
-  static defaultProps = {
-    hasBanners: false,
-  };
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll);
@@ -85,20 +79,25 @@ class ProductsList extends Component {
     const props = this.props;
     const categoryName = props.category;
 
-    if (!categoryName) return;
+    if (!categoryName) {
+      return;
+    }
 
     let className = `header-${categoryName}`;
-    let title = "";
-    switch(categoryName) {
-      case "classic":
-        title = "Classic Collection";
+    let title;
+
+    switch (categoryName) {
+      case 'classic':
+        title = 'Classic Collection';
         break;
-      case "modern":
-        title = "Modern Collection";
+      case 'modern':
+        title = 'Modern Collection';
         break;
-      case "all":
-        title = "Entire Collection";
+      case 'all':
+        title = 'Entire Collection';
         break;
+      default:
+        title = '';
     }
 
     if (props.categoryType) {
@@ -182,13 +181,16 @@ class ProductsList extends Component {
       ? this.renderProducts()
       : <div styleName="not-found">No products found.</div>;
 
-    const totalItems = this.props.list ? this.props.list.length : 0;
+    const { isLoading } = props;
 
     return (
       <section styleName="catalog">
         {this.renderHeader()}
-        <div styleName="list" ref={this.handleListRendered}>
-          {items}
+        <div styleName="list-wrapper">
+          {isLoading && <div styleName="loader-fader" />}
+          <div styleName="list" ref={this.handleListRendered}>
+            {items}
+          </div>
         </div>
       </section>
     );
