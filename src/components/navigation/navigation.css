@@ -22,6 +22,12 @@
 }
 
 @media (--large) {
+  .list {
+    & > li:last-child {
+      display: none;
+    }
+  }
+  
   .item {
     &:hover {
       & ul {
