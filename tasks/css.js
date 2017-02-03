@@ -1,3 +1,4 @@
+const cleanCSS = require('gulp-clean-css');
 
 module.exports = function(gulp, $) {
   const src = [
@@ -12,6 +13,12 @@ module.exports = function(gulp, $) {
   gulp.task('css', function() {
     return gulp.src(src)
       .pipe($.concat('app.css'))
+      .pipe(gulp.dest('public'));
+  });
+
+  gulp.task('css-min', function () {
+    return gulp.src('public/app.css')
+      .pipe(cleanCSS({ restructuring: false }))
       .pipe(gulp.dest('public'));
   });
 
