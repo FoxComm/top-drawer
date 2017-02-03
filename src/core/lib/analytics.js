@@ -2,7 +2,7 @@
 import _ from 'lodash';
 import { isGiftCard } from 'paragons/sku';
 import { api as foxApi } from './api';
-import { sha1 } from 'crypto-js/sha1';
+import SHA1 from 'crypto-js/sha1';
 
 export function trackPageView(page, fieldsObject) {
   ga('send', 'pageview', page, fieldsObject);
@@ -40,15 +40,15 @@ function baseProductData(product) {
 }
 
 function productHash(productId) {
-  return sha1(`products/${productId}`).toString();
+  return SHA1(`products/${productId}`).toString();
 }
 
 function cartHash(cartRefNum) {
-  return sha1(`carts/${cartRefNum}`).toString();
+  return SHA1(`carts/${cartRefNum}`).toString();
 }
 
 function orderHash(cartRefNum) {
-  return sha1(`orders/${cartRefNum}`).toString();
+  return SHA1(`orders/${cartRefNum}`).toString();
 }
 
 export function addProduct(product, extraFields = {}) {
