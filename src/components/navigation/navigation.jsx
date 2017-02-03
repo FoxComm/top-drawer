@@ -24,10 +24,8 @@ const staticLinks = [
   { url: '/social', title: '#GetTopDrawer', condition: () => { return true; } },
   { url: '/our-story', title: 'Our Story', condition: () => { return true; } },
   { url: '/profile', title: 'My Account',
-    condition: (props) => {
-      // const user = _.get(props, ['auth', 'jwt'], null);
-      // return !_.isNull(user);
-      const isNotLogged = isGuest(props.auth.user);
+    condition: ({auth}) => {
+      const isNotLogged = isGuest(auth.user);
       return !isNotLogged;
     },
   },

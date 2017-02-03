@@ -23,7 +23,7 @@
 
 @media (--large) {
   .list {
-    & > li:last-child {
+    & > li:nth-child(6) {
       display: none;
     }
   }
