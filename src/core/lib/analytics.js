@@ -2,6 +2,7 @@
 import _ from 'lodash';
 import { isGiftCard } from 'paragons/sku';
 import { api as foxApi } from './api';
+import SHA1 from 'crypto-js/sha1';
 
 export function trackPageView(page, fieldsObject) {
   ga('send', 'pageview', page, fieldsObject);
@@ -38,6 +39,18 @@ function baseProductData(product) {
   };
 }
 
+function productHash(productId) {
+  return SHA1(`products/${productId}`).toString();
+}
+
+function cartHash(cartRefNum) {
+  return SHA1(`carts/${cartRefNum}`).toString();
+}
+
+function orderHash(cartRefNum) {
+  return SHA1(`orders/${cartRefNum}`).toString();
+}
+
 export function addProduct(product, extraFields = {}) {
   const data = {
     ...baseProductData(product),
@@ -53,7 +66,7 @@ export function addImpression(product, position, list = 'Product List') {
     subject: 1,
     verb: 'list',
     obj: 'product',
-    objId: product.id,
+    objId: productHash(product.id),
   });
 
   ga('ec:addImpression', {
@@ -73,7 +86,7 @@ export function viewDetails(product) {
     subject: 1,
     verb: 'pdp',
     obj: 'product',
-    objId: product.id,
+    objId: productHash(product.id),
   });
 
   addProduct(product);
@@ -82,12 +95,13 @@ export function viewDetails(product) {
 }
 
 export function addToCart(product, quantity) {
+  const id = _.get(product, 'id') || _.get(product, 'productFormId');
   foxApi.analytics.trackEvent({
     channel: 1,
     subject: 1,
     verb: 'cart',
     obj: 'product',
-    objId: _.get(product, 'id') || _.get(product, 'productFormId')
+    objId: productHash(id),
   });
 
   addProduct(product, {
@@ -127,7 +141,7 @@ export function checkoutStart(cart) {
     subject: 1,
     verb: 'checkout',
     obj: 'cart',
-    objId: cart.referenceNumber,
+    objId: cartHash(cart.referenceNumber),
   });
   _.map(cart.skus, sku => {
     const productId = _.get(sku, 'productFormId', null);
@@ -136,7 +150,7 @@ export function checkoutStart(cart) {
       subject: 1,
       verb: 'checkout',
       obj: 'product',
-      objId: productId,
+      objId: productHash(productId),
     });
   });
 
@@ -174,7 +188,7 @@ export function purchase(cart) {
     subject: 1,
     verb: 'purchase',
     obj: 'order',
-    objId: cart.referenceNumber,
+    objId: orderHash(cart.referenceNumber),
   });
 
   _.map(cart.skus, sku => {
@@ -184,7 +198,7 @@ export function purchase(cart) {
       subject: 1,
       verb: 'purchase',
       obj: 'product',
-      objId: productId,
+      objId: productHash(productId),
     });
     foxApi.analytics.trackEvent({
       channel: 1,
@@ -192,7 +206,7 @@ export function purchase(cart) {
       verb: 'purchase-quantity',
       obj: 'product',
       count: sku.quantity,
-      objId: productId
+      objId: productHash(productId),
     });
     foxApi.analytics.trackEvent({
       channel: 1,
@@ -200,7 +214,7 @@ export function purchase(cart) {
       verb: 'revenue',
       obj: 'product',
       count: sku.price,
-      objId: productId,
+      objId: productHash(productId),
     });
   });
 

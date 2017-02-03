@@ -76,10 +76,11 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
-    "api-js": "git+ssh://git@github.com/FoxComm/api-js.git#feature/ic-develop",
     "@foxcomm/wings": "^1.8.0",
+    "api-js": "git+ssh://git@github.com/FoxComm/api-js.git#feature/ic-develop",
     "classnames": "^2.2.3",
     "core-decorators": "^0.11.0",
+    "crypto-js": "^3.1.9-1",
     "currency-symbol-map": "^2.2.0",
     "dom-scroll-into-view": "^1.1.0",
     "isomorphic-fetch": "^2.2.1",
