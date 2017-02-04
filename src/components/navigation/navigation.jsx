@@ -8,8 +8,10 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import localized from 'lib/i18n';
 import activeComponent from 'react-router-active-component';
+import { isGuest } from '../../core/paragons/auth.js';
 
 import * as actions from 'modules/categories';
+
 
 // styles
 import styles from './navigation.css';
@@ -22,9 +24,9 @@ const staticLinks = [
   { url: '/social', title: '#GetTopDrawer', condition: () => { return true; } },
   { url: '/our-story', title: 'Our Story', condition: () => { return true; } },
   { url: '/profile', title: 'My Account',
-    condition: (props) => {
-      const user = _.get(props, ['auth', 'jwt'], null);
-      return !_.isNull(user);
+    condition: ({auth}) => {
+      const isNotLogged = isGuest(auth.user);
+      return !isNotLogged;
     },
   },
 ];
