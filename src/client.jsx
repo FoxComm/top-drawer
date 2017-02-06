@@ -39,5 +39,5 @@ export function renderApp() {
         </Router>
       </Provider>
     </I18nProvider>
-  ), document.getElementById('app-entry'));
+  ), document.getElementById('app'));
 }

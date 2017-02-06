@@ -1,4 +1,5 @@
-const cleanCSS = require('gulp-clean-css');
+const cssnano = require('gulp-cssnano');
+const _if = require('gulp-if');
 
 module.exports = function(gulp, $) {
   const src = [
@@ -13,14 +14,10 @@ module.exports = function(gulp, $) {
   gulp.task('css', function() {
     return gulp.src(src)
       .pipe($.concat('app.css'))
+      .pipe(_if(process.env.NODE_ENV === 'production', cssnano()))
       .pipe(gulp.dest('public'));
   });
 
-  gulp.task('css-min', function () {
-    return gulp.src('public/app.css')
-      .pipe(cleanCSS({ restructuring: false }))
-      .pipe(gulp.dest('public'));
-  });
 
   gulp.task('css.watch', function() {
     gulp.watch(src, ['css']);
