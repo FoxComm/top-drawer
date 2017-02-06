@@ -23,12 +23,7 @@ const staticLinks = [
   { url: '/custom', title: 'Custom', condition: () => { return true; } },
   { url: '/social', title: '#GetTopDrawer', condition: () => { return true; } },
   { url: '/our-story', title: 'Our Story', condition: () => { return true; } },
-  { url: '/profile', title: 'My Account',
-    condition: ({auth}) => {
-      const isNotLogged = isGuest(auth.user);
-      return !isNotLogged;
-    },
-  },
+  { url: '/profile', title: 'My Account', condition: ({auth}) => !isGuest(auth.user) },
 ];
 
 const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
