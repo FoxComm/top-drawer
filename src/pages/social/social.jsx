@@ -25,9 +25,7 @@ class Social extends Component {
   get topBanner(): HTMLElement {
     return (
       <div styleName="social-banner">
-        <header styleName="header">
-          <h1 styleName="title">Be You! #GETTOPDRAWER</h1>
-        </header>
+        <h1 styleName="title">#GETTOPDRAWER</h1>
       </div>
     );
   }
@@ -56,4 +54,3 @@ class Social extends Component {
 }
 
 export default Social;
-
