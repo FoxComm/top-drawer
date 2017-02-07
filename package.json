@@ -62,7 +62,6 @@
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.10",
     "imagemin-pngquant": "^4.2.0",
-    "koa-static": "^2.1.0",
     "lost": "^6.7.2",
     "node-gettext": "^1.0.1",
     "node-notifier": "^4.5.0",
