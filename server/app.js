@@ -1,5 +1,4 @@
 import KoaApp from 'koa';
-import serve from 'koa-better-static';
 import renderReact from '../src/server';
 import { makeApiProxy } from './routes/api';
 import { makeElasticProxy } from './routes/elastic';
@@ -11,9 +10,26 @@ import moment from 'moment';
 import chalk from 'chalk';
 import log4js from 'koa-log4';
 import path from 'path';
+import serve from 'koa-better-static';
+
+const isProduction = process.env.NODE_ENV === 'production';
 
 function timestamp() {
   return moment().format('D MMM H:mm:ss');
+}
+
+function test(middleware, fn) {
+  return function *(next) {
+    if (fn(this)) {
+      yield middleware.call(this, next);
+    } else {
+      yield next;
+    }
+  };
+}
+
+function isAppStatic(ctx) {
+  return ctx.path.match(/\/app.*\.(js|css)/);
 }
 
 export default class App extends KoaApp {
@@ -24,7 +40,11 @@ export default class App extends KoaApp {
 
     log4js.configure(path.join(`${__dirname}`, '../log4js.json'));
 
-    this.use(serve('public'))
+    this
+      // serve all static in dev mode through one middleware,
+      // enable the second one to add cache headers to app*.js and app*.css
+      .use(test(serve('public'), ctx => !isProduction || !isAppStatic(ctx)))
+      .use(test(serve('public', { maxage: 31536000 }), ctx => isProduction && isAppStatic(ctx)))
       .use(log4js.koaLogger(log4js.getLogger('http'), { level: 'auto' }))
       .use(makeApiProxy())
       .use(makeElasticProxy())
