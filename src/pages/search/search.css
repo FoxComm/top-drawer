@@ -1,9 +1,5 @@
 @import "media-queries";
 
-.search {
-  margin-top: 80px;
-}
-
 .header {
   display: flex;
   flex-direction: column;
