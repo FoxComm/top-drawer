@@ -83,6 +83,7 @@
     "crypto-js": "^3.1.9-1",
     "currency-symbol-map": "^2.2.0",
     "dom-scroll-into-view": "^1.1.0",
+    "fingerprintjs2": "^1.4.1",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^5.7.0",
     "koa": "^1.1.2",
