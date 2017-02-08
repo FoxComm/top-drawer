@@ -234,21 +234,6 @@ export async function purchase(cart) {
       foxApi.analytics.trackEvent({
         channel: 1,
         subject: browserFingerprint,
-        verb: 'purchase',
-        obj: 'product',
-        objId: productHash(productId),
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: browserFingerprint,
-        verb: 'purchase-quantity',
-        obj: 'product',
-        count: sku.quantity,
-        objId: productHash(productId),
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: browserFingerprint,
         verb: 'revenue',
         obj: 'product',
         count: sku.price,
