@@ -220,42 +220,6 @@ function moneyToString(value) {
 
 export async function purchase(cart) {
   try {
-    const browserFingerprint = await getBrowserFingerprint();
-    foxApi.analytics.trackEvent({
-      channel: 1,
-      subject: browserFingerprint,
-      verb: 'purchase',
-      obj: 'order',
-      objId: orderHash(cart.referenceNumber),
-    });
-
-    _.map(cart.skus, sku => {
-      const productId = _.get(sku, 'productFormId', null);
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: browserFingerprint,
-        verb: 'purchase',
-        obj: 'product',
-        objId: productHash(productId),
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: browserFingerprint,
-        verb: 'purchase-quantity',
-        obj: 'product',
-        count: sku.quantity,
-        objId: productHash(productId),
-      });
-      foxApi.analytics.trackEvent({
-        channel: 1,
-        subject: browserFingerprint,
-        verb: 'revenue',
-        obj: 'product',
-        count: sku.price,
-        objId: productHash(productId),
-      });
-    });
-
     addLineItems(cart.lineItems);
     const giftCardAmount = _.get(_.find(cart.paymentMethods, {type: 'giftCard'}), 'amount', 0);
     const grandTotal = cart.totals.total - giftCardAmount;
