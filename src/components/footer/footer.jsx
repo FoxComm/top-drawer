@@ -4,6 +4,7 @@
 import React from 'react';
 
 // components
+import { Link } from 'react-router';
 import NewsletterForm from '../newsletter/newsletter-form';
 import NewsletterBanner from '../newsletter/newsletter-banner';
 
@@ -36,9 +37,9 @@ const Footer = () : HTMLElement => {
         </div>
         <div styleName="links">
           <ul>
-            <li><a href="/terms">Terms of Use</a></li>
-            <li><a href="/privacy">Privacy Policy</a></li>
-            <li><a href="/shipping-and-returns">Shipping & Returns</a></li>
+            <li><Link to="/terms">Terms of Use</Link></li>
+            <li><Link to="/privacy">Privacy Policy</Link></li>
+            <li><Link to="/shipping-and-returns">Shipping & Returns</Link></li>
           </ul>
         </div>
         <div styleName="copyright">

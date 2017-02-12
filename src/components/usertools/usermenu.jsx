@@ -7,8 +7,9 @@ import type { HTMLElement } from 'types';
 import { toggleUserMenu } from 'modules/usermenu';
 import { logout } from 'modules/auth';
 import localized from 'lib/i18n';
-
 import styles from './usertools.css';
+
+import { Link } from 'react-router';
 
 import { fetch as fetchCart } from 'modules/cart';
 
@@ -45,17 +46,17 @@ class UserMenu extends Component {
     return (
       <ul styleName="menu">
         <li>
-          <a 
+          <Link
             styleName="menu-link"
-            href="/profile"
-            >{t('My Account')}</a>
+            to="/profile"
+            >{t('My Account')}</Link>
         </li>
         <li>
-          <a
+          <Link
             styleName="menu-link"
-            href="/logout"
+            to="/logout"
             onClick={this.handleLogout}
-          >{t('Log Out')}</a>
+          >{t('Log Out')}</Link>
         </li>
       </ul>
     );
