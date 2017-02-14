@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import { assetsUrl } from 'lib/env';
 
 import TextBanner from '../../components/banner/text-banner';
 import styles from './our-story.css';
@@ -27,8 +28,8 @@ class OurStory extends Component {
             <TextBanner header="Be Bold">
               <p>
                 Too much of life is mundane, especially men's clothes.
-                Top Drawer wants to spice it up with the details.  Keep that classy 
-                polished look you love as a professional, but stand out and be you 
+                Top Drawer wants to spice it up with the details.  Keep that classy
+                polished look you love as a professional, but stand out and be you
                 with those bold colors and distinct patterns.
               </p>
             </TextBanner>
@@ -43,7 +44,7 @@ class OurStory extends Component {
       <div styleName="trusted-manufacturer">
         <div styleName="wrap">
           <TextBanner header="Trusted Manufacturer">
-            We personally work closely with our partner to ensure there 
+            We personally work closely with our partner to ensure there
             is no compromise to quality even across seas.
           </TextBanner>
         </div>
@@ -57,38 +58,38 @@ class OurStory extends Component {
         <div styleName="the-details-row">
           <h2 styleName="td-header">
             Yes. We're neurotic about the details.
-          </h2>        
+          </h2>
         </div>
         <div styleName="the-details-row" styleName="second-row">
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/combed-cotton.svg" />
+            <img styleName="tdc-icon" src={assetsUrl('/images/our-story/combed-cotton.svg')} />
             <h3 styleName="tdc-header">Combed Cotton</h3>
             <p styleName="tdc-description">
-              Done for higher quality fibers to filter out any short 
-              length fibers for a smooth soft feel. 
+              Done for higher quality fibers to filter out any short
+              length fibers for a smooth soft feel.
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/200-needle.svg" />
+            <img styleName="tdc-icon" src={assetsUrl('/images/our-story/200-needle.svg')} />
             <h3 styleName="tdc-header">200 Needle</h3>
             <p styleName="tdc-description">
-              200 N socks are like 1000 thread count bed sheets. 
+              200 N socks are like 1000 thread count bed sheets.
               This allows the seamless feel and high resolution view of patterns.
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/smooth-seam.svg" />
+            <img styleName="tdc-icon" src={assetsUrl('/images/our-story/smooth-seam.svg')} />
             <h3 styleName="tdc-header">Smooth Toe Seem</h3>
             <p styleName="tdc-description">
-              Our socks are hand-linked so you don’t have that itchy uncomfortable 
-              seam running along your toes. This reinforces the smoothness and comfort of the sock.            
+              Our socks are hand-linked so you don’t have that itchy uncomfortable
+              seam running along your toes. This reinforces the smoothness and comfort of the sock.
             </p>
           </div>
           <div styleName="the-details-column">
-            <img styleName="tdc-icon" src="images/our-story/reinforced-heal-toe.svg" />
+            <img styleName="tdc-icon" src={assetsUrl('/images/our-story/reinforced-heal-toe.svg')} />
             <h3 styleName="tdc-header">Reinforced Heel and Toe</h3>
             <p styleName="tdc-description">
-              This way your socks last longer, fit better, and cushion your feet better in whatever 
+              This way your socks last longer, fit better, and cushion your feet better in whatever
               shoes you choose to wear.
             </p>
           </div>

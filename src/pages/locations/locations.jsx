@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import type { HTMLElement } from 'types';
+import { assetsUrl } from 'lib/env';
 
 import styles from './locations.css';
 
@@ -76,7 +77,7 @@ class Locations extends Component {
       return (
         <li styleName="list__item" key={i}>
         <span styleName="image">
-          <img src={`./images/locations/${location.image}`} alt={location.title} />
+          <img src={assetsUrl(`/images/locations/${location.image}`)} alt={location.title} />
         </span>
         <span styleName="address">
           <h2 styleName="subtitle">{location.title}</h2>

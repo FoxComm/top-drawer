@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import React from 'react';
-import { Router, browserHistory, applyRouterMiddleware } from 'react-router';
+import { Router, applyRouterMiddleware } from 'react-router';
+import { browserHistory } from 'lib/history';
+
 import useScroll from 'react-router-scroll';
 import { Provider } from 'react-redux';
 import { render } from 'react-dom';
@@ -34,7 +36,7 @@ export function renderApp() {
   render((
     <I18nProvider locale={language} translation={translation}>
       <Provider store={store} key="provider">
-        <Router history={browserHistory} render={applyRouterMiddleware(useScroll())}>
+        <Router history={history} render={applyRouterMiddleware(useScroll())}>
           {routes}
         </Router>
       </Provider>

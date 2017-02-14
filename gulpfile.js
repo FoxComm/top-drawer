@@ -4,7 +4,7 @@ const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
 const gulp = require('gulp');
-const runSequence = require('run-sequence');
+const runSequence = require('run-sequence').use(gulp);
 const $ = require('gulp-load-plugins')();
 const opts = require('./config/gulp');
 const rev = require('gulp-rev');
@@ -27,7 +27,7 @@ gulp.task('build', function(cb) {
 
   if (process.env.NODE_ENV === 'production') {
     tasks = [
-      'build:clean',
+      'build.clean',
       ...buildTasks,
       'rev',
       'sitemap',
@@ -37,8 +37,8 @@ gulp.task('build', function(cb) {
   runSequence.apply(this, tasks.concat(cb));
 });
 
-gulp.task('build:clean', function() {
-  return del(['build', 'public/{*.js,*.css,fonts,images}']);
+gulp.task('build.clean', function() {
+  return del(['build', 'public/{*.js,*.css,images}']);
 });
 
 gulp.task('rev', function () {
