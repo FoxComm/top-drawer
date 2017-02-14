@@ -108,6 +108,7 @@
     "react-router-active-component": "^4.0.0",
     "react-router-redux": "^3.0.0",
     "react-router-scroll": "^0.2.0",
+    "react-router-sitemap": "github:nitinan59/react-router-sitemap#2680a01b6fef016bd55b082d63bbd8fcf232d8c9",
     "react-text-mask": "^0.19.0",
     "recast": "^0.11.4",
     "reduce-reducers": "^0.1.2",

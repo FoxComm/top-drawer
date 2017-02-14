@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import localized from 'lib/i18n';
 import activeComponent from 'react-router-active-component';
 import { isGuest } from '../../core/paragons/auth.js';
+import { convertCategoryNameToUrlPart } from 'modules/categories';
 
 import * as actions from 'modules/categories';
 
@@ -27,10 +28,6 @@ const staticLinks = [
 ];
 
 const NavLink = activeComponent('li', { linkClassName: styles['item-link'] });
-
-function toDashedName(name = '') {
-  return name.replace(/\s/g, '-');
-}
 
 class Navigation extends React.Component {
 
@@ -74,7 +71,7 @@ class Navigation extends React.Component {
             linkProps={{ onClick: this.props.onClick }}
             styleName="item"
             activeClassName={styles['item-active']}
-            key={`${i}-${toDashedName(title)}`}
+            key={`${i}-${convertCategoryNameToUrlPart(title)}`}
           >
             {title}
           </NavLink>
@@ -87,11 +84,11 @@ class Navigation extends React.Component {
   renderSubItems(subItems) {
     return subItems.map(({ name, navName }, i) => (
       <NavLink
-        to={`/${toDashedName(name)}`}
+        to={`/${convertCategoryNameToUrlPart(name)}`}
         linkProps={{ onClick: this.props.onClick }}
         styleName="item"
         activeClassName={styles['item-active']}
-        key={`${i}-${toDashedName(name)}`}
+        key={`${i}-${convertCategoryNameToUrlPart(name)}`}
       >
         {navName}
       </NavLink>
@@ -106,7 +103,7 @@ class Navigation extends React.Component {
         return null;
       }
 
-      const dashedName = toDashedName(item.name);
+      const dashedName = convertCategoryNameToUrlPart(item.name);
       const key = `category-${dashedName}`;
       const subItems = this.renderSubItems(item.subItems);
 
