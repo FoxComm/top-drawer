@@ -2,6 +2,8 @@
 @import 'variables.css';
 @import 'colors.css';
 @import 'ui/css/links.css';
+@import 'shared.css';
+
 
 .link {
   composes: link from 'ui/css/links.css';
@@ -130,14 +132,7 @@
   background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Home_February/Spools.jpg');
 
   &:before {
-    display: block;
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.18);
+    @apply --bg-overlay;
   }
 }
 
@@ -155,14 +150,7 @@
     position: relative;
 
     &:before {
-      display: block;
-      content: "";
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      background: rgba(0, 0, 0, 0.18);
+      @apply --bg-overlay;
     }
   }
 
@@ -295,7 +283,6 @@
   .subscribe-banner,
   .custom-socks-banner {
     & a {
-      @apply --btn-blueviolet;
       width: 152px;
     }
   }
