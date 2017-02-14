@@ -26,6 +26,7 @@ const plugins = [
     path: ['src/css', 'node_modules'],
   }),
   require('postcss-css-variables'),
+  require('postcss-apply'),
   require('lost')({
     flexbox: 'flex',
     gutter: '2.4%',
@@ -39,6 +40,7 @@ const plugins = [
   require('postcss-cssnext')({
     features: {
       customProperties: false,
+      applyRule: false,
     },
   }),
 ];

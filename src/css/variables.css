@@ -7,6 +7,11 @@
   --cart-header-height: 60px;
   --cart-gap: 20px;
   --font-main: 'Helvetica Neue', Helvetica, Verdana, sans-serif;
+
+  --btn-blueviolet: {
+    color: white;
+    background-color: blueviolet;
+  };
 }
 
 @media (--small-only) {

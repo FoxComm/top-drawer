@@ -295,6 +295,7 @@
   .subscribe-banner,
   .custom-socks-banner {
     & a {
+      @apply --btn-blueviolet;
       width: 152px;
     }
   }
