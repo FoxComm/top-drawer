@@ -4,7 +4,9 @@ import React from 'react';
 import { findDOMNode } from 'react-dom';
 import type { HTMLElement } from 'types';
 import styles from './list-item.css';
-import { browserHistory } from 'react-router';
+
+import { browserHistory } from 'lib/history';
+
 import _ from 'lodash';
 import * as tracking from 'lib/analytics';
 
