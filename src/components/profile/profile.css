@@ -35,6 +35,10 @@
   }
 }
 
+.actions-block {
+  color: #8D757A;
+}
+
 .subtitle {
   font-family: var(--font-main);
   font-weight: 500;
@@ -122,7 +126,7 @@
 }
 
 .payment-icon {
-  compose: payment-icon from '../../pages/checkout/checkout.css';
+  composes: payment-icon from '../../pages/checkout/03-billing/view-billing.css';
 }
 
 .payment-method {
