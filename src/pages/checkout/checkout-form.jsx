@@ -2,6 +2,7 @@
 
 // libs
 import React, { Component } from 'react';
+import sanitizeAll from 'sanitizers';
 
 // components
 import { Form } from 'ui/forms';
@@ -19,6 +20,7 @@ type Props = {
   children?: any,
   buttonLabel?: ?string,
   inProgress?: boolean,
+  sanitizeError?: (error: string) => string,
 };
 
 class CheckoutForm extends Component {
@@ -53,11 +55,16 @@ class CheckoutForm extends Component {
 
   render() {
     const { props } = this;
+    const { sanitizeError = sanitizeAll } = props;
+
     return (
       <Form onSubmit={props.submit} styleName="root">
         {this.header}
         {props.children}
-        <ErrorAlerts error={props.error} />
+        <ErrorAlerts
+          sanitizeError={sanitizeError}
+          error={props.error}
+        />
         <div styleName="button-wrap">
           <Button styleName="checkout-submit" type="submit" isLoading={props.inProgress}>{this.buttonLabel}</Button>
         </div>

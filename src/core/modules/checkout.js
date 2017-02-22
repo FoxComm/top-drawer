@@ -64,10 +64,9 @@ export const fetchShippingMethods = shippingMethodsActions.fetch;
 export const fetchCreditCards = creditCardsActions.fetch;
 export const fetchAddresses = _fetchAddresses.fetch;
 
-export function stripPhoneNumber(phoneNumber) {
+export function stripPhoneNumber(phoneNumber: string): string {
   return phoneNumber.replace(/[^\d]/g, '');
 }
-
 
 function addressToPayload(address) {
   const payload = _.pick(address, [
