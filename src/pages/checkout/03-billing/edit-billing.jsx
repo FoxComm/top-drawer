@@ -217,6 +217,7 @@ class EditBilling extends Component {
 
   @autobind
   cancelEditing() {
+    this.props.resetBillingData();
     this.props.clearAddCreditCardErrors();
     this.props.clearUpdateCreditCardErrors();
     this.setState({
