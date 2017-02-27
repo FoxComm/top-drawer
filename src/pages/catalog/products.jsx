@@ -5,7 +5,7 @@ import type { HTMLElement } from 'types';
 import type { Product } from 'modules/products';
 import { connect } from 'react-redux';
 
-import ProductsList from '../../components/products-list/products-list';
+import ProductsList, { LoadingBehaviors } from '../../components/products-list/products-list';
 
 import styles from './products.css';
 
@@ -102,6 +102,7 @@ class Products extends Component {
         <ProductsList
           list={this.props.list}
           isLoading={this.props.isLoading}
+          loadingBehavior={LoadingBehaviors.ShowWrapper}
         />
       </section>
     );

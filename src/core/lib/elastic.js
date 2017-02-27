@@ -8,7 +8,7 @@ export type TermFilter = {
   },
 };
 
-export type MatchQuery = {
+export type MatchFilter = {
   match: {
     _all: {
       query: string,
@@ -18,11 +18,13 @@ export type MatchQuery = {
   },
 };
 
-export type BoolFilter = {
+export type BoolQuery = {
   query: {
     bool: {
+      // filter clauses are like must clauses except that they do not contribute to the score
       filter: Array<TermFilter>,
-      must?: Array<MatchQuery>,
+      must?: Array<MatchFilter | TermFilter>,
+      must_not?: Array<MatchFilter | TermFilter>,
     },
   },
 };
@@ -35,7 +37,7 @@ export function termFilter(term: string, value: any): TermFilter {
   };
 }
 
-export function defaultSearch(context: string): BoolFilter {
+export function defaultSearch(context: string): BoolQuery {
   return {
     query: {
       bool: {
@@ -45,13 +47,26 @@ export function defaultSearch(context: string): BoolFilter {
   };
 }
 
-export function addTermFilter(filter: BoolFilter, term: TermFilter): BoolFilter {
-  const existingFilters = filter.query.bool.filter;
-  return assoc(filter, ['query', 'bool', 'filter'], [...existingFilters, term]);
+export function addTermFilter(initialQuery: BoolQuery, term: TermFilter): BoolQuery {
+  return assoc(initialQuery,
+    ['query', 'bool', 'filter'], [...initialQuery.query.bool.filter, term]
+  );
 }
 
-export function addMatchQuery(filter: BoolFilter, searchString: string): BoolFilter {
-  const matchQuery = {
+export function addMustFilter(initialQuery: BoolQuery, filter: MatchFilter | TermFilter): BoolQuery {
+  return assoc(initialQuery,
+    ['query', 'bool', 'must'], [...initialQuery.query.bool.must || [], filter]
+  );
+}
+
+export function addMustNotFilter(initialQuery: BoolQuery, filter: MatchFilter | TermFilter): BoolQuery {
+  return assoc(initialQuery,
+    ['query', 'bool', 'must_not'], [...initialQuery.query.bool.must_not || [], filter]
+  );
+}
+
+export function addMatchQuery(query: BoolQuery, searchString: string): BoolQuery {
+  const matchFilter = {
     match: {
       _all: {
         query: searchString,
@@ -61,6 +76,5 @@ export function addMatchQuery(filter: BoolFilter, searchString: string): BoolFil
     },
   };
 
-  const matchQueries = filter.query.bool.must || [];
-  return assoc(filter, ['query', 'bool', 'must'], [...matchQueries, matchQuery]);
+  return addMustFilter(query, matchFilter);
 }

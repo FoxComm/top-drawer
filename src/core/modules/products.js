@@ -28,6 +28,10 @@ function apiCall(tag: ?string): global.Promise {
 
 const {fetch, ...actions} = createAsyncActions('products', apiCall);
 
+const initialState = {
+  list: [],
+};
+
 const reducer = createReducer({
   [actions.succeeded]: (state, payload) => {
     const result = _.isEmpty(payload.result) ? [] : payload.result;
@@ -36,7 +40,7 @@ const reducer = createReducer({
       list: result,
     };
   },
-}, {list: []});
+}, initialState);
 
 export {
   reducer as default,
