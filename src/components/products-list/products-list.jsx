@@ -2,29 +2,20 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import type { HTMLElement } from 'types';
-import type { Product } from 'modules/products';
-import { connect } from 'react-redux';
 import { autobind, debounce } from 'core-decorators';
 import { isElementInViewport } from 'lib/dom-utils';
 import * as tracking from 'lib/analytics';
+
+// types
+import type { HTMLElement } from 'types';
+import type { Product } from 'modules/products';
 
 import styles from './products-list.css';
 
 import ListItem from '../products-item/list-item';
 
-type Category = {
-  name: string;
-  id: number;
-  description: string;
-};
-
 type ProductsListParams = {
   list: ?Array<Product>,
-  categories: ?Array<Category>,
-  category: ?string,
-  categoryType: ?string,
   isLoading: ?boolean,
 };
 
@@ -32,8 +23,6 @@ type State = {
   shownProducts: {[productId: string]: number},
   viewedItems: number,
 };
-
-const mapStateToProps = state => ({categories: state.categories.list});
 
 class ProductsList extends Component {
   props: ProductsListParams;
@@ -57,59 +46,6 @@ class ProductsList extends Component {
   handleScroll() {
     if (this._willUnmount) return;
     this.trackProductView();
-  }
-
-  countViewedItems = () => {
-    let viewedItems = 0;
-
-    for (const item in this.refs) {
-      if (this.refs.hasOwnProperty(item)) {
-        const product = this.refs[item];
-        const productRect = findDOMNode(product).getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (productRect.bottom < windowHeight) viewedItems++;
-      }
-    }
-
-    this.setState({viewedItems});
-  };
-
-  renderHeader() {
-    const props = this.props;
-    const categoryName = props.category;
-
-    if (!categoryName) {
-      return;
-    }
-
-    let className = `header-${categoryName}`;
-    let title;
-
-    switch (categoryName) {
-      case 'classic':
-        title = 'Classic Collection';
-        break;
-      case 'modern':
-        title = 'Modern Collection';
-        break;
-      case 'all':
-        title = 'Entire Collection';
-        break;
-      default:
-        title = '';
-    }
-
-    if (props.categoryType) {
-      className = `${className}-${props.categoryType}`;
-      title = `${props.categoryType}'s ${title}`;
-    }
-
-    return (
-      <header styleName={className}>
-        <h1 styleName="title">{title}</h1>
-      </header>
-    );
   }
 
   renderProducts() {
@@ -184,17 +120,14 @@ class ProductsList extends Component {
     const { isLoading } = props;
 
     return (
-      <section styleName="catalog">
-        {this.renderHeader()}
-        <div styleName="list-wrapper">
-          {isLoading && <div styleName="loader-fader" />}
-          <div styleName="list" ref={this.handleListRendered}>
-            {items}
-          </div>
+      <div styleName="list-wrapper">
+        {isLoading && <div styleName="loader-fader" />}
+        <div styleName="list" ref={this.handleListRendered}>
+          {items}
         </div>
-      </section>
+      </div>
     );
   }
 }
 
-export default connect(mapStateToProps, {})(ProductsList);
+export default ProductsList;

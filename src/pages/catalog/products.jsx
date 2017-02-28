@@ -12,14 +12,15 @@ import styles from './products.css';
 import * as actions from 'modules/products';
 
 type Params = {
-  categoryName: ?string;
+  categoryName: ?string,
 }
 
-type ProductListParams = {
-  params: Params;
-  list: Array<Product>;
-  isLoading: boolean;
-  fetch: Function;
+type Props = {
+  params: Params,
+  list: Array<Product>,
+  isLoading: boolean,
+  fetch: Function,
+  location: Object,
 }
 
 const mapStateToProps = state => {
@@ -32,13 +33,14 @@ const mapStateToProps = state => {
 };
 
 class Products extends Component {
+  props: Props;
 
   componentWillMount() {
     const { categoryName } = this.props.params;
     this.props.fetch(categoryName);
   }
 
-  componentWillReceiveProps(nextProps: ProductListParams) {
+  componentWillReceiveProps(nextProps: Props) {
     const { categoryName } = this.props.params;
     const nextName = nextProps.params.categoryName;
     if (categoryName !== nextName) {
@@ -51,14 +53,57 @@ class Products extends Component {
     return isNaN(id) ? null : id;
   }
 
+  categoryType(props: Props): ?string {
+    return props.location.query.type;
+  }
+
+  renderHeader() {
+    const props = this.props;
+    const { categoryName } = props.params;
+    const categoryType = this.categoryType(props);
+
+    if (!categoryName) {
+      return;
+    }
+
+    let styleName = `header-${categoryName}`;
+    let title;
+
+    switch (categoryName) {
+      case 'classic':
+        title = 'Classic Collection';
+        break;
+      case 'modern':
+        title = 'Modern Collection';
+        break;
+      case 'all':
+        title = 'Entire Collection';
+        break;
+      default:
+        title = '';
+    }
+
+    if (categoryType) {
+      styleName = `${styleName}-${categoryType}`;
+      title = `${categoryType}'s ${title}`;
+    }
+
+    return (
+      <header styleName={styleName}>
+        <h1 styleName="title">{title}</h1>
+      </header>
+    );
+  }
+
   render(): HTMLElement {
     return (
-      <ProductsList
-        list={this.props.list}
-        category={this.props.params.categoryName}
-        categoryType={this.props.location.query.type}
-        isLoading={this.props.isLoading}
-      />
+      <section styleName="catalog">
+        {this.renderHeader()}
+        <ProductsList
+          list={this.props.list}
+          isLoading={this.props.isLoading}
+        />
+      </section>
     );
   }
 }
