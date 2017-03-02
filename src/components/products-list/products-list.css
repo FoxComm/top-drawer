@@ -1,17 +1,23 @@
-@import "variables";
-@import "media-queries";
-@import "colors";
+@import "variables.css";
+@import "media-queries.css";
+@import "colors.css";
 
 .list-wrapper {
   position: relative;
 }
 
-.loader-fader {
+.loading-wrapper {
   background: rgba(235, 234, 234, 0.5);
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+.loader {
+  position: fixed;
+  width: 100%;
+  top: 120px;
 }
 
 .list {
@@ -29,54 +35,11 @@
   }
 }
 
-.header {
-  margin-bottom: 40px;
-  display: flex;
-  align-items: center;
-  height: 213px;
-  background-position: 14% 100%;
-  background-color: #FFFFFF;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.title {
-  padding-left: var(--grid-margin);
-  padding-right: var(--grid-margin);
-  font-weight: 600;
-  font-family: var(--font-main);
-  color: var(--bunker);
-  max-width: 50%;
-  text-align: center;
-  font-size: 16px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
 .description {
   font-size: 27px;
   font-family: var(--font-main);
   color: var(--bunker);
 }
-
-.header-classic,
-.header-modern,
-.header-all {
-  composes: header;
-}
-
-.header-classic {
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Classic_Collection_New_Hero_2x.jpg');
-}
-
-.header-modern {
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/Modern_Collection_Hero_New_2x.jpg');
-}
-
-.header-all {
-  background-image: url('https://s3-us-west-1.amazonaws.com/fc-td-storefront/images/Categories/All_Collections_Hero_New_2x.jpg');
-}
-
 
 .not-found {
   text-transform: uppercase;
@@ -88,17 +51,5 @@
 @media (--medium) {
   .list {
     margin-bottom: 60px;
-  }
-}
-
-@media (--large) {
-  .header {
-    height: 400px;
-    background-position: 50% 100%;
-  }
-
-  .title {
-    font-size: 30px;
-    letter-spacing: 1px;
   }
 }

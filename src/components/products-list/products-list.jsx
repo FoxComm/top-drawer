@@ -2,10 +2,6 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
-import type { HTMLElement } from 'types';
-import type { Product } from 'modules/products';
-import { connect } from 'react-redux';
 import { autobind, debounce } from 'core-decorators';
 import { isElementInViewport } from 'lib/dom-utils';
 import * as tracking from 'lib/analytics';
@@ -13,18 +9,21 @@ import * as tracking from 'lib/analytics';
 import styles from './products-list.css';
 
 import ListItem from '../products-item/list-item';
+import Loader from 'ui/loader';
 
-type Category = {
-  name: string;
-  id: number;
-  description: string;
+// types
+import type { HTMLElement } from 'types';
+import type { Product } from 'modules/products';
+
+
+export const LoadingBehaviors = {
+  ShowLoader: 0,
+  ShowWrapper: 1,
 };
 
-type ProductsListParams = {
+type Props = {
+  loadingBehavior?: 0|1,
   list: ?Array<Product>,
-  categories: ?Array<Category>,
-  category: ?string,
-  categoryType: ?string,
   isLoading: ?boolean,
 };
 
@@ -33,10 +32,8 @@ type State = {
   viewedItems: number,
 };
 
-const mapStateToProps = state => ({categories: state.categories.list});
-
 class ProductsList extends Component {
-  props: ProductsListParams;
+  props: Props;
   state: State = {
     shownProducts: {},
     viewedItems: 0,
@@ -57,59 +54,6 @@ class ProductsList extends Component {
   handleScroll() {
     if (this._willUnmount) return;
     this.trackProductView();
-  }
-
-  countViewedItems = () => {
-    let viewedItems = 0;
-
-    for (const item in this.refs) {
-      if (this.refs.hasOwnProperty(item)) {
-        const product = this.refs[item];
-        const productRect = findDOMNode(product).getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (productRect.bottom < windowHeight) viewedItems++;
-      }
-    }
-
-    this.setState({viewedItems});
-  };
-
-  renderHeader() {
-    const props = this.props;
-    const categoryName = props.category;
-
-    if (!categoryName) {
-      return;
-    }
-
-    let className = `header-${categoryName}`;
-    let title;
-
-    switch (categoryName) {
-      case 'classic':
-        title = 'Classic Collection';
-        break;
-      case 'modern':
-        title = 'Modern Collection';
-        break;
-      case 'all':
-        title = 'Entire Collection';
-        break;
-      default:
-        title = '';
-    }
-
-    if (props.categoryType) {
-      className = `${className}-${props.categoryType}`;
-      title = `${props.categoryType}'s ${title}`;
-    }
-
-    return (
-      <header styleName={className}>
-        <h1 styleName="title">{title}</h1>
-      </header>
-    );
   }
 
   renderProducts() {
@@ -175,26 +119,37 @@ class ProductsList extends Component {
     }, 250);
   }
 
+  get loadingWrapper(): ?HTMLElement {
+    if (this.props.isLoading) {
+      return (
+        <div styleName="loading-wrapper">
+          <div styleName="loader">
+            <Loader/>
+          </div>
+        </div>
+      );
+    }
+  }
+
   render() : HTMLElement {
-    const props = this.props;
+    const { props } = this;
+    const { loadingBehavior = LoadingBehaviors.ShowLoader } = props;
+    if (loadingBehavior == LoadingBehaviors.ShowLoader && props.isLoading) {
+      return <Loader/>;
+    }
     const items = props.list && props.list.length > 0
       ? this.renderProducts()
       : <div styleName="not-found">No products found.</div>;
 
-    const { isLoading } = props;
-
     return (
-      <section styleName="catalog">
-        {this.renderHeader()}
-        <div styleName="list-wrapper">
-          {isLoading && <div styleName="loader-fader" />}
-          <div styleName="list" ref={this.handleListRendered}>
-            {items}
-          </div>
+      <div styleName="list-wrapper">
+        {this.loadingWrapper}
+        <div styleName="list" ref={this.handleListRendered}>
+          {items}
         </div>
-      </section>
+      </div>
     );
   }
 }
 
-export default connect(mapStateToProps, {})(ProductsList);
+export default ProductsList;

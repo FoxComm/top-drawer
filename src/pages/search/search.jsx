@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import type { HTMLElement } from 'types';
+import type { AsyncStatus } from 'types/async-actions';
 import type { Product } from 'modules/products';
 import styles from './search.css';
 
@@ -12,7 +13,8 @@ import type { Localized } from 'lib/i18n';
 
 import ProductsList from '../../components/products-list/products-list';
 
-import { setTerm, fetch } from 'modules/search';
+// actions
+import { searchProducts } from 'modules/search';
 
 type SearchParams = {
   term: string;
@@ -25,33 +27,43 @@ type SearchResult = {
   result: Array<Product>|Object,
 };
 
-type SearchProps = Localized & {
-  term: string;
-  results: SearchResult;
-  params: SearchParams;
-  setTerm: Function;
-  fetch: Function;
+type Props = Localized & {
+  term: string,
+  results: SearchResult,
+  params: SearchParams,
+  force: boolean,
+  searchProducts: (term: string) => Promise,
+  searchState: AsyncStatus,
+};
+
+function mapStateToProps(state): Object {
+  return {
+    ...state.search,
+    searchState: _.get(state.asyncActions, 'search', {}),
+  };
 }
 
 class Search extends Component {
-  props: SearchProps;
+  props: Props;
 
   componentWillMount() {
-    if (this.props.term != this.props.params.term) {
-      this.props.setTerm(this.props.params.term);
-    } else {
-      this.props.fetch(this.props.term);
+    this.search(this.props);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    if (this.props.params.term != nextProps.params.term || nextProps.force) {
+      this.search(nextProps);
     }
   }
 
-  componentWillReceiveProps(nextProps: SearchProps) {
-    if (this.props.term !== nextProps.term) {
-      this.props.fetch(nextProps.term);
-    }
+  search(props: Props) {
+    props.searchProducts(props.params.term);
   }
 
   render(): HTMLElement {
-    const { term, results, t } = this.props;
+    const { params, results, t } = this.props;
+    const { term } = params;
+
     const result = _.isEmpty(results.result) ? [] : results.result;
 
     return (
@@ -61,17 +73,17 @@ class Search extends Component {
           <p styleName="term">{result.length} results for "{term}"</p>
         </header>
         <div styleName="result-list">
-          <ProductsList list={result}/>
+          <ProductsList
+            list={result}
+            isLoading={this.props.searchState.inProgress !== false}
+          />
         </div>
       </section>
     );
   }
 }
 
-function mapState({ search }: any): Object {
-  return {
-    ...search,
-  };
-}
-
-export default connect(mapState, { setTerm, fetch })(localized(Search));
+export default _.flowRight(
+  connect(mapStateToProps, {searchProducts}),
+  localized
+)(Search);
