@@ -2,18 +2,35 @@ node_modules/
 public/app.css
 public/app.js
 public_key.pem
-build/
 
 # Logs
 logs
 *.log
 
-# IDE
-*.idea
+# IDEs
+.idea
+.iml
+
+# precompiled sources
+/lib
+
+/node_modules
+migration-tool/node_modules
+
+# Users Environment Variables & settings
+.lock-wscript
+.env
+/.gulprc
+
+.DS_Store
+.#*
+
+# Vim
+*.swp
 *.iml
 
 # Environment
 .env
 .env.local
 
-build
+/build
