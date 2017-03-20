@@ -102,6 +102,7 @@
     "lodash.flatmap": "^4.2.0",
     "marked": "^0.3.6",
     "moment": "^2.15.2",
+    "postcss-url": "^5.1.2",
     "react": "^15.2.0",
     "react-addons-css-transition-group": "^15.3.2",
     "react-dom": "^15.2.0",
