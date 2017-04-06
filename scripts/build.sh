@@ -23,14 +23,11 @@ echo "--- Downloading wings"
 git clone $WINGS_REPO && cd wings && sudo npm link
 cd $BUILDKITE_BUILD_CHECKOUT_PATH
 
-# Link dependencies
-echo "--- Linking dependencies"
-sudo npm link @foxcomm/api-js
-sudo npm link @foxcomm/wings
-
 # Build
 echo "--- Building"
 yarn --pure-lockfile
+sudo npm link @foxcomm/api-js
+sudo npm link @foxcomm/wings
 ./node_modules/.bin/gulp build
 
 # Final
