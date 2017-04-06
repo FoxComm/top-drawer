@@ -4,9 +4,12 @@ set -ue
 
 # Cleanup dependencies
 echo "--- Cleanup"
-cd ../../
+cd ../
+echo "Cleaning up api-js..."
 sudo rm -rf api-js
+echo "Cleaning up wings..."
 sudo rm -rf wings
+echo "Done."
 
 # Link api-js dependency
 echo "--- Linking api-js"
