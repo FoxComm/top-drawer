@@ -3,13 +3,13 @@
 set -ue
 
 # Cleanup dependencies
-@echo "---Cleanup"
+echo "---Cleanup"
 cd ../../
 rm -rf api-js
 rm -rf wings
 
 # Link api-js dependency
-@echo "---Linking api-js"
+echo "---Linking api-js"
 git clone git@github.com:FoxComm/api-js.git
 cd api-js
 npm link
@@ -17,7 +17,7 @@ cd ../top-drawer
 npm link @foxcomm/api-js
 
 # Link wings dependency
-@echo "---Linking wings"
+echo "---Linking wings"
 cd ../
 git clone git@github.com:FoxComm/wings.git
 cd wings
@@ -26,10 +26,10 @@ cd ../top-drawer
 npm link @foxcomm/wings
 
 # Build
-@echo "---Building"
+echo "---Building"
 cd top-drawer
 make build
 
 # Final
-@echo "---Finale"
-@echo ${BUILDKITE_BRANCH}-stage
+echo "---Finale"
+echo ${BUILDKITE_BRANCH}-stage
