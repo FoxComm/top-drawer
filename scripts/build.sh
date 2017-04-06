@@ -30,7 +30,7 @@ sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-yarn --prefer-offline
+yarn
 ./node_modules/.bin/gulp build
 
 # Final
