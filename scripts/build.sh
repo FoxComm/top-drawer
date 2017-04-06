@@ -30,7 +30,7 @@ sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-ll node_modules/@foxcomm
+ls -l node_modules/@foxcomm
 yarn --pure-lockfile
 ./node_modules/.bin/gulp build
 
