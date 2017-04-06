@@ -14,12 +14,12 @@ sudo rm -rf wings
 echo "Done."
 
 # Mark api-js dependency
-echo "--- Cloning api-js"
+echo "--- Downloading api-js"
 git clone $APIJS_REPO && cd api-js && sudo npm link
 cd $BUILDKITE_BUILD_CHECKOUT_PATH
 
 # Mark wings dependency
-echo "--- Cloning wings"
+echo "--- Downloading wings"
 git clone $WINGS_REPO && cd wings && sudo npm link
 cd $BUILDKITE_BUILD_CHECKOUT_PATH
 
@@ -30,7 +30,6 @@ sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-ls -l node_modules/@foxcomm
 yarn --pure-lockfile
 ./node_modules/.bin/gulp build
 
