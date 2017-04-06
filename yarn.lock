@@ -2,27 +2,31 @@
 # yarn lockfile v1
 
 
-"@foxcomm/api-js@^1.1.3":
-  version "1.1.3"
-  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fapi-js/-/api-js-1.1.3.tgz#be9537c7639081859a71d15fb9b59265ccb5b0a5"
+"@foxcomm/api-js@^1.1.6":
+  version "1.1.6"
+  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fapi-js/-/api-js-1.1.6.tgz#53ff369e3ba745886c95e206f890a06deb43a41a"
   dependencies:
     debug "^2.2.0"
     jwt-decode "^2.0.1"
+    lodash "^4.17.4"
     postinstall-build "^0.2.1"
-    superagent "^3.2.1"
+    superagent "^3.5.2"
 
-"@foxcomm/wings@^1.9.4":
-  version "1.9.4"
-  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fwings/-/wings-1.9.4.tgz#047b0c2df6beface4ceeff15444b31c6790fe554"
+"@foxcomm/wings@^1.9.11":
+  version "1.9.11"
+  resolved "https://npm.foxcommerce.com:4873/@foxcomm%2fwings/-/wings-1.9.11.tgz#94c5a84072f1e8a1a1e56b7b0e497f1a188302c3"
   dependencies:
     classnames "^2.2.5"
     flow-bin "^0.36.0"
     hoist-non-react-statics "^1.2.0"
     lodash "^4.13.1"
+    loose-envify "^1.3.1"
     postcss "^5.0.21"
     postcss-cli "^2.5.2"
     postcss-cssnext "^2.7.0"
     react "^15.2.0"
+    react-dom "^15.2.0"
+    react-imgix "^5.2.1"
     reduce-reducers "^0.1.2"
     redux "^3.6.0"
     redux-act "^1.1.0"
@@ -4604,7 +4608,7 @@ jpegtran-bin@^3.0.0:
     bin-wrapper "^3.0.0"
     logalot "^2.0.0"
 
-js-base64@^2.1.5, js-base64@^2.1.9:
+js-base64@^2.1.5, js-base64@^2.1.9, js-base64@~2.1.9:
   version "2.1.9"
   resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-2.1.9.tgz#f0e80ae039a4bd654b5f281fc93f04a914a7fcce"
 
@@ -4782,6 +4786,10 @@ jstransform@^11.0.3:
     esprima-fb "^15001.1.0-dev-harmony-fb"
     object-assign "^2.0.0"
     source-map "^0.4.2"
+
+jsuri@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/jsuri/-/jsuri-1.3.1.tgz#cd93fc6a87b255142cb7b0f479f00517ab9395ed"
 
 jwa@^1.1.4:
   version "1.1.5"
@@ -5314,7 +5322,7 @@ lodash@^3.1.0, lodash@^3.10.0, lodash@^3.10.1, lodash@^3.3.1, lodash@^3.9.3:
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
 
-lodash@^4.1.0, lodash@^4.13.1, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@^4.1.0, lodash@^4.13.1, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -5347,7 +5355,7 @@ longest@^1.0.0, longest@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-1.0.1.tgz#30a0b2da38f73770e8294a0d22e6625ed77d0097"
 
-loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0:
+loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.2.0, loose-envify@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/loose-envify/-/loose-envify-1.3.1.tgz#d1a8ad33fa9ce0e713d65fdd0ac8b748d478c848"
   dependencies:
@@ -6775,11 +6783,11 @@ qs@0.4.x:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-0.4.2.tgz#3cac4c861e371a8c9c4770ac23cda8de639b8e5f"
 
-qs@6.2.1, qs@^6.1.0:
+qs@6.2.1:
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.2.1.tgz#ce03c5ff0935bc1d9d69a9f14cbd18e568d67625"
 
-"qs@>= 0.4.0", qs@~6.3.0:
+"qs@>= 0.4.0", qs@^6.1.0, qs@~6.3.0:
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.3.0.tgz#f403b264f23bc01228c74131b407f18d5ea5d442"
 
@@ -6879,6 +6887,18 @@ react-gestures@^0.1.8:
   resolved "https://registry.yarnpkg.com/react-gestures/-/react-gestures-0.1.8.tgz#5c065751d7372337c8d188f7f2f5e4adc6be4a7e"
   dependencies:
     babel-runtime "^5.4.3"
+
+react-imgix@^5.2.1:
+  version "5.4.0"
+  resolved "https://registry.yarnpkg.com/react-imgix/-/react-imgix-5.4.0.tgz#f9c89273c8d55c61d68d4536f9b83bbaf13b99e5"
+  dependencies:
+    js-base64 "~2.1.9"
+    jsuri "^1.3.1"
+    react-is-deprecated "^0.1.2"
+
+react-is-deprecated@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-is-deprecated/-/react-is-deprecated-0.1.2.tgz#301148f86ea428fe8e673eca7a372160b7579dbd"
 
 react-proxy@^1.1.2:
   version "1.1.8"
@@ -7964,9 +7984,9 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-superagent@^3.2.1:
-  version "3.4.2"
-  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.4.2.tgz#aa9a00f21720e230a6e7e9d7f07e0ab84509b833"
+superagent@^3.5.2:
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/superagent/-/superagent-3.5.2.tgz#3361a3971567504c351063abeaae0faa23dbf3f8"
   dependencies:
     component-emitter "^1.2.0"
     cookiejar "^2.0.6"
