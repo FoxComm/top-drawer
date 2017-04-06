@@ -26,7 +26,8 @@ sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-make build
+yarn --pure-lockfile
+./node_modules/.bin/gulp build
 
 # Final
 echo "--- Deploying"
