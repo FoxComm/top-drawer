@@ -12,18 +12,18 @@ rm -rf wings
 echo "---Linking api-js"
 git clone git@github.com:FoxComm/api-js.git
 cd api-js
-npm link
+sudo npm link
 cd ../top-drawer
-npm link @foxcomm/api-js
+sudo npm link @foxcomm/api-js
 
 # Link wings dependency
 echo "---Linking wings"
 cd ../
 git clone git@github.com:FoxComm/wings.git
 cd wings
-npm link
+sudo npm link
 cd ../top-drawer
-npm link @foxcomm/wings
+sudo npm link @foxcomm/wings
 
 # Build
 echo "---Building"
