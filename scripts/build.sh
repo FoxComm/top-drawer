@@ -15,22 +15,22 @@ echo "Done."
 
 # Mark api-js dependency
 echo "--- Downloading api-js"
-git clone $APIJS_REPO && cd api-js && yarn link
+git clone $APIJS_REPO && cd api-js && npm install --dev && npm run build && sudo npm link
 cd $BUILDKITE_BUILD_CHECKOUT_PATH
 
 # Mark wings dependency
 echo "--- Downloading wings"
-git clone $WINGS_REPO && cd wings && yarn link
+git clone $WINGS_REPO && cd wings && npm install --dev && npm run build && sudo npm link
 cd $BUILDKITE_BUILD_CHECKOUT_PATH
 
 # Linking dependencies
 echo "--- Linking dependencies"
-yarn link @foxcomm/api-js
-yarn link @foxcomm/wings
+npm link @foxcomm/api-js
+npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-yarn
+npm install --dev
 ./node_modules/.bin/gulp build
 
 # Final
