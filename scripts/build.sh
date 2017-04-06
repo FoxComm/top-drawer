@@ -12,17 +12,13 @@ echo "Done."
 
 # Link api-js dependency
 echo "--- Linking api-js"
-git clone git@github.com:FoxComm/api-js.git && cd api-js
-sudo npm link
-cd $BUILDKITE_BUILD_CHECKOUT_PATH
-sudo npm link @foxcomm/api-js
+git clone git@github.com:FoxComm/api-js.git && cd api-js && sudo npm link
+cd $BUILDKITE_BUILD_CHECKOUT_PATH && sudo npm link @foxcomm/api-js
 
 # Link wings dependency
 echo "--- Linking wings"
-git clone git@github.com:FoxComm/wings.git && cd wings
-sudo npm link
-cd $BUILDKITE_BUILD_CHECKOUT_PATH
-sudo npm link @foxcomm/wings
+git clone git@github.com:FoxComm/wings.git && cd wings && sudo npm link
+cd $BUILDKITE_BUILD_CHECKOUT_PATH && sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
