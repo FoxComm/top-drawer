@@ -30,7 +30,6 @@ sudo npm link @foxcomm/wings
 
 # Build
 echo "--- Building"
-cd $BUILDKITE_PIPELINE_SLUG
 make build
 
 # Final
