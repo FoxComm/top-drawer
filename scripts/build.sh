@@ -4,8 +4,7 @@ set -ue
 
 # Cleanup dependencies
 echo "--- Cleanup"
-cd ../
-echo "Cleaning up api-js..."
+echo "Cleaning up api-js"
 sudo rm -rf api-js
 echo "Cleaning up wings..."
 sudo rm -rf wings
@@ -13,19 +12,16 @@ echo "Done."
 
 # Link api-js dependency
 echo "--- Linking api-js"
-git clone git@github.com:FoxComm/api-js.git
-cd api-js
+git clone git@github.com:FoxComm/api-js.git && cd api-js
 sudo npm link
-cd ../$BUILDKITE_PIPELINE_SLUG
+cd $BUILDKITE_BUILD_CHECKOUT_PATH
 sudo npm link @foxcomm/api-js
 
 # Link wings dependency
 echo "--- Linking wings"
-cd ../
-git clone git@github.com:FoxComm/wings.git
-cd wings
+git clone git@github.com:FoxComm/wings.git && cd wings
 sudo npm link
-cd ../$BUILDKITE_PIPELINE_SLUG
+cd $BUILDKITE_BUILD_CHECKOUT_PATH
 sudo npm link @foxcomm/wings
 
 # Build
@@ -33,5 +29,11 @@ echo "--- Building"
 make build
 
 # Final
-echo "--- Finale"
+echo "--- Deploying"
 echo ${BUILDKITE_BRANCH}-stage
+
+# Cleanup dependencies
+echo "--- Unlinking"
+sudo npm unlink @foxcomm/api-js
+sudo npm unlink @foxcomm/wings
+
