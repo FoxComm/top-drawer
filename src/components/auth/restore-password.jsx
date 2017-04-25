@@ -117,7 +117,13 @@ export default class RestorePassword extends Component {
 
     return (
       <FormField name="email" key="email" styleName="form-field">
-        <TextInput placeholder={t('EMAIL')} required type="email" value={email} onChange={this.changeEmail} />
+        <TextInput
+          placeholder={t('EMAIL')} 
+          required
+          type="email"
+          value={email}
+          onChange={this.changeEmail}
+        />
       </FormField>
     );
   }
